@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Raftt member dashboard.">
+    <title>Dashboard | Raftt</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="dashboard-page">
+    <div class="dashboard-shell">
+        <aside class="dashboard-sidebar" id="dashboard-sidebar" aria-label="Dashboard navigation">
+            <div class="sidebar-top">
+                <a class="sidebar-brand" href="Index.html" aria-label="Raftt home"><img src="assets/images/raftt-logo.png" alt="Raftt"><span>RAFTT</span></a>
+                <button class="sidebar-collapse" type="button" aria-label="Collapse sidebar" aria-expanded="true"><span aria-hidden="true">‹</span></button>
+            </div>
+            <nav class="dashboard-nav" aria-label="Member navigation">
+                <a class="dashboard-nav-link" href="map.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18-5.2 2.8V5.2L9 2.5zm6 3.5L9 18V2.5L15 6zm5.2-2.7L15 21.5V6l5.2-2.8z" /></svg><span>Map</span></a>
+                <a class="dashboard-nav-link is-active" href="#dashboard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" /></svg><span>Dashboard</span></a>
+                <a class="dashboard-nav-link" href="#profile"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5" /><path d="M5 20c.8-3.5 3.1-5.25 7-5.25S18.2 16.5 19 20" /></svg><span>Profile</span></a>
+                <a class="dashboard-nav-link" href="#settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1" /></svg><span>Settings</span></a>
+            </nav>
+            <div class="sidebar-bottom">
+                <a class="dashboard-nav-link" href="Index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7 5 12l5 5M5 12h14" /></svg><span>Back to site</span></a>
+                <a class="dashboard-user" href="#profile"><span class="dashboard-avatar" aria-hidden="true">R</span><span class="dashboard-user-copy"><strong>Raftt Member</strong><small>Member area</small></span></a>
+            </div>
+        </aside>
+        <main class="dashboard-main" id="dashboard">
+            <header class="dashboard-header">
+                <button class="dashboard-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dashboard-sidebar"><span></span><span></span><span></span></button>
+                <div><p class="dashboard-kicker">MEMBER AREA</p><h1>Your dashboard</h1></div>
+                <a class="dashboard-header-user" href="#profile" aria-label="Open profile"><span>R</span></a>
+            </header>
+            <section class="dashboard-grid" aria-label="Dashboard overview">
+                <article class="dashboard-metric"><span>Opportunities reviewed</span><strong>08</strong><small>Across private markets</small></article>
+                <article class="dashboard-metric"><span>Active follow-ups</span><strong>03</strong><small>Updates this month</small></article>
+                <article class="dashboard-metric"><span>Next milestone</span><strong>12 Oct</strong><small>Portfolio review</small></article>
+                <article class="dashboard-metric"><span>Market focus</span><strong>Startups</strong><small>Initial route</small></article>
+                <article class="dashboard-panel dashboard-panel--wide"><p class="dashboard-kicker">YOUR JOURNEY</p><h2>Ready to explore the next opportunity?</h2><p>Discover private-market opportunities, review their details and follow every milestone in one place.</p><a href="Index.html#markets">Explore markets <span aria-hidden="true">→</span></a></article>
+                <article class="dashboard-panel"><p class="dashboard-kicker">ACTIVITY</p><h2>Nothing new yet.</h2><p>Updates about opportunities and milestones will appear here.</p></article>
+            </section>
+        </main>
+    </div>
+    <script src="assets/js/welcome.js"></script>
+</body>
+</html>

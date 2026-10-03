@@ -4,42 +4,505 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="stylesheet" href="Style.css">
+        <title>Raftt | Private Markets, Together</title>
+        <link rel="stylesheet" href="assets/css/style.css">
+        <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
     </head>
 
     <body>
         <header class="site-header">
-            <a class="brand" href="#track" aria-label="Raftt - início">
-                <img src="Imagens/raftt-logo.png" alt="Raftt">
+            <a class="brand" href="#track" aria-label="Raftt - home">
+                <img src="assets/images/raftt-logo.png" alt="Raftt">
             </a>
-            <nav class="primary-nav" aria-label="Navegação principal">
+            <button
+                class="menu-toggle"
+                type="button"
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="primary-nav"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
                 <span class="nav-highlight" aria-hidden="true"></span>
-                <a class="nav-link" href="#track">Explore</a>
-                <a class="nav-link is-selected" href="#track">How it works</a>
-                <a class="nav-link" href="#track">Resources</a>
-                <a class="nav-link" href="#track">About</a>
+                <a class="nav-link" href="#markets">Markets</a>
+                <a class="nav-link is-selected" href="#how-it-works">How it works</a>
+                <a class="nav-link" href="#milestones">Milestones</a>
+                <a class="nav-link" href="#faq">FAQs</a>
             </nav>
-            <a class="call-button" href="#track">Get Started</a>
+            <a class="call-button" href="login.html">Get Started</a>
+            <div class="water-glow-container" aria-hidden="true">
+                <svg class="wave wave1" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5C438.64 32.43 512.34 53.67 583 72.05c69.27 18 138.3 24.88 209.4 13.08 36.15-6 69.85-17.84 104.45-29.34C989.49 25 1113-14.29 1200 42.4V0Z" />
+                </svg>
+                <svg class="wave wave2" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5C438.64 32.43 512.34 53.67 583 72.05c69.27 18 138.3 24.88 209.4 13.08 36.15-6 69.85-17.84 104.45-29.34C989.49 25 1113-14.29 1200 42.4V0Z" />
+                </svg>
+            </div>
         </header>
         <div class="loader" id="loader"></div>
         <div class="progress" id="progress"></div>
         <div class="hint" id="hint" role="status" aria-live="polite"></div>
         <main class="scroll-track" id="track">
             <div class="stage">
-                <img class="start-image" id="start-image" src="Imagens/Foto Abertura.png" alt="Ilustração de uma navegante cruzando o mar entre ilhas">
+                <img class="start-image" id="start-image" src="assets/images/Foto Abertura.png" alt="Illustration of a navigator crossing the sea between islands">
                 <video
-                    src="Imagens/Navegante.mp4"
+                    src="assets/media/Navegante.mp4"
                     id="vid"
                     muted
                     playsinline
                     preload="auto"
-                    aria-label="Vídeo controlado pela rolagem"
+                    aria-label="Scroll-controlled video"
                 ></video>
+                <div class="video-copy" aria-label="Messages about Raftt" aria-hidden="true">
+                    <article class="video-copy-card" aria-hidden="true">
+                        <p class="video-copy-eyebrow">RAFTT</p>
+                        <h2>
+                            <span class="video-copy-line" data-generate-words>Small boats.</span>
+                            <span class="video-copy-line" data-generate-words>Big markets.</span>
+                        </h2>
+                        <p class="video-copy-description" data-generate-words>
+                            Collective access to private assets, with a clearer way forward.
+                        </p>
+                    </article>
+                    <article class="video-copy-card" aria-hidden="true">
+                        <p class="video-copy-eyebrow">EXPLORE OPPORTUNITIES</p>
+                        <h2>
+                            <span class="video-copy-line" data-generate-words>New routes.</span>
+                            <span class="video-copy-line" data-generate-words>A new beginning.</span>
+                        </h2>
+                        <p class="video-copy-description" data-generate-words>
+                            Discover startups and opportunities across private markets.
+                        </p>
+                    </article>
+                    <article class="video-copy-card" aria-hidden="true">
+                        <p class="video-copy-eyebrow">INVEST TOGETHER</p>
+                        <h2>
+                            <span class="video-copy-line" data-generate-words>A shared journey.</span>
+                            <span class="video-copy-line" data-generate-words>A common goal.</span>
+                        </h2>
+                        <p class="video-copy-description" data-generate-words>
+                            Bring investors together around an opportunity and defined milestones.
+                        </p>
+                    </article>
+                    <article class="video-copy-card" aria-hidden="true">
+                        <p class="video-copy-eyebrow">FOLLOW PROGRESS</p>
+                        <h2>
+                            <span class="video-copy-line" data-generate-words>Every delivery.</span>
+                            <span class="video-copy-line" data-generate-words>One step forward.</span>
+                        </h2>
+                        <p class="video-copy-description" data-generate-words>
+                            AI supports diligence and monitoring. The goal is to release capital in stages as milestones are verified.
+                        </p>
+                    </article>
+                    <article class="video-copy-card" aria-hidden="true">
+                        <p class="video-copy-eyebrow">RAFTT</p>
+                        <h2>
+                            <span class="video-copy-line" data-generate-words>Navigate toward</span>
+                            <span class="video-copy-line" data-generate-words>your next step.</span>
+                        </h2>
+                        <p class="video-copy-description" data-generate-words>
+                            Small boats navigating big markets.
+                        </p>
+                        <a class="video-copy-cta" href="#how-it-works-title">
+                            How Raftt works <span aria-hidden="true">→</span>
+                        </a>
+                    </article>
+                </div>
+                <p class="scroll-cue">Scroll down to explore <span aria-hidden="true">↓</span></p>
             </div>
         </main>
-        <script src="gsap.min.js"></script>
-        <script src="ScrollTrigger.min.js"></script>
-        <script src="Main.js"></script>
+        <section class="color-panel color-panel--blue" id="about" aria-labelledby="intro-title">
+            <div class="intro-layout">
+                <div class="intro-content">
+                    <p class="intro-eyebrow">A NEW ROUTE INTO PRIVATE MARKETS</p>
+                    <h1 id="intro-title">Invest together.</h1>
+                    <p>
+                        Raftt is building infrastructure that enables individuals to invest
+                        collectively in startups and other private assets.
+                    </p>
+                    <p>
+                        Our focus goes beyond the investment itself: AI supports diligence,
+                        follows execution and helps assess evidence against agreed milestones.
+                        Capital can then be released in stages as those milestones are verified.
+                    </p>
+                </div>
+                <div class="intro-globe" data-globe>
+                    <canvas
+                        class="intro-globe-canvas"
+                        role="img"
+                        tabindex="0"
+                        aria-label="Interactive globe with markers for New York, London, Tokyo, Sydney, Paris, New Delhi, Moscow, Rio de Janeiro, Shanghai, Dubai, Buenos Aires, Singapore, and Seoul"
+                    ></canvas>
+                    <p class="globe-status" aria-live="polite">Roll the Globe</p>
+                </div>
+            </div>
+        </section>
+        <section class="model-section" aria-labelledby="stablecoins-title">
+            <div class="model-section-content">
+                <div class="model-coin-grid" aria-label="Interactive 3D decentralized currencies and stablecoins">
+                    <div class="model-viewer-wrapper">
+                    <model-viewer
+                        src="assets/3D/Bitcion/scene.gltf"
+                        alt="Interactive 3D decentralized currency"
+                        camera-controls
+                        auto-rotate
+                        shadow-intensity="1"
+                        touch-action="pan-y"
+                    ></model-viewer>
+                    </div>
+                    <div class="model-viewer-wrapper">
+                        <model-viewer
+                            src="assets/3D/Ethereum/scene.gltf"
+                            alt="Interactive 3D decentralized currency"
+                            camera-controls
+                            auto-rotate
+                            shadow-intensity="1"
+                            touch-action="pan-y"
+                        ></model-viewer>
+                    </div>
+                    <div class="model-viewer-wrapper">
+                        <model-viewer
+                            src="assets/3D/USDT/scene.gltf"
+                            alt="Interactive 3D stablecoin"
+                            camera-controls
+                            auto-rotate
+                            shadow-intensity="1"
+                            touch-action="pan-y"
+                        ></model-viewer>
+                    </div>
+                </div>
+                <div class="stablecoins-content">
+                    <p class="intro-eyebrow">DECENTRALIZED CURRENCIES &amp; STABLECOINS AT RAFTT</p>
+                    <h2 id="stablecoins-title">Decentralized capital, stable investments.</h2>
+                    <p>
+                        Decentralized currencies and stablecoins make collective investment more transparent, stable, and easier to follow.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="color-panel color-panel--white how-it-works" id="how-it-works" aria-labelledby="how-it-works-title">
+            <div class="how-it-works-content">
+                <p class="intro-eyebrow">HOW IT WORKS</p>
+                <h2 id="how-it-works-title">One opportunity.<br>A shared course.</h2>
+                <p class="how-it-works-description">
+                    From discovering a project to following its progress, every stage has a clear purpose.
+                </p>
+                <div class="process-cards">
+                    <article class="process-card" data-card-tilt>
+                        <img
+                            class="process-card-image process-card-image--explore"
+                            src="assets/images/Foto Abertura.png"
+                            alt=""
+                            aria-hidden="true"
+                        >
+                        <div class="process-card-content">
+                            <span class="process-card-number">01</span>
+                            <h3>Explore</h3>
+                            <p>Understand the project, its terms, risks and proposed milestones.</p>
+                            <span class="process-card-arrow" aria-hidden="true">→</span>
+                        </div>
+                    </article>
+                    <article class="process-card" data-card-tilt>
+                        <img
+                            class="process-card-image process-card-image--invest"
+                            src="assets/images/Foto Abertura.png"
+                            alt=""
+                            aria-hidden="true"
+                        >
+                        <div class="process-card-content">
+                            <span class="process-card-number">02</span>
+                            <h3>Invest</h3>
+                            <p>Join other investors around a shared opportunity and agreed terms.</p>
+                            <span class="process-card-arrow" aria-hidden="true">→</span>
+                        </div>
+                    </article>
+                    <article class="process-card" data-card-tilt>
+                        <img
+                            class="process-card-image process-card-image--follow"
+                            src="assets/images/Foto Abertura.png"
+                            alt=""
+                            aria-hidden="true"
+                        >
+                        <div class="process-card-content">
+                            <span class="process-card-number">03</span>
+                            <h3>Follow</h3>
+                            <p>Track updates, supporting evidence and capital released at each stage.</p>
+                            <span class="process-card-arrow" aria-hidden="true">→</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="color-panel color-panel--green milestone-section" id="milestones" aria-labelledby="milestone-title">
+            <div class="milestone-content">
+                <div class="milestone-intro">
+                    <p class="intro-eyebrow">CAPITAL FOLLOWS PROGRESS</p>
+                    <h2 id="milestone-title">A milestone reached.<br>The next stage unlocked.</h2>
+                    <p class="milestone-description">
+                        Before funding begins, the project and investors agree on milestones,
+                        evidence requirements and release rules. Each stage connects capital
+                        to a specific delivery.
+                    </p>
+                    <p class="milestone-note">
+                        Illustrative example · These are not live investment offers.
+                    </p>
+                </div>
+                <div class="milestone-list" aria-label="Illustrative capital release stages">
+                    <article class="milestone-row">
+                        <span class="milestone-number">01</span>
+                        <div class="milestone-details">
+                            <h3>Build the product</h3>
+                            <p>A working MVP and documented delivery.</p>
+                            <span>Evidence → verification → release</span>
+                        </div>
+                        <p class="milestone-share"><strong>30%</strong><span>of capital</span></p>
+                    </article>
+                    <article class="milestone-row">
+                        <span class="milestone-number">02</span>
+                        <div class="milestone-details">
+                            <h3>Validate with customers</h3>
+                            <p>Pilot results checked against agreed criteria.</p>
+                            <span>Evidence → verification → release</span>
+                        </div>
+                        <p class="milestone-share"><strong>40%</strong><span>of capital</span></p>
+                    </article>
+                    <article class="milestone-row">
+                        <span class="milestone-number">03</span>
+                        <div class="milestone-details">
+                            <h3>Prepare to scale</h3>
+                            <p>Evidence of the agreed commercial and operational goals.</p>
+                            <span>Evidence → verification → release</span>
+                        </div>
+                        <p class="milestone-share"><strong>30%</strong><span>of capital</span></p>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="visibility-section" id="visibility" aria-labelledby="visibility-title">
+            <div class="visibility-content">
+                <p class="intro-eyebrow">VISIBILITY AFTER INVESTING</p>
+                <h2 id="visibility-title">More context.<br>Throughout the journey.</h2>
+                <div class="visibility-grid">
+                    <article class="visibility-item">
+                        <p class="visibility-label">01 / Diligence</p>
+                        <h3>Understand before joining.</h3>
+                        <p>AI helps organize project information, summarize documents and surface questions for review.</p>
+                    </article>
+                    <article class="visibility-item">
+                        <p class="visibility-label">02 / Monitoring</p>
+                        <h3>Follow execution.</h3>
+                        <p>Updates and supporting evidence provide a continuous view of progress against the original plan.</p>
+                    </article>
+                    <article class="visibility-item">
+                        <p class="visibility-label">03 / Verification</p>
+                        <h3>Check each milestone.</h3>
+                        <p>Evidence is assessed against agreed criteria, with human review for decisions and exceptions.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="markets-section" id="markets" aria-labelledby="markets-title">
+            <div class="markets-content">
+                <p class="intro-eyebrow">MARKETS ON THE HORIZON</p>
+                <h2 id="markets-title">Starting with startups.<br>Built for a wider world.</h2>
+                <p class="markets-description">
+                    Startups are our initial focus. The same approach is designed to extend to
+                    other private assets, with structures and milestones suited to each market.
+                </p>
+                <div class="market-cards">
+                    <article class="market-card" data-card-tilt tabindex="0">
+                        <img class="market-card-image" src="assets/images/Equipe de startup colaborando com protótipo-1.png" alt="Equipe de startup colaborando em um protótipo">
+                        <div class="market-card-content">
+                            <span class="market-card-number">01</span>
+                            <h3>Startups</h3>
+                            <p>Initial focus</p>
+                        </div>
+                    </article>
+                    <article class="market-card" data-card-tilt tabindex="0">
+                        <img class="market-card-image" src="assets/images/Pequena indústria em plena produção-2.png" alt="Equipe em uma pequena indústria em produção">
+                        <div class="market-card-content">
+                            <span class="market-card-number">02</span>
+                            <h3>Private credit for SMBs</h3>
+                            <p>Future expansion</p>
+                        </div>
+                    </article>
+                    <article class="market-card" data-card-tilt tabindex="0">
+                        <img class="market-card-image" src="assets/images/Análise de recebíveis no atacado-5.png" alt="Análise de recebíveis em operação de atacado">
+                        <div class="market-card-content">
+                            <span class="market-card-number">03</span>
+                            <h3>Receivables Financing</h3>
+                            <p>Future expansion</p>
+                        </div>
+                    </article>
+                    <article class="market-card" data-card-tilt tabindex="0">
+                        <img class="market-card-image" src="assets/images/Arquitetura contemporânea em expansão-3.png" alt="Empreendimento imobiliário contemporâneo em expansão">
+                        <div class="market-card-content">
+                            <span class="market-card-number">04</span>
+                            <h3>Real estate</h3>
+                            <p>Future expansion</p>
+                        </div>
+                    </article>
+                    <article class="market-card" data-card-tilt tabindex="0">
+                        <img class="market-card-image" src="assets/images/Fazenda solar em plena operação-4.png" alt="Fazenda solar em plena operação">
+                        <div class="market-card-content">
+                            <span class="market-card-number">05</span>
+                            <h3>Energy</h3>
+                            <p>Future expansion</p>
+                        </div>
+                    </article>
+                    <article class="market-card" data-card-tilt tabindex="0">
+                        <img class="market-card-image" src="assets/images/Trator entre campos e silos-6.png" alt="Trator trabalhando entre campos e silos">
+                        <div class="market-card-content">
+                            <span class="market-card-number">06</span>
+                            <h3>Agriculture</h3>
+                            <p>Future expansion</p>
+                        </div>
+                    </article>
+                    <article class="market-card" data-card-tilt tabindex="0">
+                        <img class="market-card-image" src="assets/images/Porto moderno com centro de dados-7.png" alt="Porto moderno com centro de dados">
+                        <div class="market-card-content">
+                            <span class="market-card-number">07</span>
+                            <h3>Infrastructure</h3>
+                            <p>Future expansion</p>
+                        </div>
+                    </article>
+                    <article class="market-card" data-card-tilt tabindex="0">
+                        <img class="market-card-image" src="assets/images/Estúdio criativo de música, cinema e jogos-8.png" alt="Estúdio criativo de música, cinema e jogos">
+                        <div class="market-card-content">
+                            <span class="market-card-number">08</span>
+                            <h3>Royalties &amp; IP</h3>
+                            <p>Future expansion</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="faq-section" id="faq" aria-labelledby="faq-title">
+            <div class="faq-content">
+                <p class="intro-eyebrow">THE INFRASTRUCTURE UNDERNEATH</p>
+                <h2 id="faq-title">Clear rules.<br>Traceable movements.</h2>
+                <p class="faq-description">
+                    Raftt plans to use stablecoins and programmable contracts on Solana to
+                    manage staged capital deployment and record transactions. Project
+                    documents, agreed terms and verification processes connect those
+                    transactions to real-world delivery.
+                </p>
+                <div class="faq-list">
+                    <details class="faq-item" open>
+                        <summary>What does the AI do?</summary>
+                        <p>
+                            It supports diligence and monitoring by organizing information
+                            and identifying points for review. Milestone decisions follow
+                            agreed rules and verification processes; AI does not guarantee
+                            project outcomes.
+                        </p>
+                    </details>
+                    <details class="faq-item" open>
+                        <summary>Why release capital in stages?</summary>
+                        <p>
+                            Each release funds a defined part of the plan. Investors can
+                            follow the evidence and progress associated with each stage.
+                        </p>
+                    </details>
+                    <details class="faq-item" open>
+                        <summary>Can I invest right now?</summary>
+                        <p>
+                            Raftt is in development. This page presents the planned product;
+                            live opportunities and investor access are not yet available.
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </section>
+        <footer class="site-footer">
+            <div class="footer-content">
+                <nav class="footer-column" aria-label="Explore Raftt">
+                    <h2>Explore</h2>
+                    <a href="#track">Home</a>
+                    <a href="#how-it-works">How it works</a>
+                    <a href="#milestones">Milestones</a>
+                    <a href="#markets">Markets</a>
+                </nav>
+                <nav class="footer-column" aria-label="About Raftt">
+                    <h2>About Raftt</h2>
+                    <a href="#about">Our approach</a>
+                </nav>
+                <nav class="footer-column" aria-label="Help">
+                    <h2>Help</h2>
+                    <a href="#faq">FAQs</a>
+                </nav>
+                <div class="footer-about">
+                    <a class="footer-brand" href="#track">
+                        <span class="footer-brand-mark" aria-hidden="true"></span>
+                        <span>Raftt</span>
+                    </a>
+                    <p> Small boats, big markets
+                        A shared journey into private assets, with progress in view.</p>
+                    <a class="footer-contact" href="#track">Discover the journey <span aria-hidden="true">↗</span></a>
+                </div>
+            </div>
+            <div class="footer-watermark">
+                <svg
+                    class="footer-logo-effect"
+                    viewBox="0 0 1000 240"
+                    role="img"
+                    aria-label="Raftt"
+                    tabindex="0"
+                >
+                    <defs>
+                        <linearGradient id="footer-logo-gradient">
+                            <stop offset="0%" stop-color="#c9f7f0"></stop>
+                            <stop offset="25%" stop-color="#83e2dd"></stop>
+                            <stop offset="50%" stop-color="#42c5d0"></stop>
+                            <stop offset="75%" stop-color="#208eae"></stop>
+                            <stop offset="100%" stop-color="#145d83"></stop>
+                        </linearGradient>
+                        <radialGradient
+                            id="footer-logo-reveal"
+                            cx="50%"
+                            cy="50%"
+                            r="28%"
+                        >
+                            <stop offset="0%" stop-color="white"></stop>
+                            <stop offset="100%" stop-color="black"></stop>
+                        </radialGradient>
+                        <mask id="footer-logo-mask">
+                            <rect
+                                x="0"
+                                y="0"
+                                width="100%"
+                                height="100%"
+                                fill="url(#footer-logo-reveal)"
+                            ></rect>
+                        </mask>
+                    </defs>
+                    <text
+                        class="footer-logo-base"
+                        x="50%"
+                        y="52%"
+                        text-anchor="middle"
+                        dominant-baseline="middle"
+                    >RAFTT</text>
+                    <text
+                        class="footer-logo-color"
+                        x="50%"
+                        y="52%"
+                        text-anchor="middle"
+                        dominant-baseline="middle"
+                        fill="url(#footer-logo-gradient)"
+                        mask="url(#footer-logo-mask)"
+                    >RAFTT</text>
+                </svg>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 Raftt. All rights reserved.</span>
+            </div>
+        </footer>
+        <script src="assets/js/vendor/gsap.min.js"></script>
+        <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+        <script src="assets/js/main.js"></script>
     </body>
 </html>

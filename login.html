@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign in to Raftt.">
+    <title>Sign in | Raftt</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="login-page">
+    <header class="site-header">
+        <a class="brand" href="Index.html" aria-label="Raftt - home">
+            <img src="assets/images/raftt-logo.png" alt="Raftt">
+        </a>
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+            <span class="nav-highlight" aria-hidden="true"></span>
+            <a class="nav-link" href="Index.html#markets">Markets</a>
+            <a class="nav-link" href="Index.html#how-it-works">How it works</a>
+            <a class="nav-link" href="Index.html#milestones">Milestones</a>
+            <a class="nav-link" href="Index.html#faq">FAQs</a>
+        </nav>
+        <a class="call-button" href="Index.html">Back to home</a>
+        <div class="water-glow-container" aria-hidden="true">
+            <svg class="wave wave1" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5C438.64 32.43 512.34 53.67 583 72.05c69.27 18 138.3 24.88 209.4 13.08 36.15-6 69.85-17.84 104.45-29.34C989.49 25 1113-14.29 1200 42.4V0Z" /></svg>
+            <svg class="wave wave2" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5C438.64 32.43 512.34 53.67 583 72.05c69.27 18 138.3 24.88 209.4 13.08 36.15-6 69.85-17.84 104.45-29.34C989.49 25 1113-14.29 1200 42.4V0Z" /></svg>
+        </div>
+    </header>
+
+    <main class="login-shell">
+        <section class="login-panel" aria-labelledby="login-title">
+            <div class="login-form-wrap">
+                <p class="login-kicker">RAFTT MEMBERS</p>
+                <h1 id="login-title">Welcome back.</h1>
+                <p class="login-intro">Continue your journey through private markets with a clearer view ahead.</p>
+                <form class="login-form" id="login-form">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required>
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+                    <div class="login-form-row"><label class="remember-me"><input type="checkbox" name="remember"> Remember me</label><a href="#forgot-password">Forgot password?</a></div>
+                    <button class="login-submit" type="submit">Sign in <span aria-hidden="true">→</span></button>
+                    <p class="login-status" id="login-status" role="status" aria-live="polite"></p>
+                </form>
+                <div class="login-divider"><span>or continue with</span></div>
+                <div class="social-login" aria-label="Social sign in">
+                    <button type="button" aria-label="Continue with Google"><span class="social-google">G</span>Google</button>
+                    <button type="button" aria-label="Continue with Apple"><span>●</span>Apple</button>
+                </div>
+                <p class="login-signup">New to Raftt? <a href="signup.html">Create an account</a></p>
+            </div>
+            <aside class="login-story" data-tilt-card aria-label="Raftt member story">
+                <div class="login-story-media" aria-hidden="true"></div>
+                <div class="login-story-glow"></div>
+                <div class="login-story-content">
+                    <p class="story-label">PRIVATE MARKETS · TOGETHER</p>
+                    <blockquote>“Raftt makes it easier to understand where we are, what comes next, and how every milestone moves us forward.”</blockquote>
+                    <p class="story-author"><strong>Members of Raftt</strong><br>Building the next shared journey</p>
+                </div>
+            </aside>
+        </section>
+    </main>
+    <script src="assets/js/login.js"></script>
+</body>
+</html>

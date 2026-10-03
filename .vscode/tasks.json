@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Serve Raftt with video seeking",
+      "type": "shell",
+      "command": "node",
+      "args": ["serve.mjs"]
+    }
+  ]
+}
