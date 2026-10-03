@@ -1,0 +1,11 @@
+Model Information:
+* title:	Tether USDT
+* source:	https://sketchfab.com/3d-models/tether-usdt-d97ee711cb6b4acab5167fc235dcbef0
+* author:	Guko (https://sketchfab.com/gukoen)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Tether USDT" (https://sketchfab.com/3d-models/tether-usdt-d97ee711cb6b4acab5167fc235dcbef0) by Guko (https://sketchfab.com/gukoen) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,396 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 2034,
+      "max": [
+        1.0519505739212036,
+        1.640742540359497,
+        1.049875259399414
+      ],
+      "min": [
+        -1.0519511699676514,
+        -1.640742540359497,
+        -1.0498758554458618
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 24408,
+      "componentType": 5126,
+      "count": 2034,
+      "max": [
+        1.0,
+        1.0,
+        0.9980270266532898
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -0.9980270266532898
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 2034,
+      "max": [
+        0.65625,
+        0.9996917247772217
+      ],
+      "min": [
+        0.3437499403953552,
+        0.0003082156181335449
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 10200,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 48816,
+      "componentType": 5126,
+      "count": 3726,
+      "max": [
+        0.03778977692127228,
+        0.004000000189989805,
+        0.0392930768430233
+      ],
+      "min": [
+        -0.03670878708362579,
+        -0.004000000189989805,
+        -0.025658540427684784
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 93528,
+      "componentType": 5126,
+      "count": 3726,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 16272,
+      "componentType": 5126,
+      "count": 3726,
+      "max": [
+        1.0,
+        1.0
+      ],
+      "min": [
+        0.0,
+        0.0
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 40800,
+      "componentType": 5125,
+      "count": 6984,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "Guko (https://sketchfab.com/gukoen)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/tether-usdt-d97ee711cb6b4acab5167fc235dcbef0",
+      "title": "Tether USDT"
+    },
+    "generator": "Sketchfab-15.22.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 68736,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 46080,
+      "byteOffset": 68736,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 138240,
+      "byteOffset": 114816,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 253056,
+      "uri": ".bin"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "lambert1",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.352642,
+          1.0,
+          0.227861,
+          1.0
+        ],
+        "roughnessFactor": 0.199619
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "SVGMat.005",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.5
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Object_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Object_1",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 5,
+            "POSITION": 4,
+            "TEXCOORD_0": 6
+          },
+          "indices": 7,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "name": "root"
+    },
+    {
+      "children": [
+        3,
+        9
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "GLTF_SceneRootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        -0.0,
+        0.0,
+        -0.0,
+        -3.371747936409264e-07,
+        -0.999999999999943,
+        0.0,
+        0.0,
+        0.999999999999943,
+        -3.371747936409264e-07,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Coin_4"
+    },
+    {
+      "children": [
+        5
+      ],
+      "matrix": [
+        0.009999999776482582,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -3.3717481750633214e-09,
+        0.010000000707804588,
+        0.0,
+        0.0,
+        -0.010000000707804588,
+        -3.3717481750633214e-09,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "b22d0c79d9dd4fcf8546075747bf629e.fbx_3"
+    },
+    {
+      "children": [
+        6
+      ],
+      "name": "RootNode_2"
+    },
+    {
+      "children": [
+        7
+      ],
+      "matrix": [
+        14.994068145751953,
+        0.0,
+        -0.0,
+        0.0,
+        -0.0,
+        -2.93391209689777e-07,
+        -0.8701457381247979,
+        0.0,
+        0.0,
+        14.994069099425415,
+        -5.055622154436844e-06,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "pCylinder1_1"
+    },
+    {
+      "children": [
+        8
+      ],
+      "name": "pCylinder1_lambert1_0_0"
+    },
+    {
+      "mesh": 0,
+      "name": "Object_8"
+    },
+    {
+      "children": [
+        10
+      ],
+      "matrix": [
+        3.11285400390625,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -2.6239396571407444e-07,
+        3.1128540039062393,
+        0.0,
+        0.0,
+        -3.1128540039062393,
+        -2.6239396571407444e-07,
+        0.0,
+        -0.00034283101558685303,
+        0.01259823888540268,
+        0.0,
+        1.0
+      ],
+      "name": "Curve_5"
+    },
+    {
+      "mesh": 1,
+      "name": "Object_10"
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
