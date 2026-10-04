@@ -2,9 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Raftt investor map: sail across private investment categories.">
     <title>Map | Raftt</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/map.css">
 </head>
-<body class="dashboard-page"></body>
+<body class="dashboard-page map-page">
+    <div class="dashboard-shell map-shell">
+        <aside class="dashboard-sidebar" id="dashboard-sidebar" aria-label="Dashboard navigation">
+            <div class="sidebar-top">
+                <a class="sidebar-brand" href="Index.html" aria-label="Raftt home"><img src="assets/images/raftt-logo.png" alt="Raftt"><span>RAFTT</span></a>
+                <button class="sidebar-collapse" type="button" aria-label="Collapse sidebar" aria-expanded="true"><span aria-hidden="true">&lsaquo;</span></button>
+            </div>
+            <nav class="dashboard-nav" aria-label="Member navigation">
+                <a class="dashboard-nav-link is-active" href="map.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18-5.2 2.8V5.2L9 2.5zm6 3.5L9 18V2.5L15 6zm5.2-2.7L15 21.5V6l5.2-2.8z" /></svg><span id="nav-map-label">Map</span></a>
+                <a class="dashboard-nav-link" href="welcome.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" /></svg><span>Dashboard</span></a>
+                <a class="dashboard-nav-link" href="user-profile.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5" /><path d="M5 20c.8-3.5 3.1-5.25 7-5.25S18.2 16.5 19 20" /></svg><span>Profile</span></a>
+                <div id="side-cats" class="side-cats"></div>
+            </nav>
+            <div class="sidebar-bottom">
+                <a class="dashboard-nav-link" href="Index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7 5 12l5 5M5 12h14" /></svg><span>Back to site</span></a>
+                <a class="dashboard-user" href="user-profile.html"><span class="dashboard-avatar" aria-hidden="true">R</span><span class="dashboard-user-copy"><strong>Raftt Member</strong><small>Member area</small></span></a>
+            </div>
+        </aside>
+
+        <main class="map-stage" aria-label="Investment map">
+            <canvas id="map-canvas" aria-label="3D ocean map with eight investment islands"></canvas>
+            <div id="map-labels"></div>
+            <div id="raft-marker" class="raft-marker">Your RAFTT</div>
+            <button class="dashboard-menu-toggle map-menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dashboard-sidebar"><span></span><span></span><span></span></button>
+            <div class="map-tools">
+                <button id="lang-toggle" type="button" aria-label="Language">PT</button>
+                <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
+                <button id="zoom-out" type="button" aria-label="Zoom out">&minus;</button>
+                <button id="recenter" type="button" aria-label="Recenter"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button>
+            </div>
+            <p id="map-hint" class="map-hint"></p>
+            <div class="dpad" aria-label="Directional controls">
+                <button data-k="u" aria-label="Up">&#9650;</button><button data-k="l" aria-label="Left">&#9664;</button><button data-k="d" aria-label="Down">&#9660;</button><button data-k="r" aria-label="Right">&#9654;</button>
+            </div>
+            <section id="opportunity-menu" class="opportunity-menu" hidden aria-labelledby="opportunity-menu-title">
+                <header class="opportunity-menu__header">
+                    <div><h2 id="opportunity-menu-title"></h2><p id="opportunity-menu-subtitle"></p></div>
+                    <button id="opportunity-menu-close" type="button" aria-label="Close opportunities menu">&times;</button>
+                </header>
+                <div id="opportunity-menu-list" class="opportunity-menu__list" role="list"></div>
+            </section>
+            <div id="loading" class="loading"><div><strong>RAFTT</strong><p id="loading-text"></p><div class="bar"><i id="loading-bar"></i></div></div></div>
+        </main>
+
+    </div>
+    <script src="assets/js/welcome.js"></script>
+    <script type="importmap">{"imports":{"three":"./assets/js/vendor/three.module.min.js"}}</script>
+    <script type="module" src="assets/js/map.js"></script>
+</body>
 </html>

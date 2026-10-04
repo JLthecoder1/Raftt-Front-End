@@ -15,6 +15,41 @@ const menuToggle = document.querySelector(".menu-toggle");
 const siteHeader = document.querySelector(".site-header");
 const footerLogo = document.querySelector(".footer-logo-effect");
 const footerLogoReveal = document.getElementById("footer-logo-reveal");
+const isPortuguese = () => document.documentElement.lang === "pt-BR";
+const localizedText = (english, portuguese) => isPortuguese() ? portuguese : english;
+const hintMessages = {
+    duration: ["The video duration could not be read.", "Não foi possível ler a duração do vídeo."],
+    file: [
+        "Open this page with VS Code Live Server to enable the video and globe texture.",
+        "Abra esta página com o Live Server do VS Code para carregar o vídeo e a textura do globo."
+    ],
+    unavailable: [
+        "The video could not be loaded. Check that assets/media/Navegante.mp4 is available.",
+        "Não foi possível carregar o vídeo. Verifique se assets/media/Navegante.mp4 está disponível."
+    ]
+};
+const portugueseLocationNames = {
+    "New York": "Nova York",
+    London: "Londres",
+    Tokyo: "Tóquio",
+    Sydney: "Sydney",
+    Paris: "Paris",
+    "New Delhi": "Nova Délhi",
+    Moscow: "Moscou",
+    "Rio de Janeiro": "Rio de Janeiro",
+    Shanghai: "Xangai",
+    Dubai: "Dubai",
+    "Buenos Aires": "Buenos Aires",
+    Singapore: "Singapura",
+    Seoul: "Seul"
+};
+
+function setHintMessage(key) {
+    const message = hintMessages[key];
+    if (!message) return;
+    hint.dataset.messageKey = key;
+    hint.textContent = localizedText(...message);
+}
 
 document.querySelectorAll("[data-generate-words]").forEach((element) => {
     const text = element.textContent.trim();
@@ -37,7 +72,9 @@ document.querySelectorAll("[data-generate-words]").forEach((element) => {
 function setMobileMenuOpen(isOpen) {
     primaryNav.classList.toggle("is-open", isOpen);
     menuToggle.setAttribute("aria-expanded", String(isOpen));
-    menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    menuToggle.setAttribute("aria-label", isOpen
+        ? localizedText("Close menu", "Fechar menu")
+        : localizedText("Open menu", "Abrir menu"));
 }
 
 menuToggle.addEventListener("click", () => {
@@ -45,7 +82,7 @@ menuToggle.addEventListener("click", () => {
 });
 
 primaryNav.addEventListener("click", (event) => {
-    if (event.target.closest("a")) setMobileMenuOpen(false);
+    if (event.target.closest("a, button")) setMobileMenuOpen(false);
 });
 
 document.addEventListener("pointerdown", (event) => {
@@ -164,12 +201,15 @@ earthTexture.onload = () => {
         ).data;
     } catch (error) {
         if (!(error instanceof DOMException && error.name === "SecurityError")) throw error;
-        globeStatus.textContent = "Open this page with VS Code Live Server to load the globe texture.";
+        globeStatus.textContent = localizedText(
+            "Open this page with VS Code Live Server to load the globe texture.",
+            "Abra esta página com o Live Server do VS Code para carregar a textura do globo."
+        );
     }
     renderGlobe();
 };
 earthTexture.onerror = () => {
-    globeStatus.textContent = "The globe texture could not be loaded.";
+    globeStatus.textContent = localizedText("The globe texture could not be loaded.", "Não foi possível carregar a textura do globo.");
 };
 earthTexture.src = "assets/images/earth-atmosphere.jpg";
 
@@ -377,7 +417,10 @@ globeCanvas.addEventListener("pointermove", (event) => {
     const marker = findGlobeMarker(event);
     if (marker?.label !== globeHoveredMarker) {
         globeHoveredMarker = marker?.label ?? null;
-        globeStatus.textContent = marker ? `Location: ${marker.label}` : "Roll the globe to explore";
+        const markerName = marker && isPortuguese() ? portugueseLocationNames[marker.label] : marker?.label;
+        globeStatus.textContent = marker
+            ? localizedText(`Location: ${marker.label}`, `Localização: ${markerName}`)
+            : localizedText("Roll the globe to explore", "Gire o globo para explorar");
         globeCanvas.style.cursor = marker ? "pointer" : "grab";
         renderGlobe();
     }
@@ -387,7 +430,8 @@ globeCanvas.addEventListener("pointerup", (event) => {
     globeDragPointer = null;
     const marker = findGlobeMarker(event);
     if (marker) {
-        globeStatus.textContent = `Selected location: ${marker.label}`;
+        const markerName = isPortuguese() ? portugueseLocationNames[marker.label] : marker.label;
+        globeStatus.textContent = localizedText(`Selected location: ${marker.label}`, `Localização selecionada: ${markerName}`);
     }
 });
 globeCanvas.addEventListener("pointercancel", () => {
@@ -396,7 +440,7 @@ globeCanvas.addEventListener("pointercancel", () => {
 globeCanvas.addEventListener("pointerleave", () => {
     if (globeDragPointer === null && globeHoveredMarker) {
         globeHoveredMarker = null;
-        globeStatus.textContent = "Drag the globe to explore";
+        globeStatus.textContent = localizedText("Drag the globe to explore", "Arraste o globo para explorar");
         globeCanvas.style.cursor = "grab";
         renderGlobe();
     }
@@ -551,7 +595,7 @@ function initScrollAnimation() {
     hideLoader();
     if (videoAnimationInitialized) return;
     if (!Number.isFinite(video.duration) || video.duration <= 0) {
-        hint.textContent = "The video duration could not be read.";
+        setHintMessage("duration");
         return;
     }
 
@@ -610,9 +654,7 @@ if (video.readyState >= 1) {
 
 video.addEventListener("error", () => {
     hideLoader();
-    hint.textContent = window.location.protocol === "file:"
-        ? "Open this page with VS Code Live Server to enable the video and globe texture."
-        : "The video could not be loaded. Check that assets/media/Navegante.mp4 is available.";
+    setHintMessage(window.location.protocol === "file:" ? "file" : "unavailable");
 });
 
 // Section contents reveal independently from the video and keep card tilt intact.

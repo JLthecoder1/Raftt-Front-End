@@ -6,10 +6,11 @@
     <meta name="description" content="Create your Raftt account.">
     <title>Create an account | Raftt</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/workflows.css">
 </head>
 <body class="login-page signup-page">
     <header class="site-header">
-        <a class="brand" href="Index.html" aria-label="Raftt - home"><img src="assets/images/raftt-logo.png" alt="Raftt"></a>
+        <a class="brand" href="Index.html" aria-label="Raftt home"><img src="assets/images/raftt-logo.png" alt="Raftt"></a>
         <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav"><span></span><span></span><span></span></button>
         <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
             <span class="nav-highlight" aria-hidden="true"></span>
@@ -30,6 +31,7 @@
                 <p class="login-kicker">JOIN RAFTT</p>
                 <h1 id="signup-title">Start your journey.</h1>
                 <p class="login-intro">Create your account to explore private markets with a clear, shared view forward.</p>
+                <p class="workflow-notice" role="note">Demo only: account creation is not connected. Do not enter real passwords or sensitive information.</p>
                 <form class="login-form signup-form" id="signup-form">
                     <label for="full-name">Full name</label>
                     <input id="full-name" name="fullName" type="text" autocomplete="name" placeholder="Your name" required>
@@ -43,7 +45,9 @@
                     <button class="login-submit" type="submit">Create account <span aria-hidden="true">&rarr;</span></button>
                     <p class="login-status" id="signup-status" role="status" aria-live="polite"></p>
                 </form>
+                <p class="login-signup">Continue without creating an account: <a href="demo-workspaces.html">Choose a demo workspace</a></p>
                 <p class="login-signup">Already a member? <a href="login.html">Sign in</a></p>
+                <p class="login-signup">Raising capital for your company? <a href="raise-application.html">Apply to raise with Raftt</a></p>
             </div>
             <aside class="login-story signup-story" data-tilt-card aria-label="Raftt membership introduction">
                 <div class="login-story-media" aria-hidden="true"></div>
@@ -56,6 +60,91 @@
             </aside>
         </section>
     </main>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <nav class="footer-column" aria-label="Explore a Raftt">
+                <h2>Explore</h2>
+                <a href="Index.html#track">Home</a>
+                <a href="Index.html#how-it-works">How it works</a>
+                <a href="Index.html#milestones">Milestones</a>
+                <a href="Index.html#markets">Markets</a>
+            </nav>
+            <nav class="footer-column" aria-label="About Raftt">
+                <h2>About Raftt</h2>
+                <a href="Index.html#about">Our approach</a>
+            </nav>
+            <nav class="footer-column" aria-label="Help">
+                <h2>Help</h2>
+                <a href="Index.html#faq">FAQs</a>
+            </nav>
+            <div class="footer-about">
+                <a class="footer-brand" href="Index.html#track">
+                    <span class="footer-brand-mark" aria-hidden="true"></span>
+                    <span>Raftt</span>
+                </a>
+                <p> Small boats, big markets.
+                    A shared journey into private assets, with progress in view.</p>
+                <a class="footer-contact" href="Index.html#track">Discover the journey <span aria-hidden="true">↗</span></a>
+            </div>
+        </div>
+        <div class="footer-watermark">
+            <svg
+                class="footer-logo-effect"
+                viewBox="0 0 1000 240"
+                role="img"
+                aria-label="Raftt"
+                tabindex="0"
+            >
+                <defs>
+                    <linearGradient id="footer-logo-gradient">
+                        <stop offset="0%" stop-color="#c9f7f0"></stop>
+                        <stop offset="25%" stop-color="#83e2dd"></stop>
+                        <stop offset="50%" stop-color="#42c5d0"></stop>
+                        <stop offset="75%" stop-color="#208eae"></stop>
+                        <stop offset="100%" stop-color="#145d83"></stop>
+                    </linearGradient>
+                    <radialGradient
+                        id="footer-logo-reveal"
+                        cx="50%"
+                        cy="50%"
+                        r="28%"
+                    >
+                        <stop offset="0%" stop-color="white"></stop>
+                        <stop offset="100%" stop-color="black"></stop>
+                    </radialGradient>
+                    <mask id="footer-logo-mask">
+                        <rect
+                            x="0"
+                            y="0"
+                            width="100%"
+                            height="100%"
+                            fill="url(#footer-logo-reveal)"
+                        ></rect>
+                    </mask>
+                </defs>
+                <text
+                    class="footer-logo-base"
+                    x="50%"
+                    y="52%"
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                >RAFTT</text>
+                <text
+                    class="footer-logo-color"
+                    x="50%"
+                    y="52%"
+                    text-anchor="middle"
+                    dominant-baseline="middle"
+                    fill="url(#footer-logo-gradient)"
+                    mask="url(#footer-logo-mask)"
+                >RAFTT</text>
+            </svg>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Raftt. All rights reserved.</span>
+        </div>
+    </footer>
     <script src="assets/js/login.js"></script>
+    <script src="assets/js/footer.js"></script>
 </body>
 </html>

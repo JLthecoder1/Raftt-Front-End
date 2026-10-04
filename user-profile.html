@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Raftt demo account profile and preferences.">
+    <title>My Profile · Demo | Raftt</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/workflows.css">
+</head>
+<body class="workflow-page">
+    <header class="workflow-header">
+        <a class="workflow-brand" href="Index.html"><img src="assets/images/raftt-logo.png" alt="">RAFTT</a>
+        <nav aria-label="Profile navigation">
+            <a href="investor-dashboard.html">Dashboard</a>
+            <a href="demo-workspaces.html">Workspaces</a>
+            <a href="Index.html">Home</a>
+        </nav>
+    </header>
+    <main class="workflow-main workflow-profile-main">
+        <p class="workflow-kicker">ACCOUNT · USER PROFILE</p>
+        <h1 class="workflow-title">Your shared profile</h1>
+        <p class="workflow-lead">Keep your contact details and preferences up to date across your Raftt experience.</p>
+        <p class="workflow-notice" role="note"><strong>Demo profile.</strong> Use fictional information only. Changes and images stay on this screen; nothing is uploaded or stored. Identity verification, investment eligibility, and company details belong in separate workflows.</p>
+
+        <form class="workflow-profile-card" id="user-profile-form" novalidate>
+            <section class="profile-photo-row" aria-labelledby="photo-heading">
+                <div class="profile-avatar" id="profile-avatar" aria-label="Demo profile picture">AD</div>
+                <div class="profile-photo-controls">
+                    <h2 id="photo-heading">Profile picture</h2>
+                    <p>PNG, JPEG, or GIF only, up to 10 MB. The image will not be uploaded.</p>
+                    <div class="workflow-actions">
+                        <label class="workflow-button workflow-button--primary profile-upload-button" for="profile-photo">Choose image</label>
+                        <input class="profile-file-input" id="profile-photo" name="profilePhoto" type="file" accept="image/png,image/jpeg,image/gif">
+                        <button class="workflow-button workflow-button--danger" id="profile-photo-remove" type="button" disabled>Remove</button>
+                    </div>
+                    <p class="profile-file-status" id="profile-photo-status" role="status" aria-live="polite">No image selected.</p>
+                </div>
+            </section>
+
+            <section class="profile-section" aria-labelledby="basic-heading">
+                <div class="profile-section-heading">
+                    <h2 id="basic-heading">Basic details</h2>
+                    <p>Contact and identity details for your profile.</p>
+                </div>
+                <div class="workflow-profile-fields">
+                    <div class="workflow-field">
+                        <label for="profile-first-name">First name</label>
+                        <input id="profile-first-name" name="firstName" autocomplete="given-name" value="Alex" required>
+                    </div>
+                    <div class="workflow-field">
+                        <label for="profile-last-name">Last name</label>
+                        <input id="profile-last-name" name="lastName" autocomplete="family-name" value="Morgan">
+                    </div>
+                    <div class="workflow-field">
+                        <label for="profile-email">Primary email address</label>
+                        <div class="profile-email-wrap">
+                            <input id="profile-email" name="email" type="email" autocomplete="email" value="alex.morgan@example.com" required aria-describedby="profile-email-hint">
+                            <span class="workflow-pill workflow-pill--pending">Unverified · demo</span>
+                        </div>
+                        <small id="profile-email-hint">In production, used for sign-in, account recovery, and workspace notices.</small>
+                    </div>
+                    <div class="workflow-field">
+                        <label for="profile-preferred-name">Preferred name</label>
+                        <input id="profile-preferred-name" name="preferredName" autocomplete="nickname" value="Alex">
+                        <small>Used in greetings and community spaces.</small>
+                    </div>
+                    <div class="workflow-field">
+                        <label for="profile-username">Username</label>
+                        <div class="profile-input-prefix"><span aria-hidden="true">@</span><input id="profile-username" name="username" autocomplete="username" value="ana-demo" pattern="[A-Za-z0-9._\-]{3,30}" aria-describedby="username-hint" required></div>
+                        <small id="username-hint">3–30 characters: letters, numbers, periods, hyphens, or underscores.</small>
+                    </div>
+                    <div class="workflow-field">
+                        <label for="profile-role">Workspace role</label>
+                        <select id="profile-role" name="role" required>
+                            <option value="investor" selected>Investor</option>
+                            <option value="organization">Organization representative</option>
+                            <option value="review">Raftt team · demo</option>
+                        </select>
+                        <small>This preference does not authenticate you or grant permissions.</small>
+                    </div>
+                    <div class="workflow-field profile-organization-field" id="profile-organization-field" hidden>
+                        <label for="profile-organization">Organization</label>
+                        <input id="profile-organization" name="organization" autocomplete="organization" placeholder="Demo organization name">
+                    </div>
+                    <div class="workflow-field profile-organization-field" id="profile-position-field" hidden>
+                        <label for="profile-position">Title or team</label>
+                        <input id="profile-position" name="position" autocomplete="organization-title" placeholder="e.g., Founder, Review">
+                    </div>
+                    <div class="workflow-field">
+                        <label for="profile-phone">Phone number</label>
+                        <input id="profile-phone" name="phone" type="tel" autocomplete="tel" placeholder="+55 11 00000-0000">
+                        <small>Optional. In production, used only for authorized contact and recovery.</small>
+                    </div>
+                    <div class="workflow-field">
+                        <label for="profile-website">Personal or professional website</label>
+                        <input id="profile-website" name="website" type="url" autocomplete="url" placeholder="https://exemplo.com">
+                    </div>
+                </div>
+            </section>
+
+            <section class="profile-section" aria-labelledby="regional-heading">
+                <div class="profile-section-heading">
+                    <h2 id="regional-heading">Regional preferences</h2>
+                    <p>Choose how dates, times, and content appear to you.</p>
+                </div>
+                <div class="workflow-profile-fields">
+                    <div class="workflow-field">
+                        <label for="profile-timezone">Preferred time zone</label>
+                        <select id="profile-timezone" name="timezone">
+                            <option value="America/Sao_Paulo">Brasilia (America/Sao_Paulo)</option>
+                            <option value="America/New_York" selected>New York (America/New_York)</option>
+                            <option value="America/Los_Angeles">Los Angeles (America/Los_Angeles)</option>
+                            <option value="Europe/London">London (Europe/London)</option>
+                            <option value="Europe/Lisbon">Lisbon (Europe/Lisbon)</option>
+                            <option value="Europe/Paris">Paris (Europe/Paris)</option>
+                            <option value="Asia/Tokyo">Tokyo (Asia/Tokyo)</option>
+                            <option value="Australia/Sydney">Sydney (Australia/Sydney)</option>
+                        </select>
+                    </div>
+                    <div class="workflow-field">
+                        <label for="profile-week-start">Week starts on</label>
+                        <select id="profile-week-start" name="weekStart">
+                            <option value="monday" selected>Monday</option>
+                            <option value="sunday">Sunday</option>
+                        </select>
+                    </div>
+                    <div class="workflow-field">
+                        <label for="profile-language">Language</label>
+                        <select id="profile-language" name="language">
+                            <option value="en" selected>English</option>
+                            <option value="pt-BR">Português (Brasil)</option>
+                        </select>
+                    </div>
+                    <div class="workflow-field">
+                        <label for="profile-time-format">Time format</label>
+                        <select id="profile-time-format" name="timeFormat">
+                            <option value="24" selected>24-hour</option>
+                            <option value="12">12-hour (AM/PM)</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="profile-section" aria-labelledby="updates-heading">
+                <div class="profile-section-heading">
+                    <h2 id="updates-heading">Platform updates</h2>
+                    <p>Choose which updates are relevant to you.</p>
+                </div>
+                <div class="profile-notifications">
+                    <label class="workflow-check"><input type="checkbox" name="campaignUpdates" checked> Updates about campaigns and opportunities you follow</label>
+                    <label class="workflow-check"><input type="checkbox" name="milestoneUpdates" checked> Milestone and evidence updates for opportunities in your portfolio</label>
+                    <label class="workflow-check"><input type="checkbox" name="productUpdates"> Product news and updates from Raftt</label>
+                </div>
+            </section>
+
+            <section class="profile-identity-note" aria-label="Identity verification">
+                <strong>Identity verification and financial information</strong>
+                <p>Do not enter identity documents, tax details, banking information, or investment eligibility data in this profile. A real product would handle these through a separate, secure verification flow.</p>
+            </section>
+
+            <div class="profile-save-bar">
+                <p role="status" aria-live="polite" id="profile-save-status">Changes are not saved in this demo.</p>
+                <div class="workflow-actions">
+                    <button class="workflow-button" type="reset">Reset</button>
+                    <button class="workflow-button workflow-button--primary" type="submit">Save changes</button>
+                </div>
+            </div>
+        </form>
+    </main>
+    <footer class="workflow-footer">Raftt prototype · No authenticated account, storage, or data transmission.</footer>
+    <script src="assets/js/user-profile.js"></script>
+</body>
+</html>

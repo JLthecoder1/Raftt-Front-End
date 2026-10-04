@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Raftt review queue demo.">
+    <title>Review &amp; Approvals · Demo | Raftt</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/workflows.css">
+</head>
+<body class="workflow-page">
+    <header class="workflow-header">
+        <a class="workflow-brand" href="Index.html"><img src="assets/images/raftt-logo.png" alt="">RAFTT</a>
+        <nav aria-label="Team navigation">
+            <a href="organization-dashboard.html">Organization demo</a><a href="release-demo.html">Milestones</a><a href="user-profile.html">My profile</a><a href="demo-workspaces.html">Switch workspace</a>
+        </nav>
+    </header>
+    <main class="workflow-main" data-review-workspace>
+        <p class="workflow-kicker">REVIEW TEAM · DEMO WORKSPACE</p>
+        <h1 class="workflow-title">Review queue</h1>
+        <p class="workflow-lead">Review the sample proposal and simulate separate decisions for its documents, round publication, and a milestone request.</p>
+        <p class="workflow-notice" role="note"><strong>This is not an operational dashboard.</strong> Actions below change this screen only; they do not publish offerings, approve real companies, or move funds.</p>
+        <section class="workflow-panel" aria-labelledby="queue-heading">
+            <h2 id="queue-heading">Pending items · Sample</h2>
+            <div class="workflow-table-wrap">
+                <table class="workflow-table">
+                    <thead><tr><th>Organization</th><th>Item</th><th>Status</th><th>Reference</th></tr></thead>
+                    <tbody>
+                        <tr><td>NULLUN</td><td>Documents and information</td><td><span class="workflow-pill workflow-pill--pending" data-review-status="information">Under review</span></td><td>Demo version 03</td></tr>
+                        <tr><td>NULLUN</td><td>Round publication</td><td><span class="workflow-pill workflow-pill--pending" data-review-status="publication">Blocked</span></td><td>Requires review approval</td></tr>
+                        <tr><td>NULLUN</td><td>Milestone 2 · evidence</td><td><span class="workflow-pill workflow-pill--pending" data-review-status="milestone">Evidence pending</span></td><td>Demo request 02</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <div class="workflow-panels">
+            <section class="workflow-panel" aria-labelledby="information-heading">
+                <h2 id="information-heading">1. Review of submitted information</h2>
+                <p>The AI-assisted summary organizes materials and flags missing documents while preserving references. A human makes the final decision.</p>
+                <ul class="workflow-list"><li><span>Pitch deck · demo access</span><span class="workflow-pill">Received</span></li><li><span>Ownership structure · sample</span><span class="workflow-pill workflow-pill--pending">Review</span></li><li><span>Source / deck reference</span><span class="workflow-pill">Pages 4–6</span></li></ul>
+                <div class="workflow-actions">
+                    <button class="workflow-button workflow-button--primary" type="button" data-review-action="information-approved">Approve review</button>
+                    <button class="workflow-button" type="button" data-review-action="changes-requested">Request changes</button>
+                    <button class="workflow-button workflow-button--danger" type="button" data-review-action="rejected">Reject sample</button>
+                </div>
+            </section>
+            <section class="workflow-panel" aria-labelledby="publication-heading">
+                <h2 id="publication-heading">2. Publication approval</h2>
+                <p>Publication is a separate decision and can only be simulated after the proposal information is approved.</p>
+                <div class="workflow-actions"><button class="workflow-button workflow-button--primary" type="button" data-review-action="publication-approved" disabled aria-disabled="true">Approve publication</button></div>
+                <p class="workflow-result" id="review-result" role="status" aria-live="polite" hidden></p>
+            </section>
+            <section class="workflow-panel" aria-labelledby="milestone-review-heading">
+                <h2 id="milestone-review-heading">3. Milestone evidence review</h2>
+                <p>The release request is reviewed separately from the proposal and its publication.</p>
+                <ul class="workflow-list"><li><span>Sample invoice and installation photos</span><span class="workflow-pill">Sample files</span></li></ul>
+                <div class="workflow-actions">
+                    <button class="workflow-button workflow-button--primary" type="button" data-milestone-review="approved">Approve evidence</button>
+                    <button class="workflow-button" type="button" data-milestone-review="more-info">Request more information</button>
+                    <button class="workflow-button workflow-button--danger" type="button" data-milestone-review="rejected">Reject evidence</button>
+                </div>
+                <a class="workflow-button workflow-actions--spaced" href="release-demo.html">Open release flow →</a>
+            </section>
+        </div>
+        <section class="workflow-panel workflow-panel--spaced">
+            <h2>Illustrative audit trail</h2>
+            <ul class="workflow-list" id="review-audit"><li><span>Demo proposal received · owner: review team</span><span class="workflow-pill">Version 03</span></li></ul>
+        </section>
+    </main>
+    <footer class="workflow-footer">In production, each decision would require authorization, identity, timestamp, version, and rationale recorded on the server.</footer>
+    <script src="assets/js/demo-workflows.js"></script>
+</body>
+</html>

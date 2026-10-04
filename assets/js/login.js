@@ -61,7 +61,15 @@ if (canTilt) {
 const loginForm = document.getElementById("login-form");
 loginForm?.addEventListener("submit", (event) => {
     event.preventDefault();
-    window.location.assign("welcome.html");
+    const status = document.getElementById("login-status");
+    status.textContent = "Sign-in is not connected. No account was authenticated. Choose a demo workspace below to continue.";
+});
+
+document.querySelectorAll("[data-social-provider]").forEach((button) => {
+    button.addEventListener("click", () => {
+        const status = document.getElementById("login-status");
+        if (status) status.textContent = `${button.dataset.socialProvider} sign-in is not connected. No authentication request was sent.`;
+    });
 });
 
 const signupForm = document.getElementById("signup-form");
@@ -78,5 +86,5 @@ signupForm?.addEventListener("submit", (event) => {
         return;
     }
 
-    status.textContent = "Account ready - connect this form to your authentication service to finish creating it.";
+    status.textContent = "No account was created and no information was saved. Choose a demo workspace below to explore the prototype.";
 });
