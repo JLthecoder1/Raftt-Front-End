@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Illustrative Raftt investment simulation.">
+    <title>Investment Simulation · Demo | Raftt</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/workflows.css">
+</head>
+<body class="workflow-page">
+    <header class="workflow-header">
+        <a class="workflow-brand" href="Index.html"><img src="assets/images/raftt-logo.png" alt="">RAFTT</a>
+        <nav aria-label="Investor navigation"><a href="investor-dashboard.html">Dashboard</a><a href="map.html">Map</a><a href="user-profile.html">My profile</a><a href="demo-workspaces.html">Switch workspace</a></nav>
+    </header>
+    <main class="workflow-main" data-investment-demo>
+        <p class="workflow-kicker">NULLUN · FICTIONAL CASE STUDY</p>
+        <h1 class="workflow-title">Simulate an investment</h1>
+        <p class="workflow-lead">Explore the confirmation flow, an illustrative tiered fee calculation, and payment outcomes. No transaction will be created.</p>
+        <p class="workflow-notice" role="note"><strong>Demo only.</strong> Amounts are illustrative. No money will be charged, transferred, or reserved. In production, calculations and eligibility must be validated by the server.</p>
+        <div class="workflow-panels">
+            <section class="workflow-panel">
+                <h2>1. Verification and amount</h2>
+                <div class="workflow-form">
+                    <div class="workflow-field">
+                        <label for="demo-kyc">Investor verification status</label>
+                        <select id="demo-kyc"><option value="pending">Pending — block confirmation</option><option value="verified">Complete — allow simulation</option></select>
+                        <small>Select complete only to test the demo; this does not verify a real identity.</small>
+                    </div>
+                    <div class="workflow-field">
+                        <label for="demo-amount">Investment amount (USD)</label>
+                        <input id="demo-amount" type="number" min="250" max="250000" step="1" inputmode="numeric" value="1000">
+                        <small>Minimum and availability are illustrative: $250 minimum, $250,000 remaining balance.</small>
+                    </div>
+                    <label class="workflow-check"><input id="demo-terms" type="checkbox"> I have read the terms, risks, and fictional nature of this flow.</label>
+                    <button class="workflow-button workflow-button--primary" id="demo-confirm" type="button" disabled aria-disabled="true">Confirm simulation</button>
+                    <p class="workflow-result" id="investment-result" role="status" aria-live="polite" hidden></p>
+                    <div class="workflow-actions workflow-hidden" id="payment-outcomes">
+                        <button class="workflow-button workflow-button--primary" type="button" data-payment-outcome="success">Simulate confirmation</button>
+                        <button class="workflow-button workflow-button--danger" type="button" data-payment-outcome="failure">Simulate failure</button>
+                        <button class="workflow-button" type="button" data-payment-outcome="retry">Retry simulation</button>
+                    </div>
+                </div>
+            </section>
+            <aside class="workflow-panel">
+                <h2>Summary before confirmation</h2>
+                <ul class="workflow-list">
+                    <li><span>Illustrative investment</span><strong id="demo-principal">$1,000.00</strong></li>
+                    <li><span>Illustrative additional fee</span><strong id="demo-fee">$25.00</strong></li>
+                    <li><span>Illustrative total</span><strong id="demo-total">$1,025.00</strong></li>
+                    <li><span>Instrument</span><strong>Equity (sample)</strong></li>
+                    <li><span>Round status</span><strong>Case study, not live</strong></li>
+                </ul>
+                <h2 class="workflow-panel__spaced-title">Illustrative tiered fee per round</h2>
+                <p>2.5% on the first $1,000; 2% on the portion from $1,000 to $5,000; 1.5% above $5,000. Illustrative cap of $250 per investor, per round.</p>
+                <a class="workflow-button" href="investor-dashboard.html">Back to investor dashboard</a>
+            </aside>
+        </div>
+    </main>
+    <footer class="workflow-footer">Payment is simulated locally in your browser; no state is saved or transmitted.</footer>
+    <script src="assets/js/demo-workflows.js"></script>
+</body>
+</html>
