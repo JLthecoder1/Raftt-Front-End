@@ -1,6 +1,6 @@
 # RAFTT
 
-Frontend 
+Frontend da demonstração de investimento coletivo em ativos privados. HTML, CSS e JavaScript, sem etapa de build.
 
 ## Executar
 
@@ -26,3 +26,7 @@ Com Node.js instalado, execute `npm start` (ou `node serve.mjs`) e abra http://1
 - `docs/organizacao.md`: registro da organização e remoções.
 
 Dados de demonstração ficam no navegador. Pagamentos, autenticação e revisão de IA ainda são demonstrativos.
+
+## Padronização do código
+
+JavaScript, CSS, HTML e documentação seguem a configuração do Prettier. Para desenvolvimento, execute `npm install` e use `npm run format` ou `npm run format:check`. Dependências de terceiros em `assets/js/vendor/` são preservadas sem reformatação. Os formulários da empresa e a apresentação da plataforma possuem scripts próprios; os estilos do formulário ficam em `assets/css/company-application.css`.

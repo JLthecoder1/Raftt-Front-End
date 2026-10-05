@@ -1,21 +1,110 @@
-:root{--raftt-accent:#3499b6;--raftt-sky:#a0d2df;--raftt-ink:#24334b;--blue:#3499b6;--ink:#24334b}
-a.raftt-unified-brand{display:inline-flex;align-items:center;gap:10px;width:fit-content;color:#3499b6;text-decoration:none;white-space:nowrap}
-a.raftt-unified-brand .raftt-brand-symbol{width:28px;height:28px;flex:none;color:inherit}
-a.raftt-unified-brand .raftt-brand-word{font-family:'Raftt Sans',Inter,Arial,sans-serif;font-size:31px;font-weight:650;letter-spacing:-1.7px;line-height:1.1;color:inherit}
-a.raftt-unified-brand .raftt-brand-word>span{color:inherit}
-.site-header a.raftt-unified-brand{padding:3px 0;transition:color .2s}
-.site-header a.raftt-unified-brand:hover{color:#287f99}
-.app-sidebar nav a.active,.map-page .dashboard-nav-link.is-active,.map-page .dashboard-nav-link:hover{background:#e5f1f4;color:#3499b6}
-footer.raftt-footer{background:linear-gradient(180deg,#f3f4f6 0%,#fff 130px);border-color:#e5e7eb}
-.raftt-footer .rf-wordmark-base{fill:#cbd5e1}
-.raftt-footer .rf-brand,.raftt-footer .rf-links a:hover,.raftt-footer .rf-journey{color:#3499b6}
-.raftt-footer .rf-wordmark-reveal{fill:url(#rf-color)}
-.site-footer .footer-logo-base{fill:#cbd5e1}
-@media(max-width:600px){.site-header a.raftt-unified-brand{gap:7px}.site-header a.raftt-unified-brand .raftt-brand-symbol{width:23px;height:23px}.site-header a.raftt-unified-brand .raftt-brand-word{font-size:26px}}
+:root {
+  --raftt-accent: #3499b6;
+  --raftt-sky: #a0d2df;
+  --raftt-ink: #24334b;
+  --blue: #3499b6;
+  --ink: #24334b;
+}
+a.raftt-unified-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  color: #3499b6;
+  text-decoration: none;
+  white-space: nowrap;
+}
+a.raftt-unified-brand .raftt-brand-symbol {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  color: inherit;
+}
+a.raftt-unified-brand .raftt-brand-word {
+  font-family: 'Raftt Sans', Inter, Arial, sans-serif;
+  font-size: 31px;
+  font-weight: 650;
+  letter-spacing: -1.7px;
+  line-height: 1.1;
+  color: inherit;
+}
+a.raftt-unified-brand .raftt-brand-word > span {
+  color: inherit;
+}
+.site-header a.raftt-unified-brand {
+  padding: 3px 0;
+  transition: color 0.2s;
+}
+.site-header a.raftt-unified-brand:hover {
+  color: #287f99;
+}
+.app-sidebar nav a.active,
+.map-page .dashboard-nav-link.is-active,
+.map-page .dashboard-nav-link:hover {
+  background: #e5f1f4;
+  color: #3499b6;
+}
+footer.raftt-footer {
+  background: linear-gradient(180deg, #f3f4f6 0%, #fff 130px);
+  border-color: #e5e7eb;
+}
+.raftt-footer .rf-wordmark-base {
+  fill: #cbd5e1;
+}
+.raftt-footer .rf-brand,
+.raftt-footer .rf-links a:hover,
+.raftt-footer .rf-journey {
+  color: #3499b6;
+}
+.raftt-footer .rf-wordmark-reveal {
+  fill: url(#rf-color);
+}
+.site-footer .footer-logo-base {
+  fill: #cbd5e1;
+}
+@media (max-width: 600px) {
+  .site-header a.raftt-unified-brand {
+    gap: 7px;
+  }
+  .site-header a.raftt-unified-brand .raftt-brand-symbol {
+    width: 23px;
+    height: 23px;
+  }
+  .site-header a.raftt-unified-brand .raftt-brand-word {
+    font-size: 26px;
+  }
+}
 
 /* Exact landing CTA and footer treatment. */
-.app-body .button:not(.secondary):not(.danger),.app-body button:not(.secondary):not(.danger):not(.market-tab):not(.icon-button):not(.account-trigger):not(.menu-scrim):not(#workspace-trigger),.map-guide__done,.opportunity-asset__cta{background:linear-gradient(180deg,#6fb6ca 0%,#3499b6 100%)}
-.app-body .button:not(.secondary):not(.danger):hover,.app-body button:not(.secondary):not(.danger):not(.market-tab):not(.icon-button):not(.account-trigger):not(.menu-scrim):not(#workspace-trigger):hover,.map-guide__done:hover,.opportunity-asset__cta:hover{background:linear-gradient(180deg,#5da9bd 0%,#287f99 100%)}
-.raftt-footer .rf-wordmark-base{fill:#cbd5e1;stroke:#d8e0eb;stroke-width:1px}
-.raftt-footer .rf-wordmark:hover .rf-wordmark-reveal,.raftt-footer .rf-wordmark:focus-visible .rf-wordmark-reveal{opacity:1}
-@media(max-width:600px){.raftt-footer .rf-wordmark:hover .rf-wordmark-reveal{opacity:0}}
+.app-body .button:not(.secondary):not(.danger),
+.app-body
+  button:not(.secondary):not(.danger):not(.market-tab):not(.icon-button):not(.account-trigger):not(
+    .menu-scrim
+  ):not(#workspace-trigger),
+.map-guide__done,
+.opportunity-asset__cta {
+  background: linear-gradient(180deg, #6fb6ca 0%, #3499b6 100%);
+}
+.app-body .button:not(.secondary):not(.danger):hover,
+.app-body
+  button:not(.secondary):not(.danger):not(.market-tab):not(.icon-button):not(.account-trigger):not(
+    .menu-scrim
+  ):not(#workspace-trigger):hover,
+.map-guide__done:hover,
+.opportunity-asset__cta:hover {
+  background: linear-gradient(180deg, #5da9bd 0%, #287f99 100%);
+}
+.raftt-footer .rf-wordmark-base {
+  fill: #cbd5e1;
+  stroke: #d8e0eb;
+  stroke-width: 1px;
+}
+.raftt-footer .rf-wordmark:hover .rf-wordmark-reveal,
+.raftt-footer .rf-wordmark:focus-visible .rf-wordmark-reveal {
+  opacity: 1;
+}
+@media (max-width: 600px) {
+  .raftt-footer .rf-wordmark:hover .rf-wordmark-reveal {
+    opacity: 0;
+  }
+}

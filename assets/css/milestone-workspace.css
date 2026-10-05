@@ -1,1 +1,332 @@
-#milestone-workspace .top{align-items:center}#milestone-workspace h1{font-size:clamp(28px,4vw,44px);letter-spacing:-1.5px}#milestone-workspace .top>div{max-width:670px}.ms-overview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:28px 0}.ms-overview .card{padding:22px}.ms-overview strong{display:block;font-size:22px;letter-spacing:-.7px;margin-top:14px}.ms-process{display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:#687d89;padding:20px 0;border-bottom:1px solid #dce3e5;margin-bottom:32px}.ms-list-heading{display:flex;justify-content:space-between;align-items:center}.ms-list-heading span{font-size:12px;color:#778a95}.ms-card{background:#fff;border:1px solid #dfe6e9;border-radius:12px;padding:26px;margin:18px 0}.ms-card-top{display:flex;align-items:flex-start;gap:18px}.ms-index{font-size:22px;color:#69a9bd;font-weight:400}.ms-card-top h3{margin:0;font-size:20px}.ms-card-top p{font-size:12px;color:#7a8b95;margin:8px 0}.ms-card-top>div:last-child{margin-left:auto;text-align:right}.ms-amount{display:block;margin-top:12px;font-size:21px}.ms-deliverable{max-width:850px;white-space:pre-wrap}.ms-card details{border:0;border-top:1px solid #e8edef;border-radius:0;padding:18px 0;margin:18px 0}.ms-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}.ms-detail-grid p{white-space:pre-wrap;font-size:13px;overflow-wrap:anywhere}.ms-detail-grid h4{font-size:12px;color:#37677b;margin:22px 0 8px}.ms-cost-detail{border-bottom:1px solid #e7edef;padding:12px 0}.ms-cost-detail strong,.ms-cost-detail span{display:block;font-size:13px}.ms-cost-detail span{margin:5px 0;color:#5d7987}.ms-review{padding:16px 20px;background:#f0f6f7;border-radius:7px;margin:18px 0}.ms-review strong{font-size:12px}.ms-review p{font-size:12px;line-height:1.7;margin:6px 0 0}.ms-empty{padding:50px 30px;background:#fff;border:1px dashed #a9c6d0;border-radius:12px;text-align:center}.ms-empty>span{color:#5b9fb5;font-size:28px}.ms-empty p{max-width:580px;margin:16px auto 24px}#ms-feedback,#ms-form-error{color:#975735;font-size:13px}#ms-editor,.ms-evidence-dialog{border:1px solid #dce6ea;border-radius:14px;padding:0;width:min(850px,calc(100vw - 28px));max-height:90dvh;color:#203447;box-shadow:0 25px 90px #15304740}#ms-editor::backdrop,.ms-evidence-dialog::backdrop{background:#17324988}#ms-editor header{padding:24px 28px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e7edef}#ms-editor h2{font-size:24px;margin:0}.ms-form-body{padding:24px 28px}.ms-fields{display:grid;grid-template-columns:1fr 1fr;gap:18px}.ms-fields .full{grid-column:1/-1}#ms-editor label,.ms-evidence-dialog label{display:block;font-size:12px;font-weight:600}#ms-editor input,#ms-editor textarea,#ms-editor select,.ms-evidence-dialog textarea{box-sizing:border-box;width:100%;margin:8px 0 0;padding:12px;border:1px solid #cad7de;border-radius:6px;background:#fff;font:inherit;color:#203447}#ms-editor textarea,.ms-evidence-dialog textarea{resize:vertical;line-height:1.7}#ms-editor :is(input,textarea,select):focus-visible,.ms-evidence-dialog textarea:focus-visible{outline:3px solid #d7edf2;border-color:#3499b6}.ms-budget{margin:28px 0;padding:22px;background:#f4f8f9;border-radius:8px}.ms-budget h3{margin:0}.ms-cost-row{display:grid;grid-template-columns:2fr .8fr 1.2fr auto;gap:12px;padding:16px 0;border-bottom:1px solid #dce5e8;margin-bottom:16px}.ms-cost-purpose{grid-column:1/4}.ms-cost-row button{grid-column:4;grid-row:1/3;align-self:center}.ms-budget .row{margin-top:20px}#ms-editor .ms-editor-actions{display:flex;justify-content:flex-end;gap:12px;padding:20px 28px;background:#f8fafb;border-top:1px solid #e7edef}.ms-evidence-dialog{padding:28px;width:min(600px,calc(100vw - 48px))}.ms-card .actions button{font-size:12px}.ms-form-body .muted{font-size:12px}@media(max-width:900px){.ms-overview{grid-template-columns:repeat(2,minmax(0,1fr))}.ms-detail-grid{grid-template-columns:1fr}}@media(max-width:560px){.ms-card{padding:18px}.ms-card-top{flex-wrap:wrap}.ms-card-top>div:last-child{width:100%;text-align:left;margin-left:0}.ms-amount{display:inline-block;margin-left:12px}.ms-fields{grid-template-columns:1fr}.ms-fields .full{grid-column:auto}.ms-form-body{padding:20px}.ms-cost-row{grid-template-columns:1fr 1fr auto}.ms-cost-row label:first-child{grid-column:1/3}.ms-cost-purpose{grid-column:1/3}.ms-cost-row button{grid-column:3;grid-row:1/4}#ms-editor .ms-editor-actions{padding:18px;flex-wrap:wrap}.ms-overview strong{font-size:18px}.ms-overview .card{padding:16px}.ms-process{gap:12px}.ms-evidence-dialog{box-sizing:border-box}#milestone-workspace .top{align-items:flex-start;gap:18px;flex-direction:column}}
+#milestone-workspace .top {
+  align-items: center;
+}
+#milestone-workspace h1 {
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: -1.5px;
+}
+#milestone-workspace .top > div {
+  max-width: 670px;
+}
+.ms-overview {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 28px 0;
+}
+.ms-overview .card {
+  padding: 22px;
+}
+.ms-overview strong {
+  display: block;
+  font-size: 22px;
+  letter-spacing: -0.7px;
+  margin-top: 14px;
+}
+.ms-process {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: #687d89;
+  padding: 20px 0;
+  border-bottom: 1px solid #dce3e5;
+  margin-bottom: 32px;
+}
+.ms-list-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ms-list-heading span {
+  font-size: 12px;
+  color: #778a95;
+}
+.ms-card {
+  background: #fff;
+  border: 1px solid #dfe6e9;
+  border-radius: 12px;
+  padding: 26px;
+  margin: 18px 0;
+}
+.ms-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+.ms-index {
+  font-size: 22px;
+  color: #69a9bd;
+  font-weight: 400;
+}
+.ms-card-top h3 {
+  margin: 0;
+  font-size: 20px;
+}
+.ms-card-top p {
+  font-size: 12px;
+  color: #7a8b95;
+  margin: 8px 0;
+}
+.ms-card-top > div:last-child {
+  margin-left: auto;
+  text-align: right;
+}
+.ms-amount {
+  display: block;
+  margin-top: 12px;
+  font-size: 21px;
+}
+.ms-deliverable {
+  max-width: 850px;
+  white-space: pre-wrap;
+}
+.ms-card details {
+  border: 0;
+  border-top: 1px solid #e8edef;
+  border-radius: 0;
+  padding: 18px 0;
+  margin: 18px 0;
+}
+.ms-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+.ms-detail-grid p {
+  white-space: pre-wrap;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.ms-detail-grid h4 {
+  font-size: 12px;
+  color: #37677b;
+  margin: 22px 0 8px;
+}
+.ms-cost-detail {
+  border-bottom: 1px solid #e7edef;
+  padding: 12px 0;
+}
+.ms-cost-detail strong,
+.ms-cost-detail span {
+  display: block;
+  font-size: 13px;
+}
+.ms-cost-detail span {
+  margin: 5px 0;
+  color: #5d7987;
+}
+.ms-review {
+  padding: 16px 20px;
+  background: #f0f6f7;
+  border-radius: 7px;
+  margin: 18px 0;
+}
+.ms-review strong {
+  font-size: 12px;
+}
+.ms-review p {
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 6px 0 0;
+}
+.ms-empty {
+  padding: 50px 30px;
+  background: #fff;
+  border: 1px dashed #a9c6d0;
+  border-radius: 12px;
+  text-align: center;
+}
+.ms-empty > span {
+  color: #5b9fb5;
+  font-size: 28px;
+}
+.ms-empty p {
+  max-width: 580px;
+  margin: 16px auto 24px;
+}
+#ms-feedback,
+#ms-form-error {
+  color: #975735;
+  font-size: 13px;
+}
+#ms-editor,
+.ms-evidence-dialog {
+  border: 1px solid #dce6ea;
+  border-radius: 14px;
+  padding: 0;
+  width: min(850px, calc(100vw - 28px));
+  max-height: 90dvh;
+  color: #203447;
+  box-shadow: 0 25px 90px #15304740;
+}
+#ms-editor::backdrop,
+.ms-evidence-dialog::backdrop {
+  background: #17324988;
+}
+#ms-editor header {
+  padding: 24px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e7edef;
+}
+#ms-editor h2 {
+  font-size: 24px;
+  margin: 0;
+}
+.ms-form-body {
+  padding: 24px 28px;
+}
+.ms-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.ms-fields .full {
+  grid-column: 1/-1;
+}
+#ms-editor label,
+.ms-evidence-dialog label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+}
+#ms-editor input,
+#ms-editor textarea,
+#ms-editor select,
+.ms-evidence-dialog textarea {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 8px 0 0;
+  padding: 12px;
+  border: 1px solid #cad7de;
+  border-radius: 6px;
+  background: #fff;
+  font: inherit;
+  color: #203447;
+}
+#ms-editor textarea,
+.ms-evidence-dialog textarea {
+  resize: vertical;
+  line-height: 1.7;
+}
+#ms-editor :is(input, textarea, select):focus-visible,
+.ms-evidence-dialog textarea:focus-visible {
+  outline: 3px solid #d7edf2;
+  border-color: #3499b6;
+}
+.ms-budget {
+  margin: 28px 0;
+  padding: 22px;
+  background: #f4f8f9;
+  border-radius: 8px;
+}
+.ms-budget h3 {
+  margin: 0;
+}
+.ms-cost-row {
+  display: grid;
+  grid-template-columns: 2fr 0.8fr 1.2fr auto;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid #dce5e8;
+  margin-bottom: 16px;
+}
+.ms-cost-purpose {
+  grid-column: 1/4;
+}
+.ms-cost-row button {
+  grid-column: 4;
+  grid-row: 1/3;
+  align-self: center;
+}
+.ms-budget .row {
+  margin-top: 20px;
+}
+#ms-editor .ms-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 28px;
+  background: #f8fafb;
+  border-top: 1px solid #e7edef;
+}
+.ms-evidence-dialog {
+  padding: 28px;
+  width: min(600px, calc(100vw - 48px));
+}
+.ms-card .actions button {
+  font-size: 12px;
+}
+.ms-form-body .muted {
+  font-size: 12px;
+}
+@media (max-width: 900px) {
+  .ms-overview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ms-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .ms-card {
+    padding: 18px;
+  }
+  .ms-card-top {
+    flex-wrap: wrap;
+  }
+  .ms-card-top > div:last-child {
+    width: 100%;
+    text-align: left;
+    margin-left: 0;
+  }
+  .ms-amount {
+    display: inline-block;
+    margin-left: 12px;
+  }
+  .ms-fields {
+    grid-template-columns: 1fr;
+  }
+  .ms-fields .full {
+    grid-column: auto;
+  }
+  .ms-form-body {
+    padding: 20px;
+  }
+  .ms-cost-row {
+    grid-template-columns: 1fr 1fr auto;
+  }
+  .ms-cost-row label:first-child {
+    grid-column: 1/3;
+  }
+  .ms-cost-purpose {
+    grid-column: 1/3;
+  }
+  .ms-cost-row button {
+    grid-column: 3;
+    grid-row: 1/4;
+  }
+  #ms-editor .ms-editor-actions {
+    padding: 18px;
+    flex-wrap: wrap;
+  }
+  .ms-overview strong {
+    font-size: 18px;
+  }
+  .ms-overview .card {
+    padding: 16px;
+  }
+  .ms-process {
+    gap: 12px;
+  }
+  .ms-evidence-dialog {
+    box-sizing: border-box;
+  }
+  #milestone-workspace .top {
+    align-items: flex-start;
+    gap: 18px;
+    flex-direction: column;
+  }
+}
