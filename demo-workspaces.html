@@ -1,65 +1,101 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore Raftt's interactive demo workspaces.">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Explore Raftt's interactive demo workspaces." />
     <title>Demo workspaces | RAFTT</title>
     <script src="assets/js/auth/auth-gate.js"></script>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/workflows.css">
-<script src="assets/js/shared/app-language.js" defer></script><link rel="stylesheet" href="assets/css/shared-footer.css">
-<script src="assets/js/shared/shared-footer.js" defer></script>
-<link rel="stylesheet" href="assets/css/brand-theme.css">
-<script src="assets/js/shared/brand-theme.js" defer></script>
-<script src="assets/js/shared/page-metadata.js" defer></script>
-<script src="assets/js/shared/number-format.js"></script>
-</head>
-<body class="workflow-page">
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/workflows.css" />
+    <script src="assets/js/shared/app-language.js" defer></script>
+    <link rel="stylesheet" href="assets/css/shared-footer.css" />
+    <script src="assets/js/shared/shared-footer.js" defer></script>
+    <link rel="stylesheet" href="assets/css/brand-theme.css" />
+    <script src="assets/js/shared/brand-theme.js" defer></script>
+    <script src="assets/js/shared/page-metadata.js" defer></script>
+    <script src="assets/js/shared/number-format.js"></script>
+  </head>
+  <body class="workflow-page">
     <header class="workflow-header">
-        <a class="workflow-brand" href="index.html"><img src="assets/images/raftt-logo.png" alt="">RAFTT</a>
-        <nav aria-label="Navigation">
-            <a href="profile.html">My profile</a>
-            <a href="index.html">Home</a>
-            <a href="login.html">Sign in</a>
-            <a href="signup.html">Create account</a>
-        </nav>
+      <a class="workflow-brand" href="index.html"
+        ><img src="assets/images/raftt-logo.png" alt="" />RAFTT</a
+      >
+      <nav aria-label="Navigation">
+        <a href="profile.html">My profile</a>
+        <a href="index.html">Home</a>
+        <a href="login.html">Sign in</a>
+        <a href="signup.html">Create account</a>
+      </nav>
     </header>
     <main class="workflow-main">
-        <p class="workflow-kicker">RAFTT · INTERACTIVE PROTOTYPE</p>
-        <h1 class="workflow-title">Choose a workspace</h1>
-        <p class="workflow-lead">Explore Raftt as an investor, an organization, or a review team member. These journeys use sample data and do not require or create an account.</p>
-        <p class="workflow-notice" role="note"><strong>Demo environment.</strong> No account is authenticated, no data is transmitted, and no investment or release of funds takes place.</p>
-        <div class="workflow-actions"><a class="workflow-button" href="profile.html">Set up demo profile</a></div>
-        <section class="workflow-grid" aria-label="Workspaces by role">
-            <a class="workflow-card" href="investor-dashboard.html">
-                <span class="workflow-card__icon" aria-hidden="true">↗</span>
-                <h2>Investor</h2>
-                <p>Explore opportunities, verification status, a sample portfolio, and an investment simulation with illustrative fees.</p>
-                <span class="workflow-card__link">Open investor dashboard →</span>
-            </a>
-            <a class="workflow-card" href="company-dashboard.html">
-                <span class="workflow-card__icon" aria-hidden="true">⌂</span>
-                <h2>Organization</h2>
-                <p>Track a proposal, simulate submitting it for review, and walk through campaign and milestone evidence steps.</p>
-                <span class="workflow-card__link">Open organization dashboard →</span>
-            </a>
-            <a class="workflow-card" href="admin-review.html">
-                <span class="workflow-card__icon" aria-hidden="true">✓</span>
-                <h2>Review team</h2>
-                <p>Review a sample proposal, record separate decisions, and examine a milestone request.</p>
-                <span class="workflow-card__link">Open review dashboard →</span>
-            </a>
-        </section>
-        <section class="workflow-panel workflow-panel--spaced" aria-labelledby="how-heading">
-            <h2 id="how-heading">How to explore the demo</h2>
-            <ol class="workflow-timeline">
-                <li data-step="1"><span><strong>Explore</strong>Choose the investor workspace to open the map or sample portfolio.</span></li>
-                <li data-step="2"><span><strong>Raise</strong>Choose the organization workspace to track a proposal and submit a simulated release request.</span></li>
-                <li data-step="3"><span><strong>Review</strong>Use the review dashboard to request changes or record demo approvals.</span></li>
-            </ol>
-        </section>
+      <p class="workflow-kicker">RAFTT · INTERACTIVE PROTOTYPE</p>
+      <h1 class="workflow-title">Choose a workspace</h1>
+      <p class="workflow-lead">
+        Explore Raftt as an investor, an organization, or a review team member. These journeys use
+        sample data and do not require or create an account.
+      </p>
+      <p class="workflow-notice" role="note">
+        <strong>Demo environment.</strong> No account is authenticated, no data is transmitted, and
+        no investment or release of funds takes place.
+      </p>
+      <div class="workflow-actions">
+        <a class="workflow-button" href="profile.html">Set up demo profile</a>
+      </div>
+      <section class="workflow-grid" aria-label="Workspaces by role">
+        <a class="workflow-card" href="investor-dashboard.html">
+          <span class="workflow-card__icon" aria-hidden="true">↗</span>
+          <h2>Investor</h2>
+          <p>
+            Explore opportunities, verification status, a sample portfolio, and an investment
+            simulation with illustrative fees.
+          </p>
+          <span class="workflow-card__link">Open investor dashboard →</span>
+        </a>
+        <a class="workflow-card" href="company-dashboard.html">
+          <span class="workflow-card__icon" aria-hidden="true">⌂</span>
+          <h2>Organization</h2>
+          <p>
+            Track a proposal, simulate submitting it for review, and walk through campaign and
+            milestone evidence steps.
+          </p>
+          <span class="workflow-card__link">Open organization dashboard →</span>
+        </a>
+        <a class="workflow-card" href="admin-review.html">
+          <span class="workflow-card__icon" aria-hidden="true">✓</span>
+          <h2>Review team</h2>
+          <p>
+            Review a sample proposal, record separate decisions, and examine a milestone request.
+          </p>
+          <span class="workflow-card__link">Open review dashboard →</span>
+        </a>
+      </section>
+      <section class="workflow-panel workflow-panel--spaced" aria-labelledby="how-heading">
+        <h2 id="how-heading">How to explore the demo</h2>
+        <ol class="workflow-timeline">
+          <li data-step="1">
+            <span
+              ><strong>Explore</strong>Choose the investor workspace to open the map or sample
+              portfolio.</span
+            >
+          </li>
+          <li data-step="2">
+            <span
+              ><strong>Raise</strong>Choose the organization workspace to track a proposal and
+              submit a simulated release request.</span
+            >
+          </li>
+          <li data-step="3">
+            <span
+              ><strong>Review</strong>Use the review dashboard to request changes or record demo
+              approvals.</span
+            >
+          </li>
+        </ol>
+      </section>
     </main>
-    <footer class="workflow-footer">Raftt · Prototype with no authentication, backend, or financial transactions.</footer>
-</body>
+    <footer class="workflow-footer">
+      Raftt · Prototype with no authentication, backend, or financial transactions.
+    </footer>
+  </body>
 </html>

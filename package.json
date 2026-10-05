@@ -4,6 +4,11 @@
   "private": true,
   "description": "RAFTT static frontend demonstration",
   "scripts": {
-    "start": "node serve.mjs"
+    "start": "node serve.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
   }
 }

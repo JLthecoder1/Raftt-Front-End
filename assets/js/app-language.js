@@ -1,23 +1,593 @@
 (() => {
-'use strict';
-const lang=localStorage.getItem('raftt-lang')||'en';localStorage.setItem('raftt-lang',lang);
-const pairs=[
-['Visão geral','Overview'],['Oportunidades','Opportunities'],['Meu portfólio','My portfolio'],['Explorar mapa','Explore map'],['Minha captação','My fundraising'],['Apresentação da empresa','Company presentation'],['Marcos e evidências','Milestones & evidence'],['Meu perfil','My profile'],['Áreas da conta','Account workspaces'],['Detalhes da startup','Startup details'],['Novo aporte','New investment'],['Plataforma','Platform'],['Área de trabalho','Workspace'],['Minha conta','My account'],['Captação','Fundraising'],['UMA CONTA, DUAS ÁREAS','ONE ACCOUNT, TWO WORKSPACES'],['Investimentos','Investments'],['Captação da empresa','Company fundraising'],['INVESTIR','INVEST'],['CAPTAR','RAISE'],['Construindo próximos capítulos.','Building the next chapters.'],['Investidor & empresa','Investor & company'],['Ambiente demo','Demo environment'],['INVESTIR E CAPTAR','INVEST AND RAISE'],['Perfil e preferências','Profile & settings'],['Sair da sessão','Sign out'],['Ambiente de demonstração. Os valores e movimentos apresentados são simulados.','Demo environment. All displayed amounts and transactions are simulated.'],['RAFTT / Infraestrutura para ativos privados','RAFTT / Infrastructure for private assets'],
-['BEM-VINDO A BORDO','WELCOME ABOARD'],['Uma conta. Novas possibilidades.','One account. New possibilities.'],['Invista em empresas ou apresente uma startup para captar. Sua conta pode investir e captar ao mesmo tempo. Escolha qual área deseja abrir agora.','Invest in companies or present a startup to raise capital. Your account can invest and raise at the same time. Choose a workspace to open.'],['SEUS INVESTIMENTOS','YOUR INVESTMENTS'],['Explorar e investir','Explore and invest'],['Conheça oportunidades, revise documentos e acompanhe cada etapa do seu investimento.','Discover opportunities, review documents and follow every stage of your investment.'],['Explorar startups →','Explore startups →'],['SUA EMPRESA','YOUR COMPANY'],['Captar e construir','Raise and build'],['Apresente o negócio, organize sua rodada e defina marcos com orçamento e evidências.','Present your business, organize your round and define milestones with budgets and evidence.'],['Apresentar minha empresa →','Present my company →'],['DESCUBERTA','DISCOVERY'],['Encontre sua próxima oportunidade','Find your next opportunity'],['O MVP demonstra investimentos em startups. As demais ilhas representam categorias futuras.','The MVP demonstrates startup investments. The other islands represent future categories.'],['Inteligência operacional para conectar sinais de sensores, equipamentos e sistemas.','Operational intelligence connecting signals from sensors, equipment and systems.'],['Software para organizar a operação e o relacionamento com clientes de pequenas empresas.','Software that organizes operations and customer relationships for small businesses.'],
-['Aportes confirmados','Confirmed investments'],['Projetos na carteira','Portfolio companies'],['Capital liberado · sua parcela','Released capital · your share'],['Saldo reservado · sua parcela','Reserved balance · your share'],['Ações pendentes','Pending actions'],['Projeto','Project'],['Aporte','Investment'],['Taxa','Fee'],['Estado','Status'],['Próximo passo','Next step'],['Continuar','Continue'],['Acompanhar','Follow investment'],['Pagamento pendente','Payment pending'],['Aporte confirmado','Investment confirmed'],['Pagamento falhou','Payment failed'],['Participação consolidada','Ownership consolidated'],['Cancelado','Cancelled'],['Sua primeira expedição começa aqui','Your first expedition starts here'],['Você ainda não possui aportes. Explore as startups, leia as condições e simule sua participação.','You have no investments yet. Explore startups, read the terms and simulate your participation.'],['Explorar oportunidades','Explore opportunities'],['Explorar oportunidades →','Explore opportunities →'],['SEU CENTRO DE NAVEGAÇÃO','YOUR NAVIGATION CENTER'],['Acompanhe seus aportes, as pendências e a execução das empresas.','Track your investments, pending actions and company progress.'],['Próximos passos','Next steps'],['Aportes pendentes precisam de confirmação. Aportes confirmados aguardam o fechamento da rodada para consolidar a participação.','Pending investments require confirmation. Confirmed investments await the round closing to consolidate ownership.'],['Abrir carteira','Open portfolio'],['Marcos e liberações','Milestones and releases'],['As evidências passam por revisão. Aprovação autoriza a execução; só uma execução confirmada registra capital liberado.','Evidence is reviewed. Approval authorizes execution; only confirmed execution records released capital.'],['Acompanhar demonstração','Follow the demo'],['Seus investimentos','Your investments'],['Capital que acompanha','Capital that follows'],['o próximo capítulo.','the next chapter.'],['Descubra startups e acompanhe sua execução, marco a marco.','Discover startups and follow their execution, milestone by milestone.'],['Conhecer startups','Discover startups'],['MEU PORTFÓLIO','MY PORTFOLIO'],['Sua jornada de investimento','Your investment journey'],['Acompanhe o estado de cada aporte e a consolidação dos seus direitos.','Follow each investment status and the consolidation of your rights.'],
-['← Oportunidades','← Opportunities'],['STARTUPS · CASO FICTÍCIO','STARTUPS · FICTIONAL CASE'],['Plano de execução','Execution plan'],['01 · Início da execução','01 · Start of execution'],['02 · Produto funcional','02 · Functional product'],['03 · Pilotos comprovados','03 · Verified pilots'],['04 · Marco comercial','04 · Commercial milestone'],['25% do orçamento','25% of the budget'],['Condição: rodada fechada e orçamento aprovado. Uso: desenvolvimento e contratações.','Condition: round closed and budget approved. Use: development and hiring.'],['Condição: demonstração funcional e relatório técnico. Uso: executar pilotos.','Condition: functional demonstration and technical report. Use: running pilots.'],['Condição: resultados dos pilotos e registros de uso. Uso: expansão da operação.','Condition: pilot results and usage records. Use: expanding operations.'],['Condição: contratos e receita comprovada. Uso: próxima fase de crescimento.','Condition: verified contracts and revenue. Use: next growth phase.'],['Informações e documentos','Information and documents'],['Resumo do negócio · declaração da empresa','Business overview · company statement'],['Condições da rodada · documento de exemplo','Round terms · sample document'],['Riscos e direitos · documento de exemplo','Risks and rights · sample document'],['Análise por IA · exemplo ilustrativo','AI analysis · illustrative example'],['Meta US$ 100.000. Veículo adquire 10% da startup. Participação proporcional ao principal consolidado. Comissão da empresa: 7% no fechamento; capital líquido US$ 93.000. Cada marco financia 25% do orçamento líquido, US$ 23.250.','Target US$ 100,000. The vehicle acquires 10% of the startup. Ownership is proportional to consolidated principal. Company commission: 7% at closing; net capital US$ 93,000. Each milestone funds 25% of the net budget, US$ 23,250.'],['Possibilidade de perda integral, diluição, baixa liquidez e atrasos de execução. A participação é indireta por veículo; não há retorno garantido. Em conversíveis, os direitos dependem da conversão.','Risks include total loss, dilution, low liquidity and execution delays. Ownership is indirect through a vehicle; returns are not guaranteed. Convertible rights depend on conversion.'],['Fonte: plano demonstrativo desta página. Lacunas: não há balanços, contratos ou testes reais. A IA organiza informações; o responsável autorizado decide as liberações.','Source: the demonstration plan on this page. Gaps: no real financial statements, contracts or tests. AI organizes information; an authorized reviewer decides releases.'],['Captação · simulação','Fundraising · simulation'],['Condições claras antes do aporte','Clear terms before investing'],['Meta bruta','Gross target'],['Instrumento','Instrument'],['Equity · veículo','Equity · vehicle'],['Participação do veículo','Vehicle ownership'],['Mínimo','Minimum'],['Taxa do investidor por faixas, limitada a US$ 250 por rodada. Comissão da empresa: 7%.','Tiered investor fee, capped at US$ 250 per round. Company commission: 7%.'],['Simular investimento →','Simulate investment →'],['A participação se consolida somente no fechamento da rodada.','Ownership is consolidated only at round closing.'],
-['← Voltar ao projeto','← Back to project'],['Revise e confirme seu aporte','Review and confirm your investment'],['O valor principal, as taxas e os direitos ficam visíveis antes da confirmação.','Principal, fees and rights are visible before confirmation.'],['1. Defina sua participação','1. Set your investment'],['Aporte em USD','Investment in USD'],['Mínimo US$ 250 · máximo US$ 100.000 no exemplo.','Minimum US$ 250 · maximum US$ 100,000 in this example.'],['Forma de pagamento · teste','Payment method · test'],['USDC · Solana (simulado)','USDC · Solana (simulated)'],['Saldo de demonstração','Demo balance'],['2. Revise as condições','2. Review the terms'],['Li as condições e os riscos. Entendo que este aporte é uma simulação.','I have read the terms and risks. I understand this investment is simulated.'],['Confirmar aporte simulado','Confirm simulated investment'],['Aporte registrado. Pagamento pendente.','Investment recorded. Payment pending.'],['Simular pagamento confirmado','Simulate confirmed payment'],['Simular falha','Simulate failure'],['Ver meu portfólio','View my portfolio'],['Resumo do aporte','Investment summary'],['Principal','Principal'],['Taxa adicional','Additional fee'],['Total','Total'],['Taxa por faixas','Tiered fee'],['2,5% nos primeiros US$ 1.000; 2% entre US$ 1.000 e US$ 5.000; 1,5% no excedente. Teto de US$ 250 por investidor nesta rodada.','2.5% on the first US$ 1,000; 2% between US$ 1,000 and US$ 5,000; 1.5% above that. Capped at US$ 250 per investor in this round.'],['Verificações de produção serão integradas depois. Nenhum pagamento real é executado.','Production checks will be integrated later. No real payment is executed.'],
-['Participação indireta na startup','Indirect startup ownership'],['Simular fechamento da rodada','Simulate round closing'],['Cancelar aporte simulado','Cancel simulated investment'],['Evidências e liberações','Evidence and releases'],['Rever condições','Review terms'],['Marcos aguardando fechamento e evidências','Milestones awaiting closing and evidence'],['Exemplo equity: rodada US$ 100.000 e veículo com 10%. Antes de diluição e custos. Sem estimativa de retorno.','Equity example: US$ 100,000 round and vehicle with 10%. Before dilution and costs. No estimated return.'],['Regras de decisão e acompanhamento','Decision and monitoring rules'],['No exemplo, o responsável autorizado revisa as evidências e libera as parcelas. Votações são exigidas apenas quando previstas no mandato. Atrasos geram revisão do plano; dinheiro utilizado não é recuperado automaticamente.','In this example, an authorized reviewer checks evidence and releases installments. Votes are required only when specified in the mandate. Delays trigger plan review; spent funds are not automatically recovered.'],
-['MARCO 01 · DEMONSTRAÇÃO','MILESTONE 01 · DEMO'],['Evidências e liberação','Evidence and release'],['Demonstre a revisão, a autorização e a confirmação da execução como estados separados.','Demonstrate review, authorization and execution confirmation as separate states.'],['Condições do marco inicial','Initial milestone conditions'],['Rodada fechada e orçamento aprovado. Parcela: US$ 23.250 (25% do capital líquido após a comissão da empresa).','Round closed and budget approved. Installment: US$ 23,250 (25% of net capital after company commission).'],['Evidências · descrição de teste','Evidence · test description'],['Enviar para revisão','Submit for review'],['Aprovar evidências','Approve evidence'],['Confirmar execução simulada','Confirm simulated execution'],['Voltar ao portfólio','Back to portfolio'],['Plano da rodada','Round plan'],['A decisão final pertence ao responsável autorizado. Esta tela demonstra os papéis, sem permissões de produção.','The final decision belongs to the authorized reviewer. This screen demonstrates roles without production permissions.'],['Aguardando evidências','Awaiting evidence'],['Em revisão','Under review'],['Autorizada · aguardando execução','Authorized · awaiting execution'],['Execução confirmada · 25% do capital líquido liberado','Execution confirmed · 25% of net capital released'],['Descreva as evidências antes de enviar.','Describe the evidence before submitting.'],
-['CAPTAÇÃO · ÁREA DA EMPRESA','FUNDRAISING · COMPANY WORKSPACE'],['Sua startup','Your startup'],['Organize a rodada, apresente evidências e acompanhe o capital por etapa.','Organize the round, submit evidence and track capital by stage.'],['Editar apresentação','Edit presentation'],['Apresentar empresa','Present company'],['Meta da rodada','Round target'],['Capital líquido estimado','Estimated net capital'],['Comissão no fechamento','Commission at closing'],['A definir','To be defined'],['Proposta em análise','Proposal under review'],['Apresentação em preparação','Presentation in preparation'],['Sua proposta foi registrada na demonstração. Aguarde a revisão das informações e do plano.','Your proposal was recorded in the demo. Await review of your information and plan.'],['Complete os dados da empresa e defina instrumento, orçamento e marcos antes de publicar a rodada.','Complete your company details and define the instrument, budget and milestones before publishing the round.'],['01 / ESTRUTURA DA RODADA','01 / ROUND STRUCTURE'],['Seu plano, em um só lugar.','Your plan, in one place.'],['Participação societária','Equity'],['Conversível','Convertible'],['Site da empresa','Company website'],['Não informado','Not provided'],['Publicação','Publication'],['Após aprovação','After approval'],['Revisar apresentação','Review presentation'],['02 / EXECUÇÃO POR MARCOS','02 / MILESTONE EXECUTION'],['Comprove cada entrega.','Verify each delivery.'],['As parcelas seguem o plano da rodada. A IA apoia a análise e o responsável autorizado decide a liberação.','Installments follow the round plan. AI supports analysis and an authorized reviewer decides the release.'],['Ver exemplo de liberação','View release example'],['Também quer investir?','Want to invest too?'],['Seu portfólio e sua captação coexistem nesta conta.','Your portfolio and fundraising coexist in this account.'],['Abrir painel de investimentos →','Open investment dashboard →'],
-['Abrir navegação','Open navigation'],['Fechar navegação','Close navigation'],['Abrir menu da conta','Open account menu'],['Nome','Name'],['E-mail','Email'],['Senha','Password'],['Entrar','Sign in'],['Criar conta','Create account'],['Esqueceu sua senha?','Forgot your password?'],['Já tem uma conta?','Already have an account?'],['Não tem uma conta?','Don’t have an account?']
-];
-pairs.push(...[["Demonstração: informe um e-mail válido e uma senha para iniciar uma sessão temporária. A autenticação real ainda não está conectada; não use senhas reais.", "Demo: enter a valid email and a test password to start a temporary session. Authentication is not connected yet; do not use real passwords."], ["Demonstração: preencha os campos para iniciar uma sessão temporária. A criação de contas ainda não está conectada; não use senhas reais.", "Demo: fill in the fields to start a temporary session. Account creation is not connected yet; do not use real passwords."], ["← Voltar ao site", "← Back to website"], ["MEMBROS RAFTT", "RAFTT MEMBERS"], ["Bem-vindo de volta.", "Welcome back."], ["Continue sua jornada pelos mercados privados com uma visão mais clara do caminho.", "Continue your journey through private markets with a clearer view ahead."], ["Digite sua senha", "Enter your password"], ["Lembrar de mim", "Remember me"], ["Esqueceu a senha?", "Forgot password?"], ["ou continue com", "or continue with"], ["Novo na Raftt?", "New to Raftt?"], ["Criar uma conta", "Create an account"], ["JUNTE-SE À RAFTT", "JOIN RAFTT"], ["Comece sua jornada.", "Start your journey."], ["Crie sua conta para explorar mercados privados com uma visão clara e compartilhada.", "Create your account to explore private markets with a clear, shared view forward."], ["Nome completo", "Full name"], ["Seu nome", "Your name"], ["Pelo menos 8 caracteres", "At least 8 characters"], ["Confirmar senha", "Confirm password"], ["Repita sua senha", "Repeat your password"], ["Concordo com os termos e a política de privacidade.", "I agree to the terms and privacy policy."], ["Criar conta", "Create account"], ["Já é membro?", "Already a member?"], ["Entre na sua sessão de demonstração para acessar essa página.", "Sign in to your demo session to access this page."], ["CAPTAÇÃO / SUA EMPRESA", "FUNDRAISING / YOUR COMPANY"], ["Apresente sua startup.", "Present your startup."], ["Construa o próximo capítulo.", "Build the next chapter."], ["Organize as informações do negócio, a estrutura da rodada e o plano de execução. Você pode captar e continuar investindo com a mesma conta.", "Organize your business information, round structure and execution plan. You can raise capital and keep investing with the same account."], ["Conte sobre você e a sua empresa.", "Tell us about yourself and your company."], ["Demonstração: os campos ficam salvos neste navegador. Arquivos não são enviados.", "Demo: fields are saved in this browser. Files are not uploaded."], ["Dados pessoais", "Personal details"], ["Sobrenome", "Last name"], ["Sobre a empresa", "About the company"], ["Qual é seu objetivo na RAFTT?", "What is your goal on RAFTT?"], ["Captar para minha empresa", "Raise for my company"], ["Estruturar um ativo privado", "Structure a private asset"], ["Projeto Web3", "Web3 project"], ["Organizar minha comunidade", "Organize my community"], ["Outro objetivo", "Other goal"], ["Nome da empresa", "Company name"], ["Use o nome apresentado no site e no mercado.", "Use the name shown on your website and in the market."], ["Seu cargo", "Your role"], ["Informe o endereço do site da empresa.", "Enter your company website address."], ["País de constituição da empresa", "Country of incorporation"], ["Escolha o país", "Choose a country"], ["Outro", "Other"], ["Adicionar link", "Add link"], ["Selecionar arquivo", "Select file"], ["Use um link para a apresentação. Nenhum documento é enviado nesta demonstração.", "Use a link to your pitch deck. No document is uploaded in this demo."], ["A apresentação organiza as informações para a análise da rodada.", "The pitch deck organizes information for round review."], ["Qual categoria representa sua empresa?", "Which category represents your company?"], ["Imóveis", "Real estate"], ["Ativos digitais", "Digital assets"], ["Startup ou PME", "Startup or SME"], ["Projetos culturais", "Cultural projects"], ["Veículo de investimento (SPV)", "Investment vehicle (SPV)"], ["Detalhes da rodada", "Round details"], ["Como deseja estruturar a rodada?", "How would you like to structure the round?"], ["Instrumento conversível", "Convertible instrument"], ["Crédito ou participação em receita", "Debt or revenue share"], ["Token de utilidade", "Utility token"], ["Token de rede", "Network token"], ["Cotas de veículo", "Vehicle shares"], ["Quanto a empresa já captou (USD)?", "How much has the company raised (USD)?"], ["Informe o total de financiamentos anteriores. Digite zero se ainda não captou.", "Enter total previous funding. Enter zero if you have not raised capital."], ["Sua empresa já tem receita?", "Does your company generate revenue?"], ["Sim", "Yes"], ["Não", "No"], ["Descreva a receita e a tração", "Describe revenue and traction"], ["Descreva receita, clientes, crescimento e outras métricas de tração.", "Describe revenue, customers, growth and other traction metrics."], ["Qual é o tamanho da sua comunidade?", "How large is your community?"], ["Escolha uma faixa", "Select a range"], ["Inclua a comunidade de clientes, contatos e seguidores.", "Include customers, contacts and followers."], ["Tem interesse em ativos tokenizados?", "Are you interested in tokenized assets?"], ["A empresa já realizou uma rodada de investimento?", "Has the company raised an investment round before?"], ["Esta informação ajuda a organizar o histórico de captação.", "This information helps organize your fundraising history."], ["Quanto pretende captar na RAFTT (USD)?", "How much do you plan to raise on RAFTT (USD)?"], ["Defina uma meta compatível com o orçamento e os marcos de execução.", "Set a target consistent with your budget and execution milestones."], ["Por quantos meses o caixa atual sustenta a operação?", "How many months of runway does your current cash provide?"], ["Divida o caixa atual pelo consumo mensal de caixa para estimar a autonomia da operação.", "Divide current cash by monthly cash burn to estimate runway."], ["← Voltar", "← Back"], ["Continuar para a rodada", "Continue to round details"], ["Enviar proposta simulada", "Submit simulated proposal"], ["Seus campos ficam salvos neste navegador para demonstração.", "Your fields are saved in this browser for demonstration."], ["Abrir painel da empresa", "Open company dashboard"], ["Capital para o próximo capítulo", "Capital for the next chapter"], ["Organize sua captação e apresente um plano de execução claro aos investidores.", "Organize fundraising and present a clear execution plan to investors."], ["Apresente o negócio e as condições da rodada.", "Present your business and round terms."], ["Reúna investidores em um veículo, conforme a estrutura da operação.", "Bring investors together in a vehicle according to the transaction structure."], ["Comprove o progresso para solicitar cada nova parcela.", "Verify progress to request each new installment."], ["Seu plano, suas evidências", "Your plan, your evidence"], ["Defina marcos com orçamento, prazo, responsável e evidências. A IA apoia a análise; a aprovação cabe ao responsável autorizado.", "Define milestones with budgets, deadlines, owners and evidence. AI supports analysis; approval belongs to the authorized reviewer."], ["Você e sua empresa", "You and your company"], ["Proposta salva neste navegador. Abra o painel da empresa para acompanhar a demonstração.", "Proposal saved in this browser. Open the company dashboard to follow the demo."], ["Qualidade", "Quality"], ["Automática", "Automatic"], ["Leve", "Light"], ["Detalhada", "Detailed"], ["Qualidade gráfica do mapa", "Map graphics quality"], ["Sair", "Sign out"]]);
-pairs.push(['Investir e captar','Invest and raise']);
-pairs.push(['Percentual da empresa oferecido na rodada (%)','Company equity offered in the round (%)'],['Informe a participação total oferecida aos investidores desta rodada, de 0,01% a 100%.','Enter the total equity offered to investors in this round, from 0.01% to 100%.'],['Ex.: 10','E.g., 10']);
-pairs.push(['Planeje cada entrega.','Plan each delivery.'],['Planejar marcos e orçamento','Plan milestones and budget']);
-const dict=new Map(pairs),reverse=new Map(pairs.map(([pt,en])=>[en,pt]));function translate(value){const trim=value.trim();if(lang==='pt'){if(reverse.has(trim))return value.replace(trim,reverse.get(trim));return value;}if(dict.has(trim))return value.replace(trim,dict.get(trim));return value.replace(/^Olá, (.*)\.$/,'Hello, $1.').replace(/^Etapa (\d+) de (\d+)$/,'Step $1 of $2').replace(' · APORTE SIMULADO',' · SIMULATED INVESTMENT').replace(' / Aporte / Confirmação',' / Investment / Confirmation').replace(' · acompanhamento',' · monitoring').replace('Participação no veículo · consolidada','Vehicle ownership · consolidated').replace('Participação no veículo · estimada','Vehicle ownership · estimated').replace(/([\d.]+)% do veículo e ([\d.]+)% indiretos da startup no fechamento ilustrativo\./,'$1% of the vehicle and $2% indirect startup ownership at illustrative closing.').replace('Plano ilustrativo: concluir produto, realizar pilotos e converter clientes pagantes.','Illustrative plan: complete the product, run pilots and convert paying customers.').replace('Acompanhe no portfólio.','Follow it in your portfolio.').replace('Abra o aporte no portfólio para tentar novamente.','Open the investment in your portfolio to retry.');}
-function apply(root=document.body){if(!root)return;const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.parentElement?.closest('script,style,textarea,[data-i18n-skip]')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);nodes.forEach(n=>{const v=translate(n.nodeValue);if(v!==n.nodeValue)n.nodeValue=v;});root.querySelectorAll('[placeholder],[aria-label],[title]').forEach(el=>['placeholder','aria-label','title'].forEach(a=>{if(el.hasAttribute(a)){const old=el.getAttribute(a),v=translate(old);if(v!==old)el.setAttribute(a,v);}}));document.title=translate(document.title.split(' | ')[0])+' | RAFTT';}
-window.RafttI18n={lang,change:value=>{localStorage.setItem('raftt-lang',value==='pt'?'pt':'en');location.reload();},apply};
-document.documentElement.lang=lang==='en'?'en':'pt-BR';function start(){apply();const observer=new MutationObserver(entries=>{const roots=new Set();entries.forEach(e=>{const r=e.target.nodeType===3?e.target.parentElement:e.target;if(r?.closest?.('script,style'))return;roots.add(r);});roots.forEach(apply);});observer.observe(document.body,{subtree:true,childList:true,characterData:true});}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+  'use strict';
+  const lang = localStorage.getItem('raftt-lang') || 'en';
+  localStorage.setItem('raftt-lang', lang);
+  const pairs = [
+    ['Visão geral', 'Overview'],
+    ['Oportunidades', 'Opportunities'],
+    ['Meu portfólio', 'My portfolio'],
+    ['Explorar mapa', 'Explore map'],
+    ['Minha captação', 'My fundraising'],
+    ['Apresentação da empresa', 'Company presentation'],
+    ['Marcos e evidências', 'Milestones & evidence'],
+    ['Meu perfil', 'My profile'],
+    ['Áreas da conta', 'Account workspaces'],
+    ['Detalhes da startup', 'Startup details'],
+    ['Novo aporte', 'New investment'],
+    ['Plataforma', 'Platform'],
+    ['Área de trabalho', 'Workspace'],
+    ['Minha conta', 'My account'],
+    ['Captação', 'Fundraising'],
+    ['UMA CONTA, DUAS ÁREAS', 'ONE ACCOUNT, TWO WORKSPACES'],
+    ['Investimentos', 'Investments'],
+    ['Captação da empresa', 'Company fundraising'],
+    ['INVESTIR', 'INVEST'],
+    ['CAPTAR', 'RAISE'],
+    ['Construindo próximos capítulos.', 'Building the next chapters.'],
+    ['Investidor & empresa', 'Investor & company'],
+    ['Ambiente demo', 'Demo environment'],
+    ['INVESTIR E CAPTAR', 'INVEST AND RAISE'],
+    ['Perfil e preferências', 'Profile & settings'],
+    ['Sair da sessão', 'Sign out'],
+    [
+      'Ambiente de demonstração. Os valores e movimentos apresentados são simulados.',
+      'Demo environment. All displayed amounts and transactions are simulated.',
+    ],
+    ['RAFTT / Infraestrutura para ativos privados', 'RAFTT / Infrastructure for private assets'],
+    ['BEM-VINDO A BORDO', 'WELCOME ABOARD'],
+    ['Uma conta. Novas possibilidades.', 'One account. New possibilities.'],
+    [
+      'Invista em empresas ou apresente uma startup para captar. Sua conta pode investir e captar ao mesmo tempo. Escolha qual área deseja abrir agora.',
+      'Invest in companies or present a startup to raise capital. Your account can invest and raise at the same time. Choose a workspace to open.',
+    ],
+    ['SEUS INVESTIMENTOS', 'YOUR INVESTMENTS'],
+    ['Explorar e investir', 'Explore and invest'],
+    [
+      'Conheça oportunidades, revise documentos e acompanhe cada etapa do seu investimento.',
+      'Discover opportunities, review documents and follow every stage of your investment.',
+    ],
+    ['Explorar startups →', 'Explore startups →'],
+    ['SUA EMPRESA', 'YOUR COMPANY'],
+    ['Captar e construir', 'Raise and build'],
+    [
+      'Apresente o negócio, organize sua rodada e defina marcos com orçamento e evidências.',
+      'Present your business, organize your round and define milestones with budgets and evidence.',
+    ],
+    ['Apresentar minha empresa →', 'Present my company →'],
+    ['DESCUBERTA', 'DISCOVERY'],
+    ['Encontre sua próxima oportunidade', 'Find your next opportunity'],
+    [
+      'O MVP demonstra investimentos em startups. As demais ilhas representam categorias futuras.',
+      'The MVP demonstrates startup investments. The other islands represent future categories.',
+    ],
+    [
+      'Inteligência operacional para conectar sinais de sensores, equipamentos e sistemas.',
+      'Operational intelligence connecting signals from sensors, equipment and systems.',
+    ],
+    [
+      'Software para organizar a operação e o relacionamento com clientes de pequenas empresas.',
+      'Software that organizes operations and customer relationships for small businesses.',
+    ],
+    ['Aportes confirmados', 'Confirmed investments'],
+    ['Projetos na carteira', 'Portfolio companies'],
+    ['Capital liberado · sua parcela', 'Released capital · your share'],
+    ['Saldo reservado · sua parcela', 'Reserved balance · your share'],
+    ['Ações pendentes', 'Pending actions'],
+    ['Projeto', 'Project'],
+    ['Aporte', 'Investment'],
+    ['Taxa', 'Fee'],
+    ['Estado', 'Status'],
+    ['Próximo passo', 'Next step'],
+    ['Continuar', 'Continue'],
+    ['Acompanhar', 'Follow investment'],
+    ['Pagamento pendente', 'Payment pending'],
+    ['Aporte confirmado', 'Investment confirmed'],
+    ['Pagamento falhou', 'Payment failed'],
+    ['Participação consolidada', 'Ownership consolidated'],
+    ['Cancelado', 'Cancelled'],
+    ['Sua primeira expedição começa aqui', 'Your first expedition starts here'],
+    [
+      'Você ainda não possui aportes. Explore as startups, leia as condições e simule sua participação.',
+      'You have no investments yet. Explore startups, read the terms and simulate your participation.',
+    ],
+    ['Explorar oportunidades', 'Explore opportunities'],
+    ['Explorar oportunidades →', 'Explore opportunities →'],
+    ['SEU CENTRO DE NAVEGAÇÃO', 'YOUR NAVIGATION CENTER'],
+    [
+      'Acompanhe seus aportes, as pendências e a execução das empresas.',
+      'Track your investments, pending actions and company progress.',
+    ],
+    ['Próximos passos', 'Next steps'],
+    [
+      'Aportes pendentes precisam de confirmação. Aportes confirmados aguardam o fechamento da rodada para consolidar a participação.',
+      'Pending investments require confirmation. Confirmed investments await the round closing to consolidate ownership.',
+    ],
+    ['Abrir carteira', 'Open portfolio'],
+    ['Marcos e liberações', 'Milestones and releases'],
+    [
+      'As evidências passam por revisão. Aprovação autoriza a execução; só uma execução confirmada registra capital liberado.',
+      'Evidence is reviewed. Approval authorizes execution; only confirmed execution records released capital.',
+    ],
+    ['Acompanhar demonstração', 'Follow the demo'],
+    ['Seus investimentos', 'Your investments'],
+    ['Capital que acompanha', 'Capital that follows'],
+    ['o próximo capítulo.', 'the next chapter.'],
+    [
+      'Descubra startups e acompanhe sua execução, marco a marco.',
+      'Discover startups and follow their execution, milestone by milestone.',
+    ],
+    ['Conhecer startups', 'Discover startups'],
+    ['MEU PORTFÓLIO', 'MY PORTFOLIO'],
+    ['Sua jornada de investimento', 'Your investment journey'],
+    [
+      'Acompanhe o estado de cada aporte e a consolidação dos seus direitos.',
+      'Follow each investment status and the consolidation of your rights.',
+    ],
+    ['← Oportunidades', '← Opportunities'],
+    ['STARTUPS · CASO FICTÍCIO', 'STARTUPS · FICTIONAL CASE'],
+    ['Plano de execução', 'Execution plan'],
+    ['01 · Início da execução', '01 · Start of execution'],
+    ['02 · Produto funcional', '02 · Functional product'],
+    ['03 · Pilotos comprovados', '03 · Verified pilots'],
+    ['04 · Marco comercial', '04 · Commercial milestone'],
+    ['25% do orçamento', '25% of the budget'],
+    [
+      'Condição: rodada fechada e orçamento aprovado. Uso: desenvolvimento e contratações.',
+      'Condition: round closed and budget approved. Use: development and hiring.',
+    ],
+    [
+      'Condição: demonstração funcional e relatório técnico. Uso: executar pilotos.',
+      'Condition: functional demonstration and technical report. Use: running pilots.',
+    ],
+    [
+      'Condição: resultados dos pilotos e registros de uso. Uso: expansão da operação.',
+      'Condition: pilot results and usage records. Use: expanding operations.',
+    ],
+    [
+      'Condição: contratos e receita comprovada. Uso: próxima fase de crescimento.',
+      'Condition: verified contracts and revenue. Use: next growth phase.',
+    ],
+    ['Informações e documentos', 'Information and documents'],
+    ['Resumo do negócio · declaração da empresa', 'Business overview · company statement'],
+    ['Condições da rodada · documento de exemplo', 'Round terms · sample document'],
+    ['Riscos e direitos · documento de exemplo', 'Risks and rights · sample document'],
+    ['Análise por IA · exemplo ilustrativo', 'AI analysis · illustrative example'],
+    [
+      'Meta US$ 100.000. Veículo adquire 10% da startup. Participação proporcional ao principal consolidado. Comissão da empresa: 7% no fechamento; capital líquido US$ 93.000. Cada marco financia 25% do orçamento líquido, US$ 23.250.',
+      'Target US$ 100,000. The vehicle acquires 10% of the startup. Ownership is proportional to consolidated principal. Company commission: 7% at closing; net capital US$ 93,000. Each milestone funds 25% of the net budget, US$ 23,250.',
+    ],
+    [
+      'Possibilidade de perda integral, diluição, baixa liquidez e atrasos de execução. A participação é indireta por veículo; não há retorno garantido. Em conversíveis, os direitos dependem da conversão.',
+      'Risks include total loss, dilution, low liquidity and execution delays. Ownership is indirect through a vehicle; returns are not guaranteed. Convertible rights depend on conversion.',
+    ],
+    [
+      'Fonte: plano demonstrativo desta página. Lacunas: não há balanços, contratos ou testes reais. A IA organiza informações; o responsável autorizado decide as liberações.',
+      'Source: the demonstration plan on this page. Gaps: no real financial statements, contracts or tests. AI organizes information; an authorized reviewer decides releases.',
+    ],
+    ['Captação · simulação', 'Fundraising · simulation'],
+    ['Condições claras antes do aporte', 'Clear terms before investing'],
+    ['Meta bruta', 'Gross target'],
+    ['Instrumento', 'Instrument'],
+    ['Equity · veículo', 'Equity · vehicle'],
+    ['Participação do veículo', 'Vehicle ownership'],
+    ['Mínimo', 'Minimum'],
+    [
+      'Taxa do investidor por faixas, limitada a US$ 250 por rodada. Comissão da empresa: 7%.',
+      'Tiered investor fee, capped at US$ 250 per round. Company commission: 7%.',
+    ],
+    ['Simular investimento →', 'Simulate investment →'],
+    [
+      'A participação se consolida somente no fechamento da rodada.',
+      'Ownership is consolidated only at round closing.',
+    ],
+    ['← Voltar ao projeto', '← Back to project'],
+    ['Revise e confirme seu aporte', 'Review and confirm your investment'],
+    [
+      'O valor principal, as taxas e os direitos ficam visíveis antes da confirmação.',
+      'Principal, fees and rights are visible before confirmation.',
+    ],
+    ['1. Defina sua participação', '1. Set your investment'],
+    ['Aporte em USD', 'Investment in USD'],
+    [
+      'Mínimo US$ 250 · máximo US$ 100.000 no exemplo.',
+      'Minimum US$ 250 · maximum US$ 100,000 in this example.',
+    ],
+    ['Forma de pagamento · teste', 'Payment method · test'],
+    ['USDC · Solana (simulado)', 'USDC · Solana (simulated)'],
+    ['Saldo de demonstração', 'Demo balance'],
+    ['2. Revise as condições', '2. Review the terms'],
+    [
+      'Li as condições e os riscos. Entendo que este aporte é uma simulação.',
+      'I have read the terms and risks. I understand this investment is simulated.',
+    ],
+    ['Confirmar aporte simulado', 'Confirm simulated investment'],
+    ['Aporte registrado. Pagamento pendente.', 'Investment recorded. Payment pending.'],
+    ['Simular pagamento confirmado', 'Simulate confirmed payment'],
+    ['Simular falha', 'Simulate failure'],
+    ['Ver meu portfólio', 'View my portfolio'],
+    ['Resumo do aporte', 'Investment summary'],
+    ['Principal', 'Principal'],
+    ['Taxa adicional', 'Additional fee'],
+    ['Total', 'Total'],
+    ['Taxa por faixas', 'Tiered fee'],
+    [
+      '2,5% nos primeiros US$ 1.000; 2% entre US$ 1.000 e US$ 5.000; 1,5% no excedente. Teto de US$ 250 por investidor nesta rodada.',
+      '2.5% on the first US$ 1,000; 2% between US$ 1,000 and US$ 5,000; 1.5% above that. Capped at US$ 250 per investor in this round.',
+    ],
+    [
+      'Verificações de produção serão integradas depois. Nenhum pagamento real é executado.',
+      'Production checks will be integrated later. No real payment is executed.',
+    ],
+    ['Participação indireta na startup', 'Indirect startup ownership'],
+    ['Simular fechamento da rodada', 'Simulate round closing'],
+    ['Cancelar aporte simulado', 'Cancel simulated investment'],
+    ['Evidências e liberações', 'Evidence and releases'],
+    ['Rever condições', 'Review terms'],
+    ['Marcos aguardando fechamento e evidências', 'Milestones awaiting closing and evidence'],
+    [
+      'Exemplo equity: rodada US$ 100.000 e veículo com 10%. Antes de diluição e custos. Sem estimativa de retorno.',
+      'Equity example: US$ 100,000 round and vehicle with 10%. Before dilution and costs. No estimated return.',
+    ],
+    ['Regras de decisão e acompanhamento', 'Decision and monitoring rules'],
+    [
+      'No exemplo, o responsável autorizado revisa as evidências e libera as parcelas. Votações são exigidas apenas quando previstas no mandato. Atrasos geram revisão do plano; dinheiro utilizado não é recuperado automaticamente.',
+      'In this example, an authorized reviewer checks evidence and releases installments. Votes are required only when specified in the mandate. Delays trigger plan review; spent funds are not automatically recovered.',
+    ],
+    ['MARCO 01 · DEMONSTRAÇÃO', 'MILESTONE 01 · DEMO'],
+    ['Evidências e liberação', 'Evidence and release'],
+    [
+      'Demonstre a revisão, a autorização e a confirmação da execução como estados separados.',
+      'Demonstrate review, authorization and execution confirmation as separate states.',
+    ],
+    ['Condições do marco inicial', 'Initial milestone conditions'],
+    [
+      'Rodada fechada e orçamento aprovado. Parcela: US$ 23.250 (25% do capital líquido após a comissão da empresa).',
+      'Round closed and budget approved. Installment: US$ 23,250 (25% of net capital after company commission).',
+    ],
+    ['Evidências · descrição de teste', 'Evidence · test description'],
+    ['Enviar para revisão', 'Submit for review'],
+    ['Aprovar evidências', 'Approve evidence'],
+    ['Confirmar execução simulada', 'Confirm simulated execution'],
+    ['Voltar ao portfólio', 'Back to portfolio'],
+    ['Plano da rodada', 'Round plan'],
+    [
+      'A decisão final pertence ao responsável autorizado. Esta tela demonstra os papéis, sem permissões de produção.',
+      'The final decision belongs to the authorized reviewer. This screen demonstrates roles without production permissions.',
+    ],
+    ['Aguardando evidências', 'Awaiting evidence'],
+    ['Em revisão', 'Under review'],
+    ['Autorizada · aguardando execução', 'Authorized · awaiting execution'],
+    [
+      'Execução confirmada · 25% do capital líquido liberado',
+      'Execution confirmed · 25% of net capital released',
+    ],
+    ['Descreva as evidências antes de enviar.', 'Describe the evidence before submitting.'],
+    ['CAPTAÇÃO · ÁREA DA EMPRESA', 'FUNDRAISING · COMPANY WORKSPACE'],
+    ['Sua startup', 'Your startup'],
+    [
+      'Organize a rodada, apresente evidências e acompanhe o capital por etapa.',
+      'Organize the round, submit evidence and track capital by stage.',
+    ],
+    ['Editar apresentação', 'Edit presentation'],
+    ['Apresentar empresa', 'Present company'],
+    ['Meta da rodada', 'Round target'],
+    ['Capital líquido estimado', 'Estimated net capital'],
+    ['Comissão no fechamento', 'Commission at closing'],
+    ['A definir', 'To be defined'],
+    ['Proposta em análise', 'Proposal under review'],
+    ['Apresentação em preparação', 'Presentation in preparation'],
+    [
+      'Sua proposta foi registrada na demonstração. Aguarde a revisão das informações e do plano.',
+      'Your proposal was recorded in the demo. Await review of your information and plan.',
+    ],
+    [
+      'Complete os dados da empresa e defina instrumento, orçamento e marcos antes de publicar a rodada.',
+      'Complete your company details and define the instrument, budget and milestones before publishing the round.',
+    ],
+    ['01 / ESTRUTURA DA RODADA', '01 / ROUND STRUCTURE'],
+    ['Seu plano, em um só lugar.', 'Your plan, in one place.'],
+    ['Participação societária', 'Equity'],
+    ['Conversível', 'Convertible'],
+    ['Site da empresa', 'Company website'],
+    ['Não informado', 'Not provided'],
+    ['Publicação', 'Publication'],
+    ['Após aprovação', 'After approval'],
+    ['Revisar apresentação', 'Review presentation'],
+    ['02 / EXECUÇÃO POR MARCOS', '02 / MILESTONE EXECUTION'],
+    ['Comprove cada entrega.', 'Verify each delivery.'],
+    [
+      'As parcelas seguem o plano da rodada. A IA apoia a análise e o responsável autorizado decide a liberação.',
+      'Installments follow the round plan. AI supports analysis and an authorized reviewer decides the release.',
+    ],
+    ['Ver exemplo de liberação', 'View release example'],
+    ['Também quer investir?', 'Want to invest too?'],
+    [
+      'Seu portfólio e sua captação coexistem nesta conta.',
+      'Your portfolio and fundraising coexist in this account.',
+    ],
+    ['Abrir painel de investimentos →', 'Open investment dashboard →'],
+    ['Abrir navegação', 'Open navigation'],
+    ['Fechar navegação', 'Close navigation'],
+    ['Abrir menu da conta', 'Open account menu'],
+    ['Nome', 'Name'],
+    ['E-mail', 'Email'],
+    ['Senha', 'Password'],
+    ['Entrar', 'Sign in'],
+    ['Criar conta', 'Create account'],
+    ['Esqueceu sua senha?', 'Forgot your password?'],
+    ['Já tem uma conta?', 'Already have an account?'],
+    ['Não tem uma conta?', 'Don’t have an account?'],
+  ];
+  pairs.push(
+    ...[
+      [
+        'Demonstração: informe um e-mail válido e uma senha para iniciar uma sessão temporária. A autenticação real ainda não está conectada; não use senhas reais.',
+        'Demo: enter a valid email and a test password to start a temporary session. Authentication is not connected yet; do not use real passwords.',
+      ],
+      [
+        'Demonstração: preencha os campos para iniciar uma sessão temporária. A criação de contas ainda não está conectada; não use senhas reais.',
+        'Demo: fill in the fields to start a temporary session. Account creation is not connected yet; do not use real passwords.',
+      ],
+      ['← Voltar ao site', '← Back to website'],
+      ['MEMBROS RAFTT', 'RAFTT MEMBERS'],
+      ['Bem-vindo de volta.', 'Welcome back.'],
+      [
+        'Continue sua jornada pelos mercados privados com uma visão mais clara do caminho.',
+        'Continue your journey through private markets with a clearer view ahead.',
+      ],
+      ['Digite sua senha', 'Enter your password'],
+      ['Lembrar de mim', 'Remember me'],
+      ['Esqueceu a senha?', 'Forgot password?'],
+      ['ou continue com', 'or continue with'],
+      ['Novo na Raftt?', 'New to Raftt?'],
+      ['Criar uma conta', 'Create an account'],
+      ['JUNTE-SE À RAFTT', 'JOIN RAFTT'],
+      ['Comece sua jornada.', 'Start your journey.'],
+      [
+        'Crie sua conta para explorar mercados privados com uma visão clara e compartilhada.',
+        'Create your account to explore private markets with a clear, shared view forward.',
+      ],
+      ['Nome completo', 'Full name'],
+      ['Seu nome', 'Your name'],
+      ['Pelo menos 8 caracteres', 'At least 8 characters'],
+      ['Confirmar senha', 'Confirm password'],
+      ['Repita sua senha', 'Repeat your password'],
+      [
+        'Concordo com os termos e a política de privacidade.',
+        'I agree to the terms and privacy policy.',
+      ],
+      ['Criar conta', 'Create account'],
+      ['Já é membro?', 'Already a member?'],
+      [
+        'Entre na sua sessão de demonstração para acessar essa página.',
+        'Sign in to your demo session to access this page.',
+      ],
+      ['CAPTAÇÃO / SUA EMPRESA', 'FUNDRAISING / YOUR COMPANY'],
+      ['Apresente sua startup.', 'Present your startup.'],
+      ['Construa o próximo capítulo.', 'Build the next chapter.'],
+      [
+        'Organize as informações do negócio, a estrutura da rodada e o plano de execução. Você pode captar e continuar investindo com a mesma conta.',
+        'Organize your business information, round structure and execution plan. You can raise capital and keep investing with the same account.',
+      ],
+      ['Conte sobre você e a sua empresa.', 'Tell us about yourself and your company.'],
+      [
+        'Demonstração: os campos ficam salvos neste navegador. Arquivos não são enviados.',
+        'Demo: fields are saved in this browser. Files are not uploaded.',
+      ],
+      ['Dados pessoais', 'Personal details'],
+      ['Sobrenome', 'Last name'],
+      ['Sobre a empresa', 'About the company'],
+      ['Qual é seu objetivo na RAFTT?', 'What is your goal on RAFTT?'],
+      ['Captar para minha empresa', 'Raise for my company'],
+      ['Estruturar um ativo privado', 'Structure a private asset'],
+      ['Projeto Web3', 'Web3 project'],
+      ['Organizar minha comunidade', 'Organize my community'],
+      ['Outro objetivo', 'Other goal'],
+      ['Nome da empresa', 'Company name'],
+      [
+        'Use o nome apresentado no site e no mercado.',
+        'Use the name shown on your website and in the market.',
+      ],
+      ['Seu cargo', 'Your role'],
+      ['Informe o endereço do site da empresa.', 'Enter your company website address.'],
+      ['País de constituição da empresa', 'Country of incorporation'],
+      ['Escolha o país', 'Choose a country'],
+      ['Outro', 'Other'],
+      ['Adicionar link', 'Add link'],
+      ['Selecionar arquivo', 'Select file'],
+      [
+        'Use um link para a apresentação. Nenhum documento é enviado nesta demonstração.',
+        'Use a link to your pitch deck. No document is uploaded in this demo.',
+      ],
+      [
+        'A apresentação organiza as informações para a análise da rodada.',
+        'The pitch deck organizes information for round review.',
+      ],
+      ['Qual categoria representa sua empresa?', 'Which category represents your company?'],
+      ['Imóveis', 'Real estate'],
+      ['Ativos digitais', 'Digital assets'],
+      ['Startup ou PME', 'Startup or SME'],
+      ['Projetos culturais', 'Cultural projects'],
+      ['Veículo de investimento (SPV)', 'Investment vehicle (SPV)'],
+      ['Detalhes da rodada', 'Round details'],
+      ['Como deseja estruturar a rodada?', 'How would you like to structure the round?'],
+      ['Instrumento conversível', 'Convertible instrument'],
+      ['Crédito ou participação em receita', 'Debt or revenue share'],
+      ['Token de utilidade', 'Utility token'],
+      ['Token de rede', 'Network token'],
+      ['Cotas de veículo', 'Vehicle shares'],
+      ['Quanto a empresa já captou (USD)?', 'How much has the company raised (USD)?'],
+      [
+        'Informe o total de financiamentos anteriores. Digite zero se ainda não captou.',
+        'Enter total previous funding. Enter zero if you have not raised capital.',
+      ],
+      ['Sua empresa já tem receita?', 'Does your company generate revenue?'],
+      ['Sim', 'Yes'],
+      ['Não', 'No'],
+      ['Descreva a receita e a tração', 'Describe revenue and traction'],
+      [
+        'Descreva receita, clientes, crescimento e outras métricas de tração.',
+        'Describe revenue, customers, growth and other traction metrics.',
+      ],
+      ['Qual é o tamanho da sua comunidade?', 'How large is your community?'],
+      ['Escolha uma faixa', 'Select a range'],
+      [
+        'Inclua a comunidade de clientes, contatos e seguidores.',
+        'Include customers, contacts and followers.',
+      ],
+      ['Tem interesse em ativos tokenizados?', 'Are you interested in tokenized assets?'],
+      [
+        'A empresa já realizou uma rodada de investimento?',
+        'Has the company raised an investment round before?',
+      ],
+      [
+        'Esta informação ajuda a organizar o histórico de captação.',
+        'This information helps organize your fundraising history.',
+      ],
+      ['Quanto pretende captar na RAFTT (USD)?', 'How much do you plan to raise on RAFTT (USD)?'],
+      [
+        'Defina uma meta compatível com o orçamento e os marcos de execução.',
+        'Set a target consistent with your budget and execution milestones.',
+      ],
+      [
+        'Por quantos meses o caixa atual sustenta a operação?',
+        'How many months of runway does your current cash provide?',
+      ],
+      [
+        'Divida o caixa atual pelo consumo mensal de caixa para estimar a autonomia da operação.',
+        'Divide current cash by monthly cash burn to estimate runway.',
+      ],
+      ['← Voltar', '← Back'],
+      ['Continuar para a rodada', 'Continue to round details'],
+      ['Enviar proposta simulada', 'Submit simulated proposal'],
+      [
+        'Seus campos ficam salvos neste navegador para demonstração.',
+        'Your fields are saved in this browser for demonstration.',
+      ],
+      ['Abrir painel da empresa', 'Open company dashboard'],
+      ['Capital para o próximo capítulo', 'Capital for the next chapter'],
+      [
+        'Organize sua captação e apresente um plano de execução claro aos investidores.',
+        'Organize fundraising and present a clear execution plan to investors.',
+      ],
+      ['Apresente o negócio e as condições da rodada.', 'Present your business and round terms.'],
+      [
+        'Reúna investidores em um veículo, conforme a estrutura da operação.',
+        'Bring investors together in a vehicle according to the transaction structure.',
+      ],
+      [
+        'Comprove o progresso para solicitar cada nova parcela.',
+        'Verify progress to request each new installment.',
+      ],
+      ['Seu plano, suas evidências', 'Your plan, your evidence'],
+      [
+        'Defina marcos com orçamento, prazo, responsável e evidências. A IA apoia a análise; a aprovação cabe ao responsável autorizado.',
+        'Define milestones with budgets, deadlines, owners and evidence. AI supports analysis; approval belongs to the authorized reviewer.',
+      ],
+      ['Você e sua empresa', 'You and your company'],
+      [
+        'Proposta salva neste navegador. Abra o painel da empresa para acompanhar a demonstração.',
+        'Proposal saved in this browser. Open the company dashboard to follow the demo.',
+      ],
+      ['Qualidade', 'Quality'],
+      ['Automática', 'Automatic'],
+      ['Leve', 'Light'],
+      ['Detalhada', 'Detailed'],
+      ['Qualidade gráfica do mapa', 'Map graphics quality'],
+      ['Sair', 'Sign out'],
+    ],
+  );
+  pairs.push(['Investir e captar', 'Invest and raise']);
+  pairs.push(
+    ['Percentual da empresa oferecido na rodada (%)', 'Company equity offered in the round (%)'],
+    [
+      'Informe a participação total oferecida aos investidores desta rodada, de 0,01% a 100%.',
+      'Enter the total equity offered to investors in this round, from 0.01% to 100%.',
+    ],
+    ['Ex.: 10', 'E.g., 10'],
+  );
+  pairs.push(
+    ['Planeje cada entrega.', 'Plan each delivery.'],
+    ['Planejar marcos e orçamento', 'Plan milestones and budget'],
+  );
+  const dict = new Map(pairs),
+    reverse = new Map(pairs.map(([pt, en]) => [en, pt]));
+  function translate(value) {
+    const trim = value.trim();
+    if (lang === 'pt') {
+      if (reverse.has(trim)) return value.replace(trim, reverse.get(trim));
+      return value;
+    }
+    if (dict.has(trim)) return value.replace(trim, dict.get(trim));
+    return value
+      .replace(/^Olá, (.*)\.$/, 'Hello, $1.')
+      .replace(/^Etapa (\d+) de (\d+)$/, 'Step $1 of $2')
+      .replace(' · APORTE SIMULADO', ' · SIMULATED INVESTMENT')
+      .replace(' / Aporte / Confirmação', ' / Investment / Confirmation')
+      .replace(' · acompanhamento', ' · monitoring')
+      .replace('Participação no veículo · consolidada', 'Vehicle ownership · consolidated')
+      .replace('Participação no veículo · estimada', 'Vehicle ownership · estimated')
+      .replace(
+        /([\d.]+)% do veículo e ([\d.]+)% indiretos da startup no fechamento ilustrativo\./,
+        '$1% of the vehicle and $2% indirect startup ownership at illustrative closing.',
+      )
+      .replace(
+        'Plano ilustrativo: concluir produto, realizar pilotos e converter clientes pagantes.',
+        'Illustrative plan: complete the product, run pilots and convert paying customers.',
+      )
+      .replace('Acompanhe no portfólio.', 'Follow it in your portfolio.')
+      .replace(
+        'Abra o aporte no portfólio para tentar novamente.',
+        'Open the investment in your portfolio to retry.',
+      );
+  }
+  function apply(root = document.body) {
+    if (!root) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: (n) =>
+        n.parentElement?.closest('script,style,textarea,[data-i18n-skip]')
+          ? NodeFilter.FILTER_REJECT
+          : NodeFilter.FILTER_ACCEPT,
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((n) => {
+      const v = translate(n.nodeValue);
+      if (v !== n.nodeValue) n.nodeValue = v;
+    });
+    root.querySelectorAll('[placeholder],[aria-label],[title]').forEach((el) =>
+      ['placeholder', 'aria-label', 'title'].forEach((a) => {
+        if (el.hasAttribute(a)) {
+          const old = el.getAttribute(a),
+            v = translate(old);
+          if (v !== old) el.setAttribute(a, v);
+        }
+      }),
+    );
+    document.title = translate(document.title.split(' | ')[0]) + ' | RAFTT';
+  }
+  window.RafttI18n = {
+    lang,
+    change: (value) => {
+      localStorage.setItem('raftt-lang', value === 'pt' ? 'pt' : 'en');
+      location.reload();
+    },
+    apply,
+  };
+  document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
+  function start() {
+    apply();
+    const observer = new MutationObserver((entries) => {
+      const roots = new Set();
+      entries.forEach((e) => {
+        const r = e.target.nodeType === 3 ? e.target.parentElement : e.target;
+        if (r?.closest?.('script,style')) return;
+        roots.add(r);
+      });
+      roots.forEach(apply);
+    });
+    observer.observe(document.body, { subtree: true, childList: true, characterData: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
 })();

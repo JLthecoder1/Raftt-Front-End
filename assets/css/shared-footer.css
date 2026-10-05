@@ -1,9 +1,252 @@
-@font-face{font-family:"Raftt Sans";src:url("../fonts/inter-latin.woff2") format("woff2");font-weight:100 900;font-display:swap}
-footer.raftt-footer{display:block;max-width:none;width:auto;margin:32px 32px 20px;padding:0;border:1px solid #e2e6e9;border-radius:14px;background:linear-gradient(145deg,#f4f4ef 0%,#f8fafb 70%);color:#24334b;letter-spacing:0;font-family:'Raftt Sans',Inter,Arial,sans-serif;font-size:13px;overflow:hidden;position:relative;isolation:isolate}
-.raftt-footer .rf-inner{max-width:1440px;margin:auto;padding:38px 32px 18px}.raftt-footer .rf-top{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:30px}.raftt-footer .rf-brand{display:inline-flex;align-items:center;gap:9px;color:#24334b;text-decoration:none}.raftt-footer .rf-brand img{width:30px;height:30px;object-fit:contain;mix-blend-mode:multiply}.raftt-footer .rf-brand>span{font-size:29px;letter-spacing:-1.6px;font-weight:650}.raftt-footer .rf-brand>span>span{color:#146b8c}.raftt-footer .rf-intro p{font-size:12px;line-height:1.85;color:#74828b;margin:15px 0 18px;max-width:290px}.raftt-footer .rf-journey{display:inline-flex;gap:16px;font-size:12px;font-weight:600;text-decoration:none;color:#146b8c}.raftt-footer .rf-journey span{transition:transform .2s}.raftt-footer .rf-journey:hover span{transform:translate(2px,-2px)}.raftt-footer .rf-links{display:flex;flex-direction:column;align-items:start;gap:11px;margin:0}.raftt-footer .rf-links h2{font-size:11px;font-weight:650;line-height:1.5;letter-spacing:.2px;color:#24334b;margin:5px 0 5px}.raftt-footer .rf-links a{font-size:12px;line-height:1.6;color:#73818b;text-decoration:none;transition:color .2s}.raftt-footer .rf-links a:hover{color:#146b8c}.raftt-footer a:focus-visible{outline:2px solid #146b8c;outline-offset:5px;border-radius:3px}.raftt-footer .rf-wordmark{display:block;margin:28px -12px 8px;line-height:0;text-decoration:none}.raftt-footer .rf-wordmark svg{display:block;width:100%;height:auto;max-height:none;flex-shrink:1}.raftt-footer .rf-wordmark text{font-family:'Raftt Sans',Inter,Arial,sans-serif;font-size:270px;font-weight:800;letter-spacing:-12px}.raftt-footer .rf-wordmark-base{fill:#cbd6df}.raftt-footer .rf-wordmark-reveal{opacity:0;transition:opacity .35s ease}.raftt-footer .rf-wordmark:hover .rf-wordmark-reveal,.raftt-footer .rf-wordmark:focus-visible .rf-wordmark-reveal{opacity:.65}.raftt-footer .rf-bottom{display:flex;align-items:center;justify-content:space-between;gap:18px;border-top:1px solid #dfe5e9;padding-top:17px;color:#85919a;font-size:9px;line-height:1.7}.raftt-footer .rf-bottom i{font-style:normal;margin:0 8px;color:#aeb8c0}
-.app-body>footer.raftt-footer{margin:22px 42px 24px}.app-body>.raftt-footer .rf-inner{padding:30px 28px 18px}.app-body>.raftt-footer .rf-top{grid-template-columns:1.6fr 1fr 1.2fr 1fr;gap:22px}.app-body>.raftt-footer .rf-wordmark{margin-top:24px}
-@media(max-width:1050px){.raftt-footer .rf-top,.app-body>.raftt-footer .rf-top{grid-template-columns:repeat(3,1fr);gap:28px}.raftt-footer .rf-intro{grid-column:1/-1;display:grid;grid-template-columns:1fr 1.5fr;column-gap:22px;align-items:center}.raftt-footer .rf-intro p{grid-column:2;grid-row:1/3;margin:0;max-width:none}.raftt-footer .rf-journey{margin-top:8px}.raftt-footer .rf-bottom{align-items:start;flex-direction:column;gap:6px}}
-@media(max-width:600px){footer.raftt-footer{margin:24px 14px 14px;border-radius:10px}.app-body>footer.raftt-footer{margin:18px 20px 20px}.raftt-footer .rf-inner,.app-body>.raftt-footer .rf-inner{padding:24px 20px 16px}.raftt-footer .rf-top,.app-body>.raftt-footer .rf-top{grid-template-columns:1fr 1fr;gap:25px 18px}.raftt-footer .rf-intro{display:block}.raftt-footer .rf-intro p{margin:12px 0}.raftt-footer .rf-links{gap:9px}.raftt-footer .rf-links h2{margin-top:0}.raftt-footer .rf-wordmark,.app-body>.raftt-footer .rf-wordmark{margin:24px -6px 12px}.raftt-footer .rf-bottom{font-size:8px}.raftt-footer .rf-bottom>span{display:block!important}.raftt-footer .rf-links a{font-size:11px}.raftt-footer .rf-wordmark:hover .rf-wordmark-reveal{opacity:0}}
-@media(prefers-reduced-motion:reduce){.raftt-footer .rf-wordmark-reveal,.raftt-footer .rf-links a,.raftt-footer .rf-journey span{transition:none}}
+@font-face {
+  font-family: 'Raftt Sans';
+  src: url('../fonts/inter-latin.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+footer.raftt-footer {
+  display: block;
+  max-width: none;
+  width: auto;
+  margin: 32px 32px 20px;
+  padding: 0;
+  border: 1px solid #e2e6e9;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #f4f4ef 0%, #f8fafb 70%);
+  color: #24334b;
+  letter-spacing: 0;
+  font-family: 'Raftt Sans', Inter, Arial, sans-serif;
+  font-size: 13px;
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+}
+.raftt-footer .rf-inner {
+  max-width: 1440px;
+  margin: auto;
+  padding: 38px 32px 18px;
+}
+.raftt-footer .rf-top {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1fr;
+  gap: 30px;
+}
+.raftt-footer .rf-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #24334b;
+  text-decoration: none;
+}
+.raftt-footer .rf-brand img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.raftt-footer .rf-brand > span {
+  font-size: 29px;
+  letter-spacing: -1.6px;
+  font-weight: 650;
+}
+.raftt-footer .rf-brand > span > span {
+  color: #146b8c;
+}
+.raftt-footer .rf-intro p {
+  font-size: 12px;
+  line-height: 1.85;
+  color: #74828b;
+  margin: 15px 0 18px;
+  max-width: 290px;
+}
+.raftt-footer .rf-journey {
+  display: inline-flex;
+  gap: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #146b8c;
+}
+.raftt-footer .rf-journey span {
+  transition: transform 0.2s;
+}
+.raftt-footer .rf-journey:hover span {
+  transform: translate(2px, -2px);
+}
+.raftt-footer .rf-links {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 11px;
+  margin: 0;
+}
+.raftt-footer .rf-links h2 {
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+  color: #24334b;
+  margin: 5px 0 5px;
+}
+.raftt-footer .rf-links a {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #73818b;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.raftt-footer .rf-links a:hover {
+  color: #146b8c;
+}
+.raftt-footer a:focus-visible {
+  outline: 2px solid #146b8c;
+  outline-offset: 5px;
+  border-radius: 3px;
+}
+.raftt-footer .rf-wordmark {
+  display: block;
+  margin: 28px -12px 8px;
+  line-height: 0;
+  text-decoration: none;
+}
+.raftt-footer .rf-wordmark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  flex-shrink: 1;
+}
+.raftt-footer .rf-wordmark text {
+  font-family: 'Raftt Sans', Inter, Arial, sans-serif;
+  font-size: 270px;
+  font-weight: 800;
+  letter-spacing: -12px;
+}
+.raftt-footer .rf-wordmark-base {
+  fill: #cbd6df;
+}
+.raftt-footer .rf-wordmark-reveal {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.raftt-footer .rf-wordmark:hover .rf-wordmark-reveal,
+.raftt-footer .rf-wordmark:focus-visible .rf-wordmark-reveal {
+  opacity: 0.65;
+}
+.raftt-footer .rf-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-top: 1px solid #dfe5e9;
+  padding-top: 17px;
+  color: #85919a;
+  font-size: 9px;
+  line-height: 1.7;
+}
+.raftt-footer .rf-bottom i {
+  font-style: normal;
+  margin: 0 8px;
+  color: #aeb8c0;
+}
+.app-body > footer.raftt-footer {
+  margin: 22px 42px 24px;
+}
+.app-body > .raftt-footer .rf-inner {
+  padding: 30px 28px 18px;
+}
+.app-body > .raftt-footer .rf-top {
+  grid-template-columns: 1.6fr 1fr 1.2fr 1fr;
+  gap: 22px;
+}
+.app-body > .raftt-footer .rf-wordmark {
+  margin-top: 24px;
+}
+@media (max-width: 1050px) {
+  .raftt-footer .rf-top,
+  .app-body > .raftt-footer .rf-top {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .raftt-footer .rf-intro {
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    column-gap: 22px;
+    align-items: center;
+  }
+  .raftt-footer .rf-intro p {
+    grid-column: 2;
+    grid-row: 1/3;
+    margin: 0;
+    max-width: none;
+  }
+  .raftt-footer .rf-journey {
+    margin-top: 8px;
+  }
+  .raftt-footer .rf-bottom {
+    align-items: start;
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+@media (max-width: 600px) {
+  footer.raftt-footer {
+    margin: 24px 14px 14px;
+    border-radius: 10px;
+  }
+  .app-body > footer.raftt-footer {
+    margin: 18px 20px 20px;
+  }
+  .raftt-footer .rf-inner,
+  .app-body > .raftt-footer .rf-inner {
+    padding: 24px 20px 16px;
+  }
+  .raftt-footer .rf-top,
+  .app-body > .raftt-footer .rf-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 25px 18px;
+  }
+  .raftt-footer .rf-intro {
+    display: block;
+  }
+  .raftt-footer .rf-intro p {
+    margin: 12px 0;
+  }
+  .raftt-footer .rf-links {
+    gap: 9px;
+  }
+  .raftt-footer .rf-links h2 {
+    margin-top: 0;
+  }
+  .raftt-footer .rf-wordmark,
+  .app-body > .raftt-footer .rf-wordmark {
+    margin: 24px -6px 12px;
+  }
+  .raftt-footer .rf-bottom {
+    font-size: 8px;
+  }
+  .raftt-footer .rf-bottom > span {
+    display: block !important;
+  }
+  .raftt-footer .rf-links a {
+    font-size: 11px;
+  }
+  .raftt-footer .rf-wordmark:hover .rf-wordmark-reveal {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .raftt-footer .rf-wordmark-reveal,
+  .raftt-footer .rf-links a,
+  .raftt-footer .rf-journey span {
+    transition: none;
+  }
+}
 
-.raftt-footer .rf-brand-icon{width:27px;height:27px;color:#146b8c;flex-shrink:0}
+.raftt-footer .rf-brand-icon {
+  width: 27px;
+  height: 27px;
+  color: #146b8c;
+  flex-shrink: 0;
+}
