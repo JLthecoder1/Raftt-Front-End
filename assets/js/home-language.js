@@ -1,4 +1,7 @@
-const languageToggle = document.querySelector("#language-toggle");
+const languageToggle = document.querySelector("#language-current");
+const languageTrigger = document.querySelector("#language-toggle");
+const languageMenu = document.querySelector("#language-menu");
+const languageOptions = document.querySelectorAll("[data-language]");
 
 const portugueseText = [
     [".nav-link", ["Mercados", "Como funciona", "Marcos", "Perguntas frequentes", "Capte com a Raftt"]],
@@ -150,8 +153,9 @@ function setGeneratedText(selector, values) {
 }
 
 function translateHome(toPortuguese) {
+    localStorage.setItem("raftt-lang", toPortuguese ? "pt" : "en");
     document.documentElement.lang = toPortuguese ? "pt-BR" : "en";
-    document.title = toPortuguese ? "Raftt | Mercados privados, em conjunto" : "Raftt | Private Markets, Together";
+    document.title = toPortuguese ? "Mercados privados, juntos | RAFTT" : "Private markets, together | RAFTT";
     originalMarkup.forEach((markup, element) => {
         element.innerHTML = markup;
     });
@@ -248,6 +252,42 @@ function translateHome(toPortuguese) {
     }
 }
 
-languageToggle.addEventListener("click", () => {
-    translateHome(document.documentElement.lang !== "pt-BR");
+function closeLanguageMenu() {
+    languageMenu.hidden = true;
+    languageTrigger.setAttribute("aria-expanded", "false");
+}
+
+languageTrigger.addEventListener("click", () => {
+    const isOpen = languageTrigger.getAttribute("aria-expanded") === "true";
+    languageMenu.hidden = isOpen;
+    languageTrigger.setAttribute("aria-expanded", String(!isOpen));
 });
+
+languageOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+        const isPortuguese = option.dataset.language === "pt-BR";
+        translateHome(isPortuguese);
+        languageToggle.textContent = isPortuguese ? "PT" : "EN";
+        languageOptions.forEach((item) => {
+            item.setAttribute("aria-checked", String(item === option));
+        });
+        closeLanguageMenu();
+        languageTrigger.focus();
+    });
+});
+
+document.addEventListener("pointerdown", (event) => {
+    if (!event.target.closest(".language-picker")) closeLanguageMenu();
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !languageMenu.hidden) {
+        closeLanguageMenu();
+        languageTrigger.focus();
+    }
+});
+
+const savedHomeLanguage = localStorage.getItem("raftt-lang") || "en";
+translateHome(savedHomeLanguage === "pt");
+languageToggle.textContent = savedHomeLanguage === "pt" ? "PT" : "EN";
+languageOptions.forEach(option => option.setAttribute("aria-checked", String(option.dataset.language === (savedHomeLanguage === "pt" ? "pt-BR" : "en"))));

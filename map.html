@@ -4,26 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Raftt investor map: sail across private investment categories.">
-    <title>Map | Raftt</title>
+    <title>Investment map | RAFTT</title>
+    <script src="assets/js/auth-gate.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/map.css">
+    <link rel="stylesheet" href="assets/css/map.css"><style>@font-face{font-family:Raftt Sans;src:url(assets/fonts/inter-latin.woff2) format("woff2");font-weight:100 900;font-display:swap}</style>
+<script src="assets/js/app-language.js" defer></script><link rel="stylesheet" href="assets/css/brand-theme.css">
+<script src="assets/js/brand-theme.js" defer></script>
+<script src="assets/js/page-metadata.js" defer></script>
+<script src="assets/js/number-format.js"></script>
 </head>
 <body class="dashboard-page map-page">
     <div class="dashboard-shell map-shell">
         <aside class="dashboard-sidebar" id="dashboard-sidebar" aria-label="Dashboard navigation">
             <div class="sidebar-top">
-                <a class="sidebar-brand" href="Index.html" aria-label="Raftt home"><img src="assets/images/raftt-logo.png" alt="Raftt"><span>RAFTT</span></a>
+                <a class="sidebar-brand" href="index.html" aria-label="Raftt home"><img src="assets/images/raftt-logo.png" alt="Raftt"><span>RAFTT</span></a>
                 <button class="sidebar-collapse" type="button" aria-label="Collapse sidebar" aria-expanded="true"><span aria-hidden="true">&lsaquo;</span></button>
             </div>
             <nav class="dashboard-nav" aria-label="Member navigation">
+                <a class="dashboard-nav-link" href="investor-dashboard.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" /></svg><span>Dashboard</span></a>
+                <a class="dashboard-nav-link" href="portfolio.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v13H4zM4 9.5h16M8 13h3" /></svg><span>Meu portfólio</span></a>
                 <a class="dashboard-nav-link is-active" href="map.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18-5.2 2.8V5.2L9 2.5zm6 3.5L9 18V2.5L15 6zm5.2-2.7L15 21.5V6l5.2-2.8z" /></svg><span id="nav-map-label">Map</span></a>
-                <a class="dashboard-nav-link" href="welcome.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" /></svg><span>Dashboard</span></a>
-                <a class="dashboard-nav-link" href="user-profile.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5" /><path d="M5 20c.8-3.5 3.1-5.25 7-5.25S18.2 16.5 19 20" /></svg><span>Profile</span></a>
-                <div id="side-cats" class="side-cats"></div>
+                <a class="dashboard-nav-link" href="profile.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5" /><path d="M5 20c.8-3.5 3.1-5.25 7-5.25S18.2 16.5 19 20" /></svg><span>Profile</span></a>
+                <a class="dashboard-nav-link" href="company-dashboard.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V5h10v16M14 10h6v11M2 21h20M7 9h4M7 13h4" /></svg><span>Minha captação</span></a><div id="side-cats" class="side-cats"></div>
             </nav>
             <div class="sidebar-bottom">
-                <a class="dashboard-nav-link" href="Index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7 5 12l5 5M5 12h14" /></svg><span>Back to site</span></a>
-                <a class="dashboard-user" href="user-profile.html"><span class="dashboard-avatar" aria-hidden="true">R</span><span class="dashboard-user-copy"><strong>Raftt Member</strong><small>Member area</small></span></a>
+                <a class="dashboard-user" href="profile.html"><span class="dashboard-avatar" aria-hidden="true">R</span><span class="dashboard-user-copy"><strong>Raftt Member</strong><small>Member area</small></span></a>
+                <a class="dashboard-nav-link" href="login.html" data-demo-sign-out><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" /></svg><span>Sair</span></a>
             </div>
         </aside>
 
@@ -32,8 +38,9 @@
             <div id="map-labels"></div>
             <div id="raft-marker" class="raft-marker">Your RAFTT</div>
             <button class="dashboard-menu-toggle map-menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="dashboard-sidebar"><span></span><span></span><span></span></button>
-            <div class="map-tools">
+            <div class="map-quality"><label>Qualidade <select id="render-quality" aria-label="Qualidade gráfica do mapa"><option value="auto">Automática</option><option value="economy">Leve</option><option value="quality">Detalhada</option></select></label></div><div class="map-tools">
                 <button id="lang-toggle" type="button" aria-label="Language">PT</button>
+                <button id="map-guide-open" type="button" aria-label="Map guide">?</button>
                 <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
                 <button id="zoom-out" type="button" aria-label="Zoom out">&minus;</button>
                 <button id="recenter" type="button" aria-label="Recenter"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button>
@@ -49,6 +56,27 @@
                 </header>
                 <div id="opportunity-menu-list" class="opportunity-menu__list" role="list"></div>
             </section>
+            <dialog id="map-guide" class="map-guide" aria-labelledby="map-guide-title" aria-describedby="map-guide-intro">
+                <header class="map-guide__header">
+                    <div>
+                        <p class="map-guide__eyebrow">RAFTT</p>
+                        <h2 id="map-guide-title"></h2>
+                    </div>
+                    <button id="map-guide-close" class="map-guide__close" type="button" aria-label="Close guide">&times;</button>
+                </header>
+                <div class="map-guide__content">
+                    <p id="map-guide-intro"></p>
+                    <ol>
+                        <li id="map-guide-islands"></li>
+                        <li id="map-guide-sail"></li>
+                        <li id="map-guide-controls"></li>
+                        <li id="map-guide-review"></li>
+                    </ol>
+                </div>
+                <footer class="map-guide__footer">
+                    <button id="map-guide-done" class="map-guide__done" type="button"></button>
+                </footer>
+            </dialog>
             <div id="loading" class="loading"><div><strong>RAFTT</strong><p id="loading-text"></p><div class="bar"><i id="loading-bar"></i></div></div></div>
         </main>
 

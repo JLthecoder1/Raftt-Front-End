@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Apply to raise capital with the Raftt community.">
+    <title>Company application | RAFTT</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .raise-page { min-height: 100vh; background: #f4f8f8; color: #24334b; }
+        .raise-header { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.1rem clamp(1rem, 5vw, 5rem); border-bottom: 1px solid rgb(36 51 75 / 9%); background: #fff; }
+        .raise-brand { display: inline-flex; align-items: center; gap: .65rem; color: #24334b; font-size: .85rem; font-weight: 800; letter-spacing: .12em; text-decoration: none; }
+        .raise-brand img { width: 2.2rem; height: 2.2rem; object-fit: contain; }
+        .raise-header-link { color: #146b8c; font-size: .83rem; font-weight: 700; text-decoration: none; }
+        .raise-header nav { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+        .raise-header-link:hover { text-decoration: underline; }
+        .raise-main { width: min(74rem, calc(100% - 2rem)); margin: 0 auto; padding: clamp(2.5rem, 6vw, 5rem) 0 5rem; }
+        .raise-intro { max-width: 48rem; margin-bottom: 2.5rem; }
+        .raise-kicker { margin: 0 0 .8rem; color: #147a8b; font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+        .raise-intro h1 { max-width: 43rem; margin: 0; font-size: clamp(2.5rem, 6vw, 4.8rem); letter-spacing: -.065em; line-height: .99; }
+        .raise-intro h1 span { color: #147a8b; }
+        .raise-intro > p:last-child { max-width: 42rem; margin: 1.25rem 0 0; color: #52627a; font-size: 1.02rem; line-height: 1.7; }
+        .raise-layout { display: grid; grid-template-columns: minmax(0, 1fr) 19rem; align-items: start; gap: 1.5rem; }
+        .raise-form-card, .raise-aside-card { border: 1px solid rgb(36 51 75 / 9%); border-radius: 1.15rem; background: #fff; box-shadow: 0 1rem 2.5rem rgb(36 51 75 / 6%); }
+        .raise-form-card { padding: clamp(1.25rem, 4vw, 2.5rem); }
+        .raise-form-heading { margin-bottom: 1.75rem; padding-bottom: 1.4rem; border-bottom: 1px solid rgb(36 51 75 / 10%); }
+        .raise-form-heading h2 { margin: 0 0 .55rem; font-size: 1.45rem; letter-spacing: -.04em; }
+        .raise-form-heading p { margin: 0; color: #64748b; font-size: .84rem; line-height: 1.6; }
+        .raise-demo-notice { margin-top: 1rem !important; padding: .8rem .9rem; border: 1px solid #edd7a3; border-radius: .55rem; background: #fff9e9; color: #70430a !important; font-size: .76rem !important; }
+        .raise-section + .raise-section { margin-top: 2.2rem; padding-top: 1.8rem; border-top: 1px solid rgb(36 51 75 / 10%); }
+        .raise-section h3 { margin: 0 0 1.2rem; font-size: 1.06rem; letter-spacing: -.025em; }
+        .raise-step-indicator { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem; margin-top: 1.2rem; color: #64748b; font-size: .73rem; }
+        .raise-step-indicator strong { color: #146b8c; }
+        .raise-step-actions { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem; margin-top: 1.4rem; }
+        .raise-step-actions .raise-submit { width: auto; flex: 1 1 14rem; margin-top: 0; }
+        .raise-step-button { min-height: 3.2rem; padding: .8rem 1rem; border: 1px solid #cbd9de; border-radius: .6rem; background: #fff; color: #146b8c; cursor: pointer; font: inherit; font-size: .85rem; font-weight: 800; }
+        .raise-step-button:hover { background: #eef8f8; }
+        .raise-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+        .raise-field { display: grid; align-content: start; gap: .45rem; min-width: 0; }
+        .raise-field--wide { grid-column: 1 / -1; }
+        .raise-fieldset { border: 0; padding: 0; margin: 0; }
+        .raise-deck-methods { margin: .55rem 0 .75rem; }
+        .raise-field label, .raise-label { color: #334155; font-size: .79rem; font-weight: 700; }
+        .raise-field input, .raise-field select, .raise-field textarea { width: 100%; min-height: 2.9rem; padding: .7rem .8rem; border: 1px solid #d5dfe2; border-radius: .55rem; outline: none; background: #fff; color: #24334b; font: inherit; font-size: .86rem; transition: border-color 160ms ease, box-shadow 160ms ease; }
+        .raise-field textarea { min-height: 6rem; resize: vertical; }
+        .raise-field input:focus, .raise-field select:focus, .raise-field textarea:focus { border-color: #14869a; box-shadow: 0 0 0 3px rgb(20 134 154 / 13%); }
+        .raise-hint { margin: 0; color: #718096; font-size: .72rem; line-height: 1.5; }
+        .raise-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem; }
+        .raise-option { display: flex; align-items: flex-start; gap: .6rem; min-height: 2.75rem; padding: .75rem; border: 1px solid #d5dfe2; border-radius: .55rem; color: #435268; cursor: pointer; font-size: .78rem; line-height: 1.4; transition: border-color 160ms ease, background-color 160ms ease; }
+        .raise-option:has(input:checked) { border-color: #14869a; background: #eef9f8; color: #155d69; }
+        .raise-option input { flex: 0 0 auto; width: 1rem; height: 1rem; margin: .08rem 0 0; accent-color: #147a8b; }
+        .raise-option--compact { align-items: center; min-height: 2.55rem; }
+        .raise-inline-options { display: flex; flex-wrap: wrap; gap: .55rem; }
+        .raise-upload { display: grid; min-height: 7.25rem; place-items: center; padding: 1rem; border: 1px dashed #9bb6be; border-radius: .65rem; background: #f8fbfb; text-align: center; cursor: pointer; }
+        .raise-upload input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+        .raise-upload strong { display: block; color: #146b8c; font-size: .82rem; }
+        .raise-upload span { display: block; margin-top: .3rem; color: #718096; font-size: .72rem; }
+        .raise-submit { display: flex; width: 100%; min-height: 3.2rem; align-items: center; justify-content: center; gap: .55rem; margin-top: 1.75rem; padding: .8rem 1rem; border: 0; border-radius: .6rem; background: #126d80; color: #fff; cursor: pointer; font: inherit; font-size: .9rem; font-weight: 800; transition: background-color 160ms ease, transform 160ms ease; }
+        .raise-submit:hover { transform: translateY(-1px); background: #0c596b; }
+        .raise-submit:focus-visible { outline: 3px solid #76cfce; outline-offset: 3px; }
+        .raise-privacy { margin: .85rem 0 0; color: #718096; font-size: .7rem; line-height: 1.55; text-align: center; }
+        .raise-status { margin: 1rem 0 0; padding: .85rem 1rem; border-radius: .55rem; background: #fff5e8; color: #70430a; font-size: .8rem; line-height: 1.5; }
+        .raise-status[hidden], [hidden] { display: none !important; }
+        .raise-aside { position: sticky; top: 1.25rem; display: grid; gap: 1rem; }
+        .raise-aside-card { padding: 1.25rem; }
+        .raise-aside-card h2 { margin: 0 0 .55rem; font-size: 1rem; letter-spacing: -.025em; }
+        .raise-aside-card > p { margin: 0; color: #64748b; font-size: .78rem; line-height: 1.6; }
+        .raise-benefits { display: grid; gap: 1rem; margin: 1.1rem 0 0; padding: 0; list-style: none; }
+        .raise-benefits li { display: grid; grid-template-columns: 1.5rem 1fr; gap: .65rem; color: #52627a; font-size: .76rem; line-height: 1.5; }
+        .raise-benefits li::before { display: grid; width: 1.45rem; height: 1.45rem; place-items: center; border-radius: 50%; background: #e6f5f3; color: #147a8b; content: "✓"; font-size: .75rem; font-weight: 800; }
+        .raise-aside-note { padding: 1.25rem; border-radius: 1rem; background: #20344a; color: #fff; }
+        .raise-aside-note strong { display: block; margin-bottom: .5rem; font-size: .95rem; }
+        .raise-aside-note p { margin: 0; color: rgb(255 255 255 / 76%); font-size: .77rem; line-height: 1.6; }
+        .raise-footer { padding: 1.25rem; color: #718096; font-size: .72rem; text-align: center; }
+        .raise-footer a { color: #146b8c; font-weight: 700; text-decoration: none; }
+        @media (max-width: 800px) { .raise-layout { grid-template-columns: 1fr; }.raise-aside { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }.raise-aside-note { grid-column: 1 / -1; } }
+        @media (max-width: 540px) { .raise-main { width: min(100% - 1.25rem, 42rem); padding-top: 2.2rem; }.raise-header { padding-inline: .75rem; }.raise-header-link { font-size: .74rem; }.raise-fields, .raise-options, .raise-aside { grid-template-columns: 1fr; }.raise-field--wide, .raise-aside-note { grid-column: auto; }.raise-form-card { padding: 1.15rem; }.raise-intro h1 { font-size: clamp(2.35rem, 13vw, 3.4rem); } }
+        @media (prefers-reduced-motion: reduce) { .raise-field input, .raise-field select, .raise-option, .raise-submit { transition: none; } }
+    </style>
+<link rel="stylesheet" href="assets/css/investor-flow.css"><link rel="stylesheet" href="assets/css/shared-footer.css">
+<script src="assets/js/shared-footer.js" defer></script>
+<link rel="stylesheet" href="assets/css/brand-theme.css">
+<script src="assets/js/brand-theme.js" defer></script>
+<script src="assets/js/page-metadata.js" defer></script>
+<script src="assets/js/number-format.js"></script>
+</head>
+<body class="raise-page">
+    <header class="raise-header">
+        <a class="raise-brand" href="index.html" aria-label="Raftt home">
+            <img src="assets/images/raftt-logo.png" alt="">
+            <span>RAFTT</span>
+        </a>
+        <nav aria-label="Raise capital navigation">
+            <a class="raise-header-link" href="account-workspaces.html">Choose another path</a>
+            <a class="raise-header-link" href="index.html">Voltar to Raftt <span aria-hidden="true">↗</span></a>
+        </nav>
+    </header>
+
+    <main class="raise-main">
+        <section class="raise-intro" aria-labelledby="raise-title">
+            <p class="raise-kicker">CAPTAÇÃO / SUA EMPRESA</p>
+            <h1 id="raise-title">Apresente sua startup. <span>Construa o próximo capítulo.</span></h1>
+            <p>Organize as informações do negócio, a estrutura da rodada e o plano de execução. Você pode captar e continuar investindo com a mesma conta.</p>
+        </section>
+
+        <div class="raise-layout">
+            <form class="raise-form-card" id="raise-application">
+                <div class="raise-form-heading">
+                    <h2>Apresentação da empresa</h2>
+                    <p>Conte sobre você e a sua empresa.</p>
+                    <p class="raise-demo-notice" role="note">Demonstração: os campos ficam salvos neste navegador. Arquivos não são enviados.</p>
+                    <div class="raise-step-indicator" aria-live="polite"><span id="raise-step-count">Etapa 1 de 2</span><strong id="raise-step-title">Você e sua empresa</strong></div>
+                </div>
+
+                <div class="raise-step" data-raise-step>
+                <section class="raise-section" aria-labelledby="personal-heading">
+                    <h3 id="personal-heading" tabindex="-1">Dados pessoais</h3>
+                    <div class="raise-fields">
+                        <div class="raise-field">
+                            <label for="first-name">Nome</label>
+                            <input id="first-name" name="firstName" autocomplete="given-name" required>
+                        </div>
+                        <div class="raise-field">
+                            <label for="last-name">Sobrenome</label>
+                            <input id="last-name" name="lastName" autocomplete="family-name" required>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="raise-section" aria-labelledby="company-heading">
+                    <h3 id="company-heading" tabindex="-1">Sobre a empresa</h3>
+                    <div class="raise-fields">
+                        <fieldset class="raise-field raise-field--wide raise-fieldset">
+                            <legend class="raise-label">Qual é seu objetivo na RAFTT?</legend>
+                            <div class="raise-options">
+                                <label class="raise-option"><input type="radio" name="goal" value="company-fundraise" required>Captar para minha empresa</label>
+                                <label class="raise-option"><input type="radio" name="goal" value="real-world-asset">Estruturar um ativo privado</label>
+                                <label class="raise-option"><input type="radio" name="goal" value="web3-token">Projeto Web3</label>
+                                <label class="raise-option"><input type="radio" name="goal" value="community">Organizar minha comunidade</label>
+                                <label class="raise-option"><input type="radio" name="goal" value="other">Outro objetivo</label>
+                            </div>
+                        </fieldset>
+                        <div class="raise-field">
+                            <label for="company-name">Nome da empresa</label>
+                            <input id="company-name" name="companyName" autocomplete="organization" aria-describedby="company-name-hint" required>
+                            <p class="raise-hint" id="company-name-hint">Use o nome apresentado no site e no mercado.</p>
+                        </div>
+                        <div class="raise-field">
+                            <label for="company-title">Seu cargo</label>
+                            <input id="company-title" name="title" autocomplete="organization-title" placeholder="e.g., CEO, Founder" required>
+                        </div>
+                        <div class="raise-field">
+                            <label for="company-website">Site da empresa</label>
+                            <input id="company-website" name="website" type="url" autocomplete="url" placeholder="https://yourcompany.com" required>
+                            <p class="raise-hint">Informe o endereço do site da empresa.</p>
+                        </div>
+                        <div class="raise-field">
+                            <label for="company-country">País de constituição da empresa</label>
+                            <select id="company-country" name="country" required>
+                                <option value="">Escolha o país</option>
+                                <option>Argentina</option><option>Australia</option><option>Austria</option><option>Belgium</option>
+                                <option>Brazil</option><option>Canada</option><option>Chile</option><option>China</option>
+                                <option>Colombia</option><option>Denmark</option><option>Finland</option><option>France</option>
+                                <option>Germany</option><option>India</option><option>Indonesia</option><option>Ireland</option>
+                                <option>Israel</option><option>Italy</option><option>Japan</option><option>Mexico</option>
+                                <option>Netherlands</option><option>New Zealand</option><option>Norway</option><option>Poland</option>
+                                <option>Portugal</option><option>Singapore</option><option>South Africa</option><option>South Korea</option>
+                                <option>Spain</option><option>Sweden</option><option>Switzerland</option><option>United Arab Emirates</option>
+                                <option>United Kingdom</option><option>United States</option><option>Outro</option>
+                            </select>
+                        </div>
+                        <fieldset class="raise-field raise-field--wide raise-fieldset">
+                            <legend class="raise-label">Apresentação da empresa</legend>
+                            <div class="raise-inline-options raise-deck-methods">
+                                <label class="raise-option raise-option--compact"><input type="radio" name="deckMethod" value="url" checked>Adicionar link</label>
+                                <label class="raise-option raise-option--compact"><input type="radio" name="deckMethod" value="file">Selecionar arquivo</label>
+                            </div>
+                            <div class="raise-field" id="deck-url-field">
+                                <input id="deck-url" name="deckUrl" type="url" placeholder="https://docs.google.com/..." aria-describedby="deck-hint" required>
+                                <p class="raise-hint" id="deck-hint">Use um link para a apresentação. Nenhum documento é enviado nesta demonstração.</p>
+                            </div>
+                            <label class="raise-upload" id="deck-upload-field" for="deck-file" hidden>
+                                <input id="deck-file" name="deckFile" type="file" accept=".pdf,.ppt,.pptx,.key">
+                                <span><strong>Choose pitch deck file</strong><span id="deck-file-name">PDF, PPT, PPTX, or Keynote</span></span>
+                            </label>
+                            <p class="raise-hint">A apresentação organiza as informações para a análise da rodada.</p>
+                        </fieldset>
+                        <fieldset class="raise-field raise-field--wide raise-fieldset">
+                            <legend class="raise-label">Qual categoria representa sua empresa?</legend>
+                            <div class="raise-options">
+                                <label class="raise-option"><input type="radio" name="asset" value="real-estate" required>Imóveis</label>
+                                <label class="raise-option"><input type="radio" name="asset" value="crypto">Ativos digitais</label>
+                                <label class="raise-option"><input type="radio" name="asset" value="startup-smb">Startup ou PME</label>
+                                <label class="raise-option"><input type="radio" name="asset" value="culture-fund">Projetos culturais</label>
+                                <label class="raise-option"><input type="radio" name="asset" value="spv">Veículo de investimento (SPV)</label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </section>
+
+                </div>
+                <div class="raise-step" data-raise-step hidden>
+                <section class="raise-section" aria-labelledby="additional-heading">
+                    <h3 id="additional-heading" tabindex="-1">Detalhes da rodada</h3>
+                    <div class="raise-fields">
+                        <fieldset class="raise-field raise-field--wide raise-fieldset">
+                            <legend class="raise-label">Como deseja estruturar a rodada?</legend>
+                            <div class="raise-options">
+                                <label class="raise-option"><input type="radio" name="structure" value="safe" required>SAFE</label>
+                                <label class="raise-option"><input type="radio" name="structure" value="convertible-note">Instrumento conversível</label>
+                                <label class="raise-option"><input type="radio" name="structure" value="equity">Participação societária</label>
+                                <label class="raise-option"><input type="radio" name="structure" value="debt-revenue">Crédito ou participação em receita</label>
+                                <label class="raise-option"><input type="radio" name="structure" value="utility-token">Token de utilidade</label>
+                                <label class="raise-option"><input type="radio" name="structure" value="network-token">Token de rede</label>
+                                <label class="raise-option"><input type="radio" name="structure" value="fund-shares">Cotas de veículo</label>
+                                <label class="raise-option"><input type="radio" name="structure" value="other">Outro</label>
+                            </div>
+                        </fieldset>
+                        <div class="raise-field raise-field--wide" id="equity-percentage-field" hidden>
+                            <label for="equity-percentage">Percentual da empresa oferecido na rodada (%)</label>
+                            <input id="equity-percentage" name="equityPercentage" type="number" min="0.01" max="100" step="0.01" inputmode="decimal" placeholder="Ex.: 10" aria-describedby="equity-percentage-hint" disabled>
+                            <p class="raise-hint" id="equity-percentage-hint">Informe a participação total oferecida aos investidores desta rodada, de 0,01% a 100%.</p>
+                        </div>
+                        <div class="raise-field">
+                            <label for="raised-to-date">Quanto a empresa já captou (USD)?</label>
+                            <input id="raised-to-date" name="raisedToDate" type="number" min="0" step="1" inputmode="decimal" placeholder="0" aria-describedby="raised-hint" required>
+                            <p class="raise-hint" id="raised-hint">Informe o total de financiamentos anteriores. Digite zero se ainda não captou.</p>
+                        </div>
+                        <fieldset class="raise-field raise-fieldset">
+                            <legend class="raise-label">Sua empresa já tem receita?</legend>
+                            <div class="raise-inline-options">
+                                <label class="raise-option raise-option--compact"><input type="radio" name="revenue" value="yes" required>Sim</label>
+                                <label class="raise-option raise-option--compact"><input type="radio" name="revenue" value="no">Não</label>
+                            </div>
+                        </fieldset>
+                        <div class="raise-field raise-field--wide" id="revenue-details-field" hidden>
+                            <label for="revenue-details">Descreva a receita e a tração</label>
+                            <textarea id="revenue-details" name="revenueDetails" placeholder="Descreva receita, clientes, crescimento e outras métricas de tração."></textarea>
+                        </div>
+                        <fieldset class="raise-field raise-fieldset">
+                            <legend class="raise-label">Tem interesse em ativos tokenizados?</legend>
+                            <div class="raise-inline-options">
+                                <label class="raise-option raise-option--compact"><input type="radio" name="tokenizedAssets" value="yes" required>Sim</label>
+                                <label class="raise-option raise-option--compact"><input type="radio" name="tokenizedAssets" value="no">Não</label>
+                            </div>
+                        </fieldset>
+                        <fieldset class="raise-field raise-field--wide raise-fieldset">
+                            <legend class="raise-label">A empresa já realizou uma rodada de investimento?</legend>
+                            <div class="raise-inline-options">
+                                <label class="raise-option raise-option--compact"><input type="radio" name="previousCampaign" value="yes" required>Sim</label>
+                                <label class="raise-option raise-option--compact"><input type="radio" name="previousCampaign" value="no">Não</label>
+                            </div>
+                            <p class="raise-hint">Esta informação ajuda a organizar o histórico de captação.</p>
+                        </fieldset>
+                        <div class="raise-field">
+                            <label for="target-raise">Quanto pretende captar na RAFTT (USD)?</label>
+                            <input id="target-raise" name="targetRaise" type="number" min="1" max="75000000" step="1" inputmode="decimal" placeholder="e.g., 500000" aria-describedby="target-hint" required>
+                            <p class="raise-hint" id="target-hint">Defina uma meta compatível com o orçamento e os marcos de execução.</p>
+                        </div>
+                        <div class="raise-field">
+                            <label for="runway">Por quantos meses o caixa atual sustenta a operação?</label>
+                            <input id="runway" name="runway" type="number" min="0" step="1" inputmode="numeric" placeholder="e.g., 12" aria-describedby="runway-hint" required>
+                            <p class="raise-hint" id="runway-hint">Divida o caixa atual pelo consumo mensal de caixa para estimar a autonomia da operação.</p>
+                        </div>
+                    </div>
+                </section>
+                </div>
+
+                <div class="raise-step-actions">
+                    <button class="raise-step-button" type="button" id="raise-step-back" hidden>← Voltar</button>
+                    <button class="raise-submit" type="button" id="raise-step-next">Continuar para a rodada <span aria-hidden="true">→</span></button>
+                    <button class="raise-submit" type="submit" id="raise-submit-final" hidden>Enviar proposta simulada <span aria-hidden="true">→</span></button>
+                </div>
+                <p class="raise-privacy">Seus campos ficam salvos neste navegador para demonstração.</p>
+                <p class="raise-status" id="raise-status" role="status" aria-live="polite" hidden></p>
+                <a class="raise-submit" id="raise-demo-next" href="company-dashboard.html?stage=submitted" hidden>Abrir painel da empresa <span aria-hidden="true">→</span></a>
+            </form>
+
+            <aside class="raise-aside" aria-label="About raising with Raftt">
+                <section class="raise-aside-card">
+                    <h2>Capital para o próximo capítulo</h2>
+                    <p>Organize sua captação e apresente um plano de execução claro aos investidores.</p>
+                    <ul class="raise-benefits">
+                        <li>Apresente o negócio e as condições da rodada.</li>
+                        <li>Reúna investidores em um veículo, conforme a estrutura da operação.</li>
+                        <li>Comprove o progresso para solicitar cada nova parcela.</li>
+                    </ul>
+                </section>
+                <section class="raise-aside-note">
+                    <strong>Seu plano, suas evidências</strong>
+                    <p>Defina marcos com orçamento, prazo, responsável e evidências. A IA apoia a análise; a aprovação cabe ao responsável autorizado.</p>
+                </section>
+            </aside>
+        </div>
+    </main>
+    <footer class="raise-footer">Already investing with Raftt? <a href="index.html">Explore the platform</a>.</footer>
+
+    <script>
+        (() => {
+            const form = document.querySelector("#raise-application");
+            const status = document.querySelector("#raise-status");
+            const deckUrlField = document.querySelector("#deck-url-field");
+            const deckUploadField = document.querySelector("#deck-upload-field");
+            const deckUrl = document.querySelector("#deck-url");
+            const deckFile = document.querySelector("#deck-file");
+            const deckFileName = document.querySelector("#deck-file-name");
+            const revenueDetailsField = document.querySelector("#revenue-details-field");
+            const revenueDetails = document.querySelector("#revenue-details");
+            const steps = [...document.querySelectorAll("[data-raise-step]")];
+            const stepCount = document.querySelector("#raise-step-count");
+            const stepTitle = document.querySelector("#raise-step-title");
+            const previousStep = document.querySelector("#raise-step-back");
+            const nextStep = document.querySelector("#raise-step-next");
+            const finalSubmit = document.querySelector("#raise-submit-final");
+            let activeStep = 0;
+
+            const syncEquity = () => {
+                const equity = form.querySelector('[name="structure"]:checked')?.value === 'equity';
+                document.getElementById('equity-percentage-field').hidden = !equity;
+                const percentage = document.getElementById('equity-percentage');
+                percentage.required = equity;
+                percentage.disabled = !equity || activeStep !== 1;
+            };
+            form.querySelectorAll('[name="structure"]').forEach(control => control.addEventListener('change', syncEquity));
+            const updateStep = () => {
+                steps.forEach((step, index) => {
+                    const inactive = index !== activeStep;
+                    step.hidden = inactive;
+                    step.querySelectorAll("input, select, textarea, button").forEach((control) => {
+                        control.disabled = inactive;
+                    });
+                });
+                stepCount.textContent = `Etapa ${activeStep + 1} de ${steps.length}`;
+                stepTitle.textContent = activeStep === 0 ? "Você e sua empresa" : "Detalhes da rodada";
+                previousStep.hidden = activeStep === 0;
+                nextStep.hidden = activeStep === steps.length - 1;
+                finalSubmit.hidden = activeStep !== steps.length - 1;
+                syncEquity();
+            };
+
+            const validateActiveStep = () => {
+                const controls = [...steps[activeStep].querySelectorAll("input, select, textarea")];
+                const invalid = controls.find((control) => !control.disabled && !control.checkValidity());
+                if (invalid) {
+                    invalid.reportValidity();
+                    invalid.focus();
+                    return false;
+                }
+                return true;
+            };
+
+            nextStep.addEventListener("click", () => {
+                if (!validateActiveStep()) return;
+                activeStep = Math.min(activeStep + 1, steps.length - 1);
+                updateStep();
+                document.querySelector("#additional-heading").focus?.();
+            });
+
+            previousStep.addEventListener("click", () => {
+                activeStep = Math.max(activeStep - 1, 0);
+                updateStep();
+                document.querySelector("#personal-heading").focus();
+            });
+
+            document.querySelectorAll('input[name="deckMethod"]').forEach((option) => {
+                option.addEventListener("change", () => {
+                    const useFile = option.value === "file" && option.checked;
+                    deckUrlField.hidden = useFile;
+                    deckUploadField.hidden = !useFile;
+                    deckUrl.required = !useFile;
+                    deckFile.required = useFile;
+                });
+            });
+
+            document.querySelectorAll('input[name="revenue"]').forEach((option) => {
+                option.addEventListener("change", () => {
+                    const hasRevenue = option.value === "yes" && option.checked;
+                    revenueDetailsField.hidden = !hasRevenue;
+                    revenueDetails.required = hasRevenue;
+                });
+            });
+
+            deckFile.addEventListener("change", () => {
+                deckFileName.textContent = deckFile.files.length ? deckFile.files[0].name : "PDF, PPT, PPTX, or Keynote";
+            });
+
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+                if (!validateActiveStep()) return;
+                if (activeStep !== steps.length - 1) {
+                    activeStep += 1;
+                    updateStep();
+                    document.querySelector("#additional-heading").focus();
+                    return;
+                }
+                status.hidden = false;
+                const application = {};
+                form.querySelectorAll('[name]').forEach(control => {
+                    if (control.type === 'file' || (['radio', 'checkbox'].includes(control.type) && !control.checked)) return;
+                    if (control.name === 'equityPercentage' && form.querySelector('[name=structure]:checked')?.value !== 'equity') return;
+                    application[control.name] = window.RafttNumbers.isMoney(control) && control.value.trim() !== '' ? String(window.RafttNumbers.value(control)) : control.value;
+                });
+                application.status = 'submitted';
+                localStorage.setItem('raftt-company', JSON.stringify(application));
+                status.textContent = "Proposta salva neste navegador. Abra o painel da empresa para acompanhar a demonstração.";
+                document.querySelector("#raise-demo-next").hidden = false;
+            });
+
+            try {
+                const saved = JSON.parse(localStorage.getItem('raftt-company') || '{}');
+                form.querySelectorAll('[name]').forEach(control => {
+                    if (control.type === 'file' || saved[control.name] === undefined) return;
+                    if (control.type === 'radio') control.checked = control.value === saved[control.name];
+                    else control.value = saved[control.name];
+                });
+            } catch {}
+            form.querySelectorAll('input[type=radio]:checked').forEach(control => control.dispatchEvent(new Event('change')));
+            updateStep();
+        })();
+    </script>
+<script src="assets/js/app-language.js"></script><script src="assets/js/profile-settings.js"></script><script src="assets/js/investor-flow.js"></script></body>
+</html>

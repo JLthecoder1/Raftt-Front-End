@@ -4,15 +4,19 @@ import { ISLANDS, UI } from './map-data.js';
 
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = (s) => document.querySelector(s);
-let lang = localStorage.getItem('raftt-lang') || 'en';
+let lang = localStorage.getItem('raftt-lang') || 'pt';
+lang = UI[lang] ? lang : 'pt';
 const t = () => UI[lang];
 const R_ISLAND = 7.2;
 
 // ---------- renderer / scene / camera ----------
 const canvas = $('#map-canvas');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+const mobileGPU = matchMedia('(max-width: 760px)').matches;
+let qualityMode = 'quality'; // Open with the original visual fidelity, regardless of previous lightweight preferences.
+let renderScale = Math.min(devicePixelRatio, 2);
+renderer.setPixelRatio(renderScale);
+renderer.shadowMap.enabled = true; renderer.shadowMap.autoUpdate = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.outputColorSpace = THREE.SRGBColorSpace;
 const scene = new THREE.Scene();
 scene.background = new THREE.Color('#2d86dc'); scene.fog = new THREE.Fog('#2d86dc', 220, 520);
@@ -20,6 +24,7 @@ const camera = new THREE.PerspectiveCamera(30, 1, 1, 600);
 const camTarget = new THREE.Vector3(), camLook = new THREE.Vector3();
 const CAM_DIR = new THREE.Vector3(1, 1.3, 1).normalize();
 let zoom = 125, zoomT = 125;
+const overviewZoom = () => 125;
 
 scene.add(new THREE.HemisphereLight('#e6f4ff', '#2a6fb0', 1.25));
 const sun = new THREE.DirectionalLight('#fff1d6', 2.6);
@@ -117,7 +122,7 @@ function buildIsland(cfg, model) {
   el.innerHTML = `<i class="dot"></i><span></span>`; labelsEl.append(el);
   el.onclick = () => selectIsland(cfg.id, true); el.onmouseenter = () => setHover(cfg.id); el.onmouseleave = () => setHover(null);
   const isl = { cfg, g, body, ring, glow, dock, light, el, lift: 0, labelPos: new THREE.Vector3(x, 8.5, z) };
-  islands.push(isl); return isl;
+  islands.push(isl); obstacleCache.push({ c: new THREE.Vector3(x, 0, z), r: R_ISLAND + 1.2, id: cfg.id }); renderer.shadowMap.needsUpdate = true; return isl;
 }
 
 // ---------- raft ----------
@@ -135,7 +140,8 @@ const wake = dots(60, '#ffffff', .22, .55), wakePts = [];
 const marker = $('#raft-marker');
 
 // ---------- navegação segura (evita ilhas) ----------
-const obstacles = () => islands.map((i) => ({ c: i.g.position, r: R_ISLAND + 1.2, id: i.cfg.id }));
+const obstacleCache = [];
+const obstacles = () => obstacleCache;
 function segHit(a, b, o) {
   const ab = b.clone().sub(a), L2 = ab.lengthSq(); if (!L2) return null;
   const tt = THREE.MathUtils.clamp(o.c.clone().sub(a).dot(ab) / L2, 0, 1), p = a.clone().addScaledVector(ab, tt);
@@ -167,6 +173,7 @@ const setHover = (id) => { hoverId = id; canvas.style.cursor = id ? 'pointer' : 
 const find = (id) => islands.find((i) => i.cfg.id === id);
 function selectIsland(id, sail = false) {
   selectedId = id; const isl = find(id); if (!isl) return;
+  $('#dashboard-sidebar').classList.remove('is-open'); $('.map-menu').setAttribute('aria-expanded', 'false');
   openOpportunityMenu(id); document.querySelectorAll('[data-cat]').forEach((b) => b.classList.toggle('is-active', b.dataset.cat === id));
   document.body.classList.add('has-selection');
   if (sail) sailTo(isl.dock, id, id);
@@ -175,14 +182,24 @@ function applyLang() {
   const T = t(); document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
   $('#lang-toggle').textContent = lang === 'pt' ? 'EN' : 'PT'; $('#map-hint').textContent = T.hint; $('#raft-marker').textContent = T.yourRaft;
   $('#recenter').setAttribute('aria-label', T.recenter); $('#loading-text').textContent = T.loading; $('#nav-map-label') && ($('#nav-map-label').textContent = T.map);
+  $('#map-guide-open').setAttribute('aria-label', T.guide); $('#map-guide-title').textContent = T.guide;
+  $('#map-guide-intro').textContent = T.guideIntro; $('#map-guide-islands').textContent = T.guideIslands;
+  $('#map-guide-sail').textContent = T.guideSail; $('#map-guide-controls').textContent = T.guideControls;
+  $('#map-guide-review').textContent = T.guideReview; $('#map-guide-done').textContent = T.guideClose;
+  $('#map-guide-close').setAttribute('aria-label', T.guideCloseLabel);
   islands.forEach((i) => { i.el.querySelector('span').textContent = i.cfg.name[lang]; i.el.title = T.opp(i.cfg.opps.length); i.el.classList.toggle('has-opps', i.cfg.opps.length > 0); });
   document.querySelector('#side-cats').innerHTML = ISLANDS.map((c) => `<button class="dashboard-nav-link" data-cat="${c.id}" style="--c:${c.color}"><i class="sw"></i><span>${c.name[lang]}</span></button>`).join('');
   document.querySelectorAll('#side-cats [data-cat]').forEach((b) => (b.onclick = () => selectIsland(b.dataset.cat, true)));
 }
-$('#lang-toggle').onclick = () => { lang = lang === 'pt' ? 'en' : 'pt'; localStorage.setItem('raftt-lang', lang); applyLang(); };
+$('#lang-toggle').onclick = () => { lang = lang === 'pt' ? 'en' : 'pt'; localStorage.setItem('raftt-lang', lang); location.reload(); };
+const mapGuide = $('#map-guide');
+$('#map-guide-open').onclick = () => { keys.clear(); raft.vel.set(0,0,0); mapGuide.showModal(); };
+$('#map-guide-close').onclick = () => mapGuide.close();
+$('#map-guide-done').onclick = () => mapGuide.close();
 
 const opportunitySamples = [
   { id: 'nullun', name: 'NULLUN', stage: { en: 'SaaS · Demo case study', pt: 'SaaS · Estudo de caso (demo)' } },
+  { id: 'nexo', name: 'Nexo Software', stage: { en: 'Software · Demo case study', pt: 'Software · Estudo de caso (demo)' } },
 ];
 let openOpportunityCategory = null, activeOpportunityIndex = null;
 function opportunityListFor(c) {
@@ -207,9 +224,9 @@ function opportunityDetailsFor(c, item, index) {
     royalties: 'assets/images/Estúdio criativo de música, cinema e jogos-8.png',
   };
   const isPt = lang === 'pt', asset = assets[c.id][lang];
-  if (c.id === 'startups' && index === 0) return isPt ? { asset, image: 'assets/images/Equipe de startup colaborando com protótipo-1.png', imageAlt: 'Equipe da NULLUN trabalhando em um protótipo', headline: 'Visibilidade em tempo real para operações conectadas.', description: 'A NULLUN conecta sensores, ativos e equipes para transformar dados operacionais em decisões mais rápidas.', tags: ['IoT', 'SaaS', 'Indústria 4.0'], raised: '25%', investors: '84', milestones: '4', minimum: 'R$ 1.000', goal: 'R$ 2,5 milhões', status: 'Estudo de caso (demo)' } : { asset, image: 'assets/images/Equipe de startup colaborando com protótipo-1.png', imageAlt: 'NULLUN team working on a prototype', headline: 'Real-time visibility for connected operations.', description: 'NULLUN connects sensors, assets and teams to turn operational data into faster decisions.', tags: ['IoT', 'SaaS', 'Industry 4.0'], raised: '25%', investors: '84', milestones: '4', minimum: 'R$ 1,000', goal: 'R$ 2.5 million', status: 'Demo case study' };
+  if (c.id === 'startups' && index === 0) return isPt ? { asset, image: 'assets/images/Equipe de startup colaborando com protótipo-1.png', imageAlt: 'Equipe da NULLUN trabalhando em um protótipo', headline: 'Visibilidade em tempo real para operações conectadas.', description: 'A NULLUN conecta sensores, ativos e equipes para transformar dados operacionais em decisões mais rápidas.', tags: ['IoT', 'SaaS', 'Indústria 4.0'], raised: '0%', investors: '0', milestones: '4', minimum: 'US$ 250', goal: 'US$ 100.000', status: 'Estudo de caso (demo)' } : { asset, image: 'assets/images/Equipe de startup colaborando com protótipo-1.png', imageAlt: 'NULLUN team working on a prototype', headline: 'Real-time visibility for connected operations.', description: 'NULLUN connects sensors, assets and teams to turn operational data into faster decisions.', tags: ['IoT', 'SaaS', 'Industry 4.0'], raised: '0%', investors: '0', milestones: '4', minimum: 'US$ 250', goal: 'US$ 100,000', status: 'Demo case study' };
   const image = images[c.id] || images.startups;
-  return isPt ? { asset, image, imageAlt: item.name, headline: `Uma oportunidade vinculada a ${c.name.pt.toLowerCase()}.`, description: `Este ativo representa uma participação estruturada no projeto ${item.name}. Revise os termos, o cronograma e os riscos antes de decidir investir.`, tags: [c.name.pt, index < 2 ? 'Destaque' : 'Novo projeto', 'Demo'], raised: 'Em breve', investors: '—', milestones: '4', minimum: 'US$ 10.000,00', goal: 'US$ 100.000,00', status: 'Estudo de caso' } : { asset, image, imageAlt: item.name, headline: `An opportunity tied to ${c.name.en.toLowerCase()}.`, description: `This asset represents a structured participation in ${item.name}. Review its terms, timeline and risks before deciding to invest.`, tags: [c.name.en, index < 2 ? 'Featured' : 'New project', 'Demo'], raised: 'Coming soon', investors: '—', milestones: '4', minimum: '$10,000.00', goal: '$100,000.00', status: 'Case study' };
+  return isPt ? { asset, image, imageAlt: item.name, headline: `Uma oportunidade vinculada a ${c.name.pt.toLowerCase()}.`, description: `Este ativo representa uma participação estruturada no projeto ${item.name}. Revise os termos, o cronograma e os riscos antes de decidir investir.`, tags: [c.name.pt, index < 2 ? 'Destaque' : 'Novo projeto', 'Demo'], raised: 'Em breve', investors: '—', milestones: '4', minimum: 'US$ 250', goal: 'US$ 100.000,00', status: 'Estudo de caso' } : { asset, image, imageAlt: item.name, headline: `An opportunity tied to ${c.name.en.toLowerCase()}.`, description: `This asset represents a structured participation in ${item.name}. Review its terms, timeline and risks before deciding to invest.`, tags: [c.name.en, index < 2 ? 'Featured' : 'New project', 'Demo'], raised: 'Coming soon', investors: '—', milestones: '4', minimum: 'US$ 250', goal: '$100,000.00', status: 'Case study' };
 }
 function renderOpportunityList(c) {
   const title = $('#opportunity-menu-title'), subtitle = $('#opportunity-menu-subtitle'), list = $('#opportunity-menu-list'), items = opportunityListFor(c), isPt = lang === 'pt';
@@ -226,7 +243,7 @@ function renderOpportunityList(c) {
 function renderOpportunityDetail(c, index) {
   const item = opportunityListFor(c)[index], detail = opportunityDetailsFor(c, item, index), list = $('#opportunity-menu-list'), isPt = lang === 'pt';
   openOpportunityCategory = c.id; activeOpportunityIndex = index; $('#opportunity-menu').classList.add('is-detail'); $('#opportunity-menu-title').textContent = item.name; $('#opportunity-menu-subtitle').textContent = detail.asset;
-  list.innerHTML = `<article class="opportunity-asset" aria-label="${isPt ? 'Detalhes do ativo' : 'Asset details'}"><button class="opportunity-menu__back" type="button">← ${isPt ? 'Voltar para empresas' : 'Back to companies'}</button>${detail.image ? `<img class="opportunity-asset__image" src="${detail.image}" alt="${detail.imageAlt}">` : ''}<p class="opportunity-asset__eyebrow">${isPt ? 'ESTUDO DE CASO DEMONSTRATIVO' : 'DEMO CASE STUDY'}</p><h3>${detail.headline}</h3><p class="opportunity-asset__description">${detail.description}</p><div class="opportunity-asset__tags">${detail.tags.map((tag) => `<span>${tag}</span>`).join('')}</div><section class="opportunity-asset__goal"><div><small>${isPt ? 'Meta ilustrativa' : 'Illustrative goal'}</small><strong>${detail.goal}</strong></div><span>${detail.status}</span><div class="opportunity-asset__progress"><i style="width:${detail.raised === '25%' ? '25%' : '0%'}"></i></div><small>${detail.raised} ${isPt ? 'ilustrativo' : 'illustrative'}</small></section><div class="opportunity-asset__stats"><div><strong>${detail.investors}</strong><small>${isPt ? 'Investidores (demo)' : 'Demo investors'}</small></div><div><strong>${detail.milestones}</strong><small>${isPt ? 'Marcos ilustrativos' : 'Illustrative milestones'}</small></div><div><strong>${detail.minimum}</strong><small>${isPt ? 'Mínimo ilustrativo' : 'Illustrative minimum'}</small></div></div><a class="opportunity-asset__cta" href="pagina-2.html?opportunity=${encodeURIComponent(item.id)}">${isPt ? 'Ver estudo de caso' : 'View demo case study'} <span aria-hidden="true">→</span></a><p class="opportunity-asset__note">${isPt ? 'Dados fictícios para demonstração. Não é uma oferta de investimento e nenhum aporte pode ser realizado.' : 'Fictional demo data. This is not an investment offering; investments are unavailable.'}</p></article>`;
+  list.innerHTML = `<article class="opportunity-asset" aria-label="${isPt ? 'Detalhes do ativo' : 'Asset details'}"><button class="opportunity-menu__back" type="button">← ${isPt ? 'Voltar para empresas' : 'Back to companies'}</button>${detail.image ? `<img class="opportunity-asset__image" src="${detail.image}" alt="${detail.imageAlt}">` : ''}<p class="opportunity-asset__eyebrow">${isPt ? 'ESTUDO DE CASO DEMONSTRATIVO' : 'DEMO CASE STUDY'}</p><h3>${detail.headline}</h3><p class="opportunity-asset__description">${detail.description}</p><div class="opportunity-asset__tags">${detail.tags.map((tag) => `<span>${tag}</span>`).join('')}</div><section class="opportunity-asset__goal"><div><small>${isPt ? 'Meta ilustrativa' : 'Illustrative goal'}</small><strong>${detail.goal}</strong></div><span>${detail.status}</span><div class="opportunity-asset__progress"><i style="width:${Math.min(100, parseFloat(detail.raised) || 0) + '%'}"></i></div><small>${detail.raised} ${isPt ? 'ilustrativo' : 'illustrative'}</small></section><div class="opportunity-asset__stats"><div><strong>${detail.investors}</strong><small>${isPt ? 'Investidores (demo)' : 'Demo investors'}</small></div><div><strong>${detail.milestones}</strong><small>${isPt ? 'Marcos ilustrativos' : 'Illustrative milestones'}</small></div><div><strong>${detail.minimum}</strong><small>${isPt ? 'Mínimo ilustrativo' : 'Illustrative minimum'}</small></div></div><a class="opportunity-asset__cta" href="opportunity-details.html?opportunity=${encodeURIComponent(item.id)}">${isPt ? 'Ver estudo de caso' : 'View demo case study'} <span aria-hidden="true">→</span></a><p class="opportunity-asset__note">${isPt ? 'Dados de demonstração. Aportes são simulados na ficha do projeto.' : 'Demo data. Investments are simulated on the project page.'}</p></article>`;
   list.querySelector('.opportunity-menu__back').onclick = () => renderOpportunityList(c); list.querySelector('.opportunity-menu__back').focus();
 }
 function openOpportunityMenu(id) {
@@ -248,70 +265,128 @@ addEventListener('keydown', (e) => { if (e.key === 'Escape') { const c = ISLANDS
 // ---------- input ----------
 const keys = new Set(), ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
 const MAP = { arrowup: 'u', w: 'u', arrowdown: 'd', s: 'd', arrowleft: 'l', a: 'l', arrowright: 'r', d: 'r' };
-addEventListener('keydown', (e) => { const k = MAP[e.key.toLowerCase()]; if (k && !/INPUT|TEXTAREA/.test(e.target.tagName)) { keys.add(k); raft.path = []; raft.targetId = null; e.preventDefault(); } });
+addEventListener('keydown', (e) => { const k = MAP[e.key.toLowerCase()]; if (k && !mapGuide.open && !document.body.classList.contains('opportunity-menu-open') && !e.target.isContentEditable && !/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) { keys.add(k); raft.path = []; raft.targetId = null; e.preventDefault(); } });
 addEventListener('keyup', (e) => keys.delete(MAP[e.key.toLowerCase()]));
+addEventListener('blur', () => keys.clear());
 document.querySelectorAll('.dpad button').forEach((b) => {
-  const k = b.dataset.k, on = (e) => { e.preventDefault(); keys.add(k); raft.path = []; raft.targetId = null; }, off = () => keys.delete(k);
-  b.addEventListener('pointerdown', on); ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => b.addEventListener(ev, off));
+  const k=b.dataset.k;
+  b.addEventListener('pointerdown',e=>{if(mapGuide.open||document.body.classList.contains('opportunity-menu-open'))return;e.preventDefault();b.setPointerCapture(e.pointerId);keys.add(k);raft.path=[];raft.targetId=null;});
+  ['pointerup','pointercancel','lostpointercapture'].forEach(ev=>b.addEventListener(ev,()=>keys.delete(k)));
 });
-function pick(e) { const r = canvas.getBoundingClientRect(); ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1); ray.setFromCamera(ndc, camera); }
-let down = null;
-canvas.addEventListener('pointerdown', (e) => (down = { x: e.clientX, y: e.clientY }));
-canvas.addEventListener('pointerup', (e) => {
-  if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 6) return; pick(e);
-  const h = ray.intersectObjects(hitMeshes)[0]; if (h) return selectIsland(h.object.userData.id, true);
-  const pt = new THREE.Vector3(); if (!ray.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), pt)) return;
-  if (pt.length() > 70 || inIsland(pt, 1)) return; sailTo(pt);
+function pick(e) { const r = canvas.getBoundingClientRect(); ndc.set(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1);ray.setFromCamera(ndc,camera); }
+const pointers=new Map(),navigationPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0),pointerDestination=new THREE.Vector3();
+let down=null,pinchDistance=0,pinchZoom=0,lastDrag=0,wasPinch=false,lastHoverPick=0;
+function sailFromPointer(e,select=true){
+  if(mapGuide.open||document.body.classList.contains('opportunity-menu-open'))return;
+  pick(e);if(select){const h=ray.intersectObjects(hitMeshes)[0];if(h){selectIsland(h.object.userData.id,true);return;}}
+  if(!ray.ray.intersectPlane(navigationPlane,pointerDestination)||pointerDestination.length()>70||inIsland(pointerDestination,1))return;
+  keys.clear();sailTo(pointerDestination);
+}
+canvas.addEventListener('pointerdown',e=>{if(mapGuide.open)return;canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(pointers.size===1){down={x:e.clientX,y:e.clientY};wasPinch=false;}else if(pointers.size===2){const [a,b]=[...pointers.values()];pinchDistance=Math.hypot(a.x-b.x,a.y-b.y);pinchZoom=zoomT;wasPinch=true;}});
+canvas.addEventListener('pointermove',e=>{
+  if(pointers.has(e.pointerId)){
+    pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(pointers.size===2){const [a,b]=[...pointers.values()],distance=Math.hypot(a.x-b.x,a.y-b.y);if(pinchDistance>0&&distance>0)zoomT=THREE.MathUtils.clamp(pinchZoom*pinchDistance/distance,40,320);return;}
+    if(!wasPinch&&down&&Math.hypot(e.clientX-down.x,e.clientY-down.y)>6&&performance.now()-lastDrag>100){lastDrag=performance.now();sailFromPointer(e,false);}return;
+  }
+  if(e.pointerType==='touch'||performance.now()-lastHoverPick<50)return;lastHoverPick=performance.now();pick(e);const h=ray.intersectObjects(hitMeshes)[0];setHover(h?h.object.userData.id:null);
 });
-canvas.addEventListener('pointermove', (e) => { if (e.pointerType === 'touch') return; pick(e); const h = ray.intersectObjects(hitMeshes)[0]; setHover(h ? h.object.userData.id : null); });
-canvas.addEventListener('wheel', (e) => { e.preventDefault(); zoomT = THREE.MathUtils.clamp(zoomT * (1 + Math.sign(e.deltaY) * .08), 40, 180); }, { passive: false });
-$('#zoom-in').onclick = () => (zoomT = Math.max(40, zoomT * .85)); $('#zoom-out').onclick = () => (zoomT = Math.min(180, zoomT * 1.18));
-$('#recenter').onclick = () => { zoomT = 125; raft.path = []; sailTo(new THREE.Vector3(0, 0, 0)); selectedId = null; closeOpportunityMenu(); };
+canvas.addEventListener('pointerup',e=>{const valid=pointers.has(e.pointerId);pointers.delete(e.pointerId);if(valid&&!wasPinch&&down)sailFromPointer(e,Math.hypot(e.clientX-down.x,e.clientY-down.y)<=6);if(!pointers.size){down=null;wasPinch=false;}});
+['pointercancel','lostpointercapture'].forEach(ev=>canvas.addEventListener(ev,e=>{pointers.delete(e.pointerId);if(!pointers.size){down=null;wasPinch=false;}}));
+addEventListener('blur',()=>{pointers.clear();down=null;wasPinch=false;});
+canvas.addEventListener('wheel', (e) => { e.preventDefault(); zoomT = THREE.MathUtils.clamp(zoomT * (1 + Math.sign(e.deltaY) * .08), 40, 320); }, { passive: false });
+$('#zoom-in').onclick = () => (zoomT = Math.max(40, zoomT * .85)); $('#zoom-out').onclick = () => (zoomT = Math.min(320, zoomT * 1.18));
+$('#recenter').onclick = () => { zoomT = overviewZoom(); raft.path = []; sailTo(new THREE.Vector3(0, 0, 0)); selectedId = null; closeOpportunityMenu(); };
 
 // ---------- loop ----------
-function resize() { const r = canvas.parentElement.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); }
+let viewWidth = 1, viewHeight = 1;
+function resize() { const r = canvas.parentElement.getBoundingClientRect(); viewWidth = Math.max(1, r.width); viewHeight = Math.max(1, r.height); renderer.setSize(viewWidth, viewHeight, false); camera.aspect = viewWidth / viewHeight; camera.updateProjectionMatrix(); }
+const qualitySelect = $('#render-quality');
+qualitySelect.value = ['auto','economy','quality'].includes(qualityMode) ? qualityMode : 'auto';
+function applyQuality() {
+  qualityMode = qualitySelect.value; localStorage.setItem('raftt-map-quality', qualityMode);
+  renderScale = qualityMode === 'economy' ? .85 : qualityMode === 'quality' ? Math.min(devicePixelRatio, 2) : Math.min(devicePixelRatio, mobileGPU ? 1 : 1.35);
+  renderer.setPixelRatio(renderScale); renderer.shadowMap.enabled = qualityMode === 'quality' || (qualityMode === 'auto' && !mobileGPU);
+  renderer.shadowMap.needsUpdate = true; frameSamples = []; framesSinceResize = 0; resize();
+}
+qualitySelect.onchange = applyQuality;
 addEventListener('resize', resize); new ResizeObserver(resize).observe(canvas.parentElement);
 const clock = new THREE.Clock(), v3 = new THREE.Vector3(), fwd = new THREE.Vector3(-1, 0, -1).normalize(), right = new THREE.Vector3(1, 0, -1).normalize();
-let wakeTimer = 0, arrived = false;
+let wakeTimer = 0, arrived = false, lastArrivalId = null;
+const frameInput = new THREE.Vector3(), frameWant = new THREE.Vector3(), frameDelta = new THREE.Vector3(), collisionDelta = new THREE.Vector3(), wakeObject = new THREE.Object3D();
+let lastFrame = 0, lastLabels = 0, lastShadow = 0, frameSamples = [], framesSinceResize = 0;
+let animationId = null;
+function scheduleFrame() { if (animationId === null && !document.hidden) animationId = requestAnimationFrame(tick); }
+document.addEventListener('visibilitychange', () => { keys.clear(); if (document.hidden) { if (animationId !== null) cancelAnimationFrame(animationId); animationId = null; } else { clock.getDelta(); lastFrame = 0; scheduleFrame(); } });
+
 function project(i) {
   v3.copy(i.labelPos).setY(8.5 + i.lift); v3.project(camera);
-  const x = (v3.x * .5 + .5) * canvas.clientWidth, y = (-v3.y * .5 + .5) * canvas.clientHeight;
+  const x = (v3.x * .5 + .5) * viewWidth, y = (-v3.y * .5 + .5) * viewHeight;
   i.el.style.transform = `translate(-50%,-100%) translate(${x}px,${y}px)`; i.el.style.opacity = v3.z < 1 ? 1 : 0;
 }
-function tick() {
+function tick(now) {
+  animationId = null;
+  if (document.hidden) return;
+  // Limit high-refresh displays to 60fps; use 30fps behind the guide.
+  const interval = mapGuide.open ? 1000 / 30 : 1000 / 60;
+  if (now - lastFrame < interval - 1) { scheduleFrame(); return; }
+  const frameGap = lastFrame ? now - lastFrame : interval;
+  lastFrame = now;
+  const labelFrame = now - lastLabels >= 1000 / 30;
+  if (labelFrame) lastLabels = now;
+  if (qualityMode === 'auto' && !mapGuide.open && ++framesSinceResize > 120) {
+    frameSamples.push(frameGap);
+    if (frameSamples.length >= 90) {
+      const average = frameSamples.reduce((a,b) => a+b,0) / frameSamples.length;
+      if (average > 26 && renderScale > .8) { renderScale = Math.max(.8, renderScale - .2); renderer.setPixelRatio(renderScale); resize(); }
+      frameSamples = []; framesSinceResize = 0;
+    }
+  }
   const dt = Math.min(clock.getDelta(), .05), T = clock.elapsedTime;
   water.material.uniforms.uT.value = RM ? 0 : T; sparkMat.uniforms.uT.value = RM ? 0 : T;
   // movimento
-  const input = new THREE.Vector3(); if (keys.has('u')) input.add(fwd); if (keys.has('d')) input.sub(fwd); if (keys.has('r')) input.add(right); if (keys.has('l')) input.sub(right);
-  let want = new THREE.Vector3(), max = 0;
+  if(mapGuide.open) keys.clear();
+  const input = frameInput.set(0, 0, 0); if (keys.has('u')) input.add(fwd); if (keys.has('d')) input.sub(fwd); if (keys.has('r')) input.add(right); if (keys.has('l')) input.sub(right);
+  let want = frameWant.set(0, 0, 0), max = 0;
   if (input.lengthSq()) { want.copy(input).normalize(); max = 9; }
-  else if (raft.path.length) {
-    const wp = raft.path[0], d = wp.clone().sub(raft.pos).setY(0), L = d.length(), last = raft.path.length === 1;
+  else if (raft.path.length && !mapGuide.open) {
+    const wp = raft.path[0], d = frameDelta.copy(wp).sub(raft.pos).setY(0), L = d.length(), last = raft.path.length === 1;
     if (L < (last ? .5 : 1.2)) { raft.path.shift(); if (!raft.path.length && raft.targetId) { raft.targetId = null; arrived = true; pulse = 1; } }
     else { want.copy(d).normalize(); max = Math.min(10, 2 + L * 1.2); }
   }
   raft.vel.lerp(want.multiplyScalar(max), 1 - Math.exp(-dt * 3)); raft.speed = raft.vel.length();
   raft.pos.addScaledVector(raft.vel, dt);
-  for (const o of obstacles()) { const d = raft.pos.clone().setY(0).sub(o.c.clone().setY(0)); if (d.length() < o.r - 1.1 && !(raft.targetId === o.id)) { raft.pos.copy(o.c).addScaledVector(d.normalize(), o.r - 1.1).setY(0); } }
+  for (const o of obstacles()) { const d = collisionDelta.copy(raft.pos).setY(0).sub(o.c); if (d.length() < o.r - 1.1 && !(raft.targetId === o.id)) { raft.pos.copy(o.c).addScaledVector(d.normalize(), o.r - 1.1).setY(0); } }
   raft.pos.x = THREE.MathUtils.clamp(raft.pos.x, -70, 70); raft.pos.z = THREE.MathUtils.clamp(raft.pos.z, -70, 70);
+  // Arrival uses proximity for keyboard, touch and click navigation, with hysteresis.
+  const previousArrival=find(lastArrivalId);
+  if(previousArrival&&Math.hypot(raft.pos.x-previousArrival.cfg.pos[0],raft.pos.z-previousArrival.cfg.pos[1])>R_ISLAND+7)lastArrivalId=null;
+  if(!mapGuide.open){
+    const nearest=islands.reduce((best,island)=>{const distance=Math.hypot(raft.pos.x-island.cfg.pos[0],raft.pos.z-island.cfg.pos[1]);return !best||distance<best.distance?{island,distance}:best;},null);
+    if(nearest&&nearest.distance<=R_ISLAND+3&&nearest.island.cfg.id!==lastArrivalId){
+      if(!document.body.classList.contains('opportunity-menu-open')){
+        lastArrivalId=nearest.island.cfg.id;keys.clear();raft.path=[];raft.targetId=null;raft.vel.set(0,0,0);raft.speed=0;selectIsland(lastArrivalId,false);
+      }else if(openOpportunityCategory===nearest.island.cfg.id)lastArrivalId=nearest.island.cfg.id;
+    }
+  }
   if (raft.speed > .3) { const ty = Math.atan2(raft.vel.x, raft.vel.z); let dy = ty - raft.yaw; dy = Math.atan2(Math.sin(dy), Math.cos(dy)); raft.yaw += dy * (1 - Math.exp(-dt * 4)); }
   const bob = RM ? 0 : 1;
   raft.g.position.set(raft.pos.x, Math.sin(T * 1.6) * .06 * bob, raft.pos.z);
   raft.g.rotation.set(Math.sin(T * 1.3) * .035 * bob + raft.speed * .004, raft.yaw, Math.sin(T * 1.1 + 1) * .05 * bob, 'YXZ');
   // espuma
   wakeTimer += dt; if (raft.speed > 1 && wakeTimer > .06 && !RM) { wakeTimer = 0; wakePts.unshift({ p: raft.pos.clone().addScaledVector(raft.vel.clone().normalize(), -1.4), a: 1 }); if (wakePts.length > 60) wakePts.pop(); }
-  { const d = new THREE.Object3D(); wakePts.forEach((w, i) => { w.a -= dt * .8; d.position.copy(w.p); d.scale.setScalar(Math.max(w.a, .001) * (1.4 - w.a * .4) + .3); d.updateMatrix(); wake.setMatrixAt(i, d.matrix); }); while (wakePts.length && wakePts[wakePts.length - 1].a <= 0) wakePts.pop(); wake.count = wakePts.length; wake.instanceMatrix.needsUpdate = true; }
+  { const d = wakeObject; wakePts.forEach((w, i) => { w.a -= dt * .8; d.position.copy(w.p); d.scale.setScalar(Math.max(w.a, .001) * (1.4 - w.a * .4) + .3); d.updateMatrix(); wake.setMatrixAt(i, d.matrix); }); while (wakePts.length && wakePts[wakePts.length - 1].a <= 0) wakePts.pop(); wake.count = wakePts.length; wake.instanceMatrix.needsUpdate = true; }
   // rotas
   routeT += dt * 3;
   possible.visible = !raft.path.length; 
-  placeAlong(routeDots, [raft.pos.clone().setY(0), ...raft.path], 1.3, RM ? 0 : routeT); routeDots.visible = raft.path.length > 0;
+  if (labelFrame && raft.path.length) placeAlong(routeDots, [raft.pos, ...raft.path], 1.3, RM ? 0 : routeT); routeDots.visible = raft.path.length > 0;
   // ilhas
   for (const i of islands) {
     const hot = hoverId === i.cfg.id, sel = selectedId === i.cfg.id;
     i.lift += (((hot ? .35 : 0) + (sel ? .15 : 0)) * (RM ? 0 : 1) - i.lift) * (1 - Math.exp(-dt * 6));
     i.g.position.y = i.lift; i.light.intensity = 40 + (sel ? 60 : 0) + (hot ? 30 : 0);
     const pu = sel ? 1 + (RM ? 0 : Math.sin(T * 3) * .08) : 1; i.ring.scale.setScalar(pu); i.ring.material.opacity = sel || hot ? 1 : .7; i.glow.material.opacity = sel ? .3 : hot ? .22 : .12;
-    i.el.classList.toggle('is-hot', hot || sel); project(i);
+    if (labelFrame) { i.el.classList.toggle('is-hot', hot || sel); project(i); }
   }
   // câmera
   zoom += (zoomT - zoom) * (1 - Math.exp(-dt * 6));
@@ -319,8 +394,9 @@ function tick() {
   camera.position.copy(camTarget).addScaledVector(CAM_DIR, zoom); camera.lookAt(camTarget);
   sun.position.set(camTarget.x - 50, 80, camTarget.z + 40); sun.target.position.copy(camTarget);
   // marcador da jangada
-  v3.set(raft.pos.x, 6.4, raft.pos.z).project(camera); marker.style.transform = `translate(-50%,-100%) translate(${(v3.x * .5 + .5) * canvas.clientWidth}px,${(-v3.y * .5 + .5) * canvas.clientHeight}px)`;
-  renderer.render(scene, camera); requestAnimationFrame(tick);
+  if (labelFrame) { v3.set(raft.pos.x, 6.4, raft.pos.z).project(camera); marker.style.transform = `translate(-50%,-100%) translate(${(v3.x * .5 + .5) * viewWidth}px,${(-v3.y * .5 + .5) * viewHeight}px)`;
+  }
+  renderer.render(scene, camera); scheduleFrame();
 }
 let pulse = 0;
 
@@ -329,16 +405,21 @@ let pulse = 0;
   possible = new THREE.Group(); scene.add(possible);
   const pm = dots(400, '#ffffff', .1, .22); pm.parent.remove(pm); possible.add(pm);
   routeDots = dots(300, '#fff3b0', .2, .95);
-  resize(); const prog = $('#loading-bar'); let done = 0; const total = ISLANDS.length + 1;
+  applyQuality(); zoom = zoomT = overviewZoom(); const prog = $('#loading-bar'); let done = 0; const total = ISLANDS.length + 1;
   const bump = () => (prog.style.width = ++done / total * 100 + '%');
-  const [rm, ...ms] = await Promise.all([loadGLB('raft').then((m) => (bump(), m)).catch(() => (bump(), null)), ...ISLANDS.map((c) => loadGLB(c.model).then((m) => (bump(), m)).catch(() => (bump(), null)))]);
-  raftModelHolder.add(rm ? normalize(rm, 5.6, true) : fallbackRaft());
-  ISLANDS.forEach((c, i) => buildIsland(c, ms[i]));
+  // First frame uses lightweight placeholders. Replace two models at a time.
+  raftModelHolder.add(fallbackRaft());
+  ISLANDS.forEach(c => buildIsland(c, null));
+  const modelQueue = [{ name: 'raft', replace(model) { const old = raftModelHolder.children[0]; raftModelHolder.remove(old); old.traverse(m => { if(m.isMesh) { m.geometry.dispose(); } }); raftModelHolder.add(normalize(model, 5.6, true)); } }, ...islands.map(i => ({ name: i.cfg.model, replace(model) { const old = i.body; i.g.remove(old); old.geometry.dispose(); old.material.dispose(); i.body = normalize(model, R_ISLAND * 2); i.body.position.y = -.15; i.g.add(i.body); } }))];
+  async function loadWorker() { while (modelQueue.length) { const job = modelQueue.shift(); try { const model = await loadGLB(job.name); job.replace(model); renderer.shadowMap.needsUpdate = true; } catch (error) { console.warn('Model fallback:', job.name, error); } bump(); await new Promise(resolve => setTimeout(resolve, 0)); } }
   { const pts = []; for (const i of islands) pts.push(new THREE.Vector3(), i.dock.clone().setY(0)); let n = 0; const d = new THREE.Object3D();
     for (let k = 0; k < pts.length; k += 2) { const a = pts[k], b = pts[k + 1], L = a.distanceTo(b); for (let s = 3; s < L - 2.5; s += 2) { d.position.lerpVectors(a, b, s / L); d.updateMatrix(); pm.setMatrixAt(n++, d.matrix); } }
     pm.count = n; pm.instanceMatrix.needsUpdate = true; }
+  try { const p = JSON.parse(localStorage.getItem('raftt-profile') || '{}'); if(p.name) { $('.dashboard-user-copy strong').textContent = p.name; $('.dashboard-avatar').textContent = p.name.charAt(0).toUpperCase(); } $('.dashboard-user-copy small').textContent = 'Investir e captar'; } catch {}
   camTarget.copy(raft.pos); if (innerWidth > 760 && innerWidth <= 1100) $('#dashboard-sidebar').classList.add('is-collapsed'); applyLang();
   $('#loading').classList.add('done'); setTimeout(() => ($('#loading').hidden = true), 600);
-  requestAnimationFrame(tick);
-  window.__raftt = { selectIsland, raft, islands }; // depuração
+  if (sessionStorage.getItem('raftt-map-welcome') || !localStorage.getItem('raftt-map-guide-seen')) { sessionStorage.removeItem('raftt-map-welcome'); mapGuide.showModal(); localStorage.setItem('raftt-map-guide-seen', 'true'); }
+  scheduleFrame();
+  loadWorker(); loadWorker();
+  window.__raftt = { selectIsland, raft, islands, renderer, get renderScale() { return renderScale; } }; // depuração
 })();

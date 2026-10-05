@@ -4,11 +4,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Raftt | Private Markets, Together</title>
+        <title>Private markets, together | RAFTT</title>
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/workflows.css">
         <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
-    </head>
+    <link rel="stylesheet" href="assets/css/brand-theme.css">
+<script src="assets/js/brand-theme.js" defer></script>
+<script src="assets/js/page-metadata.js" defer></script>
+<script src="assets/js/number-format.js"></script>
+</head>
 
     <body>
         <header class="site-header">
@@ -32,10 +36,22 @@
                 <a class="nav-link is-selected" href="#how-it-works">How it works</a>
                 <a class="nav-link" href="#milestones">Milestones</a>
                 <a class="nav-link" href="#faq">FAQs</a>
-                <a class="nav-link" href="raise-application.html">Raise with Raftt</a>
-                <button class="nav-link language-toggle" id="language-toggle" type="button" lang="pt" aria-label="Switch language to Portuguese">Português</button>
             </nav>
-            <a class="call-button" href="login.html">Get Started</a>
+            <div class="header-actions">
+                <div class="language-picker">
+                    <button class="language-toggle" id="language-toggle" type="button" aria-expanded="false" aria-controls="language-menu" aria-label="Choose language">
+                        <svg class="language-toggle__globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.25"></circle><path d="M3.75 12h16.5M12 3.75c2.1 2.25 3.15 4.98 3.15 8.25S14.1 18 12 20.25C9.9 18 8.85 15.27 8.85 12S9.9 6 12 3.75Z"></path></svg>
+                        <span id="language-current">EN</span>
+                        <svg class="language-toggle__chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="m2.5 4.5 3.5 3 3.5-3"></path></svg>
+                    </button>
+                    <div class="language-menu" id="language-menu" role="menu" aria-label="Language" hidden>
+                        <p class="language-menu__label">Language</p>
+                        <button class="language-option" type="button" role="menuitemradio" aria-checked="true" data-language="en"><span class="language-flag" aria-hidden="true">🇺🇸</span><span>English</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4.2 4L19 6.5"></path></svg></button>
+                        <button class="language-option" type="button" role="menuitemradio" aria-checked="false" data-language="pt-BR"><span class="language-flag" aria-hidden="true">🇧🇷</span><span>Português</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4.2 4L19 6.5"></path></svg></button>
+                    </div>
+                </div>
+                <a class="call-button" href="login.html">Get Started</a>
+            </div>
             <div class="water-glow-container" aria-hidden="true">
                 <svg class="wave wave1" viewBox="0 0 1200 120" preserveAspectRatio="none">
                     <path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5C438.64 32.43 512.34 53.67 583 72.05c69.27 18 138.3 24.88 209.4 13.08 36.15-6 69.85-17.84 104.45-29.34C989.49 25 1113-14.29 1200 42.4V0Z" />
@@ -133,7 +149,6 @@
                     </p>
                     <div class="workflow-landing-actions" aria-label="Choose your Raftt journey">
                         <a href="demo-workspaces.html">Explore investing</a>
-                        <a href="raise-application.html">Raise capital</a>
                     </div>
                 </div>
                 <div class="intro-globe" data-globe>
@@ -432,7 +447,6 @@
                     <a href="#how-it-works">How it works</a>
                     <a href="#milestones">Milestones</a>
                     <a href="#markets">Markets</a>
-                    <a href="raise-application.html">For companies: raise with Raftt</a>
                 </nav>
                 <nav class="footer-column" aria-label="About Raftt">
                     <h2>About Raftt</h2>

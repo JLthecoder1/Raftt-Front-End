@@ -1,4 +1,18 @@
 .workflow-page { min-height: 100vh; background: #f2f7f8; color: #24334b; }
+.path-choice-main { padding-top: clamp(3.5rem, 10vh, 7rem); }
+.path-choice-page .path-choice-main { padding-top: clamp(7.5rem, 13vh, 9rem); }
+.path-choice-main > .workflow-title { max-width: 44rem; }
+.path-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; margin-top: 2rem; }
+.path-choice-card { display: flex; min-height: 18rem; flex-direction: column; align-items: flex-start; padding: clamp(1.4rem, 4vw, 2.2rem); border: 1px solid rgb(36 51 75 / 10%); border-radius: 1rem; background: #fff; box-shadow: 0 .7rem 2rem rgb(36 51 75 / 6%); color: inherit; text-decoration: none; transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease; }
+.path-choice-card:hover { transform: translateY(-3px); border-color: #90c6d0; box-shadow: 0 1rem 2.5rem rgb(36 51 75 / 10%); }
+.path-choice-card:focus-visible { outline: 3px solid #76cfce; outline-offset: 3px; }
+.path-choice-icon { display: grid; width: 3rem; height: 3rem; place-items: center; border-radius: .85rem; background: #e2f6f5; color: #08778a; font-size: 1.6rem; font-weight: 700; }
+.path-choice-card--raise .path-choice-icon { background: #fff1df; color: #a85d12; }
+.path-choice-kicker { margin-top: 1.35rem; color: #147a8b; font-size: .65rem; font-weight: 800; letter-spacing: .14em; }
+.path-choice-card h2 { margin: .45rem 0 .55rem; font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -.05em; }
+.path-choice-card p { max-width: 30rem; margin: 0; color: #64748b; font-size: .86rem; line-height: 1.6; }
+.path-choice-action { display: flex; width: 100%; justify-content: space-between; gap: 1rem; margin-top: auto; padding-top: 1.6rem; color: #146b8c; font-size: .82rem; font-weight: 800; }
+.path-choice-note { margin: 1.5rem 0 0; color: #64748b; font-size: .74rem; line-height: 1.5; }
 .workflow-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .9rem clamp(1rem, 4vw, 3.5rem); border-bottom: 1px solid rgb(36 51 75 / 10%); background: #fff; }
 .workflow-brand { display: inline-flex; align-items: center; gap: .65rem; color: #24334b; font-size: .8rem; font-weight: 800; letter-spacing: .12em; text-decoration: none; }
 .workflow-brand img { width: 2.25rem; height: 2.25rem; object-fit: contain; }
@@ -76,6 +90,7 @@
 .workflow-landing-actions a:hover { background: #0c596b; color: #fff; }
 .workflow-hidden { display: none !important; }
 .workflow-profile-main { width: min(58rem, calc(100% - 2rem)); }
+.profile-page .workflow-profile-main { padding-top: clamp(7.5rem, 13vh, 9rem); }
 .workflow-profile-card { overflow: hidden; margin-top: 1.5rem; border: 1px solid rgb(36 51 75 / 10%); border-radius: 1rem; background: #fff; box-shadow: 0 .55rem 1.7rem rgb(36 51 75 / 5%); }
 .profile-photo-row { display: flex; align-items: center; gap: 1rem; padding: 1.4rem clamp(1rem, 4vw, 2rem); }
 .profile-avatar { display: grid; width: 4.1rem; height: 4.1rem; flex: 0 0 auto; place-items: center; border-radius: 50%; background: #d8efeb; background-position: center; background-size: cover; color: #126d80; font-size: 1.15rem; font-weight: 800; }
@@ -111,4 +126,5 @@
 .profile-save-bar .workflow-actions { margin: 0; }
 @media (max-width: 850px) { .workflow-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }.workflow-panels { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .workflow-header { align-items: flex-start; }.workflow-header nav { justify-content: flex-end; gap: .3rem .6rem; }.workflow-header nav a { font-size: .68rem; }.workflow-main { width: calc(100% - 1.25rem); padding-top: 2rem; }.workflow-grid, .workflow-metrics { grid-template-columns: 1fr; }.workflow-card { min-height: 0; }.workflow-card__link { padding-top: 1rem; }.workflow-profile-fields { grid-template-columns: 1fr; }.profile-photo-row { align-items: flex-start; }.profile-save-bar { align-items: flex-start; flex-direction: column; } }
+@media (max-width: 600px) { .path-choice-grid { grid-template-columns: 1fr; }.path-choice-card { min-height: 15rem; } }
 @media (prefers-reduced-motion: reduce) { .workflow-card { transition: none; } }

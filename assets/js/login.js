@@ -4,6 +4,7 @@ const loginMenu = document.querySelector(".menu-toggle");
 const loginHeader = document.querySelector(".site-header");
 
 function setLoginMenu(open) {
+    if(!loginNav||!loginMenu)return;
     loginNav.classList.toggle("is-open", open);
     loginMenu.setAttribute("aria-expanded", String(open));
     loginMenu.setAttribute("aria-label", open ? "Close menu" : "Open menu");
@@ -61,30 +62,34 @@ if (canTilt) {
 const loginForm = document.getElementById("login-form");
 loginForm?.addEventListener("submit", (event) => {
     event.preventDefault();
-    const status = document.getElementById("login-status");
-    status.textContent = "Sign-in is not connected. No account was authenticated. Choose a demo workspace below to continue.";
+    if (!loginForm.reportValidity()) return;
+    sessionStorage.setItem("raftt-demo-session", "true");
+    sessionStorage.setItem('raftt-map-welcome','true');
+    window.location.assign('map.html');
 });
 
 document.querySelectorAll("[data-social-provider]").forEach((button) => {
     button.addEventListener("click", () => {
-        const status = document.getElementById("login-status");
-        if (status) status.textContent = `${button.dataset.socialProvider} sign-in is not connected. No authentication request was sent.`;
+        sessionStorage.setItem("raftt-demo-session", "true");
+        sessionStorage.setItem('raftt-map-welcome','true');
+        window.location.assign('map.html');
     });
 });
 
 const signupForm = document.getElementById("signup-form");
 signupForm?.addEventListener("submit", (event) => {
     event.preventDefault();
-
-    const password = document.getElementById("signup-password");
-    const confirmation = document.getElementById("signup-password-confirmation");
-    const status = document.getElementById("signup-status");
-
-    if (password.value !== confirmation.value) {
-        status.textContent = "Passwords must match.";
-        confirmation.focus();
-        return;
-    }
-
-    status.textContent = "No account was created and no information was saved. Choose a demo workspace below to explore the prototype.";
+    if (!signupForm.reportValidity()) return;
+    const password=document.getElementById('signup-password'), confirmation=document.getElementById('signup-password-confirmation');
+    confirmation.setCustomValidity(password.value===confirmation.value?'':(localStorage.getItem('raftt-lang')==='pt'?'As senhas não coincidem.':'Passwords do not match.'));
+    if(!confirmation.reportValidity()) { confirmation.oninput=()=>confirmation.setCustomValidity(''); return; }
+    let previous={};try{previous=JSON.parse(localStorage.getItem('raftt-profile'))||{};}catch{}
+    localStorage.setItem('raftt-profile',JSON.stringify({...previous,name:document.getElementById('full-name').value.trim(),email:document.getElementById('signup-email').value.trim(),roles:['investor','organization']}));
+    sessionStorage.setItem("raftt-demo-session", "true");
+    window.location.assign("account-workspaces.html");
 });
+
+if (new URLSearchParams(window.location.search).get("access") === "required") {
+    const status = document.getElementById("login-status");
+    if (status) status.textContent = localStorage.getItem("raftt-lang") === "pt" ? "Entre na sua sessão de demonstração para acessar essa página." : "Sign in to your demo session to access this page.";
+}
