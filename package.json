@@ -1,0 +1,9 @@
+{
+  "name": "raftt-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "RAFTT static frontend demonstration",
+  "scripts": {
+    "start": "node serve.mjs"
+  }
+}
