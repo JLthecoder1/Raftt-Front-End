@@ -20,6 +20,9 @@ try {
     });
   });
   const pages = (await readdir('.')).filter((file) => file.endsWith('.html'));
+  const config = JSON.parse(await readFile('vercel.json', 'utf8'));
+  const canonicalPath = (path) =>
+    config.redirects.find((redirect) => redirect.source === path)?.destination || path;
   for (const page of pages) {
     const path = '/' + page.slice(0, -5);
     const response = await fetch(origin + path);
@@ -28,9 +31,8 @@ try {
     assert.match(await response.text(), /<!doctype html>/i);
     const legacy = await fetch(origin + '/' + page + '?test=1', { redirect: 'manual' });
     assert.equal(legacy.status, 308, page);
-    assert.equal(legacy.headers.get('location'), path + '?test=1');
+    assert.equal(legacy.headers.get('location'), canonicalPath(path) + '?test=1', page);
   }
-  const config = JSON.parse(await readFile('vercel.json', 'utf8'));
   assert.equal(config.cleanUrls, true);
   for (const redirect of config.redirects) {
     const response = await fetch(origin + redirect.source, { redirect: 'manual' });
