@@ -148,3 +148,31 @@
     translate: none;
   }
 }
+
+.mobile-voyage-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+@media (max-width: 760px), (pointer: coarse) {
+  .stage {
+    height: 100svh;
+    transform: none;
+  }
+  .stage video {
+    display: none;
+  }
+  html,
+  body {
+    overflow-x: clip;
+  }
+  .stage .start-image {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}

@@ -1,6 +1,35 @@
 gsap.registerPlugin(ScrollTrigger);
 
 const video = document.getElementById('vid');
+const mobileVoyage = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+ScrollTrigger.config({ ignoreMobileResize: true });
+const voyageDuration = 17.5;
+let mobileFrame,
+  requestedFrame = -1;
+if (mobileVoyage) {
+  video.removeAttribute('src');
+  video.load();
+  mobileFrame = document.createElement('img');
+  mobileFrame.className = 'mobile-voyage-frame';
+  mobileFrame.alt = '';
+  mobileFrame.src = 'assets/media/voyage-frames/frame-001.jpg';
+  video.after(mobileFrame);
+}
+function renderMobileFrame(time) {
+  const frame = Math.min(105, Math.max(1, Math.floor(time * 6) + 1));
+  if (frame === requestedFrame) return;
+  requestedFrame = frame;
+  const image = new Image();
+  image.onload = () => {
+    if (requestedFrame === frame) {
+      mobileFrame.src = image.src;
+      mobileFrame.style.opacity = '1';
+    }
+  };
+  image.src = `assets/media/voyage-frames/frame-${String(frame).padStart(3, '0')}.jpg`;
+  syncVideoCopy(time);
+}
+
 const startImage = document.getElementById('start-image');
 const progress = document.getElementById('progress');
 const loader = document.getElementById('loader');
@@ -611,6 +640,10 @@ let isSeeking = false;
 let pendingTime = null;
 
 function renderVideoFrame(targetTime) {
+  if (mobileVoyage) {
+    renderMobileFrame(targetTime);
+    return;
+  }
   if (isSeeking || video.seeking) {
     pendingTime = targetTime;
     return;
@@ -650,8 +683,9 @@ videoCopyCards.forEach((card, index) => {
   card.inert = true;
 });
 function syncVideoCopy(mediaTime) {
-  if (!Number.isFinite(video.duration) || !video.duration) return;
-  const position = mediaTime / video.duration;
+  const duration = mobileVoyage ? voyageDuration : video.duration;
+  if (!Number.isFinite(duration) || !duration) return;
+  const position = mediaTime / duration;
   let anyVisible = false;
   videoCopyCards.forEach((card, index) => {
     const chapter = copyChapters[index];
@@ -693,7 +727,7 @@ let videoAnimationInitialized = false;
 function initScrollAnimation() {
   hideLoader();
   if (videoAnimationInitialized) return;
-  if (!Number.isFinite(video.duration) || video.duration <= 0) {
+  if (!mobileVoyage && (!Number.isFinite(video.duration) || video.duration <= 0)) {
     setHintMessage('duration');
     return;
   }
@@ -707,7 +741,7 @@ function initScrollAnimation() {
     scrollTrigger: {
       trigger: '#track',
       start: 'top top',
-      end: () => `+=${video.duration * 500}`,
+      end: () => `+=${mobileVoyage ? Math.max(2800, innerHeight * 5) : video.duration * 500}`,
       pin: '.stage',
       scrub: 0.4, // Inércia ágil e super fluida (sem sensação de peso ou atraso)
       anticipatePin: 1,
@@ -716,10 +750,14 @@ function initScrollAnimation() {
   });
 
   // 1. Transição inicial: foto de abertura para o vídeo (primeiros 6% do scroll)
-  tl.to(startImage, { opacity: 0, duration: 0.06, ease: 'power1.out' }, 0)
-    .set(startImage, { visibility: 'hidden' }, 0.06)
-    .to(video, { opacity: 1, duration: 0.06, ease: 'power1.out' }, 0)
-    .to(scrollCue, { autoAlpha: 0, duration: 0.03 }, 0.04);
+  if (mobileVoyage) {
+    tl.to(scrollCue, { autoAlpha: 0, duration: 0.03 }, 0.04);
+  } else {
+    tl.to(startImage, { opacity: 0, duration: 0.06, ease: 'power1.out' }, 0)
+      .set(startImage, { visibility: 'hidden' }, 0.06)
+      .to(video, { opacity: 1, duration: 0.06, ease: 'power1.out' }, 0)
+      .to(scrollCue, { autoAlpha: 0, duration: 0.03 }, 0.04);
+  }
 
   // 2. Barra de progresso (acelerada por GPU com scaleX)
   tl.to(progress, { scaleX: 1, ease: 'none', duration: 1 }, 0);
@@ -728,7 +766,7 @@ function initScrollAnimation() {
   tl.to(
     videoState,
     {
-      currentTime: Math.max(0, video.duration - 1 / 30),
+      currentTime: Math.max(0, (mobileVoyage ? voyageDuration : video.duration) - 1 / 30),
       ease: 'none',
       duration: 1,
       onUpdate: () => renderVideoFrame(videoState.currentTime),
@@ -738,7 +776,7 @@ function initScrollAnimation() {
 
   // Cards follow the displayed media frame, not the requested scroll position.
   syncVideoCopy(video.currentTime);
-  if (video.requestVideoFrameCallback) {
+  if (!mobileVoyage && video.requestVideoFrameCallback) {
     const onFrame = (_now, metadata) => {
       syncVideoCopy(metadata.mediaTime);
       video.requestVideoFrameCallback(onFrame);
@@ -749,7 +787,7 @@ function initScrollAnimation() {
   ScrollTrigger.refresh();
 }
 
-if (video.readyState >= 1) {
+if (mobileVoyage || video.readyState >= 1) {
   initScrollAnimation();
 } else {
   video.addEventListener('loadedmetadata', initScrollAnimation);
