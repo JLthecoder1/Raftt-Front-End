@@ -26,7 +26,7 @@
 #markets .market-card:nth-child(5),
 #markets .market-card:nth-child(7),
 #markets .market-card:nth-child(8) {
-  grid-column: span 2;
+  grid-column: auto;
 }
 #markets .market-card::after {
   content: none;
@@ -118,7 +118,7 @@
   }
   #markets .market-card:first-child,
   #markets .market-card:last-child {
-    grid-column: span 2;
+    grid-column: auto;
   }
 }
 @media (max-width: 600px) {

@@ -1,4 +1,6 @@
 assets/js/vendor/
-assets/3D/
+node_modules/
 assets/models/
-.npm-cache/
+assets/media/
+assets/images/
+assets/fonts/
