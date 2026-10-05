@@ -10,11 +10,6 @@ main[data-page='profile.html'] .profile-heading .lead {
   font-size: 13px;
   max-width: 650px;
 }
-main[data-page='profile.html'] .profile-monogram {
-  width: 48px;
-  height: 48px;
-  font-size: 21px;
-}
 main[data-page='profile.html'] .profile-summary {
   padding: 0 0 26px;
   border: 0;
@@ -32,8 +27,12 @@ main[data-page='profile.html'] .settings-nav {
   display: flex;
   flex-direction: column;
   position: sticky;
-  top: 96px;
-  overflow: visible;
+  top: 24px;
+  align-self: start;
+  z-index: 10;
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  background: #fafbf9;
   padding: 0;
   gap: 0;
 }
@@ -132,11 +131,14 @@ main[data-page='profile.html'] .settings-content {
     min-height: 550px;
   }
   main[data-page='profile.html'] .settings-nav {
-    position: static;
+    position: sticky;
+    top: 0;
     flex-direction: row;
     overflow-x: auto;
     gap: 22px;
     padding: 0 0 5px;
+    max-height: none;
+    background: #fafbf9;
   }
   main[data-page='profile.html'] .settings-nav a {
     white-space: nowrap;
@@ -157,9 +159,6 @@ main[data-page='profile.html'] .settings-content {
   }
 }
 @media (max-width: 560px) {
-  main[data-page='profile.html'] .profile-monogram {
-    display: none;
-  }
   main[data-page='profile.html'] .profile-heading h1 {
     font-size: 26px;
   }

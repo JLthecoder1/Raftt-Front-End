@@ -1,6 +1,6 @@
 (() => {
   const titles = {
-    'index.html': ['Mercados privados, juntos', 'Private markets, together'],
+    'welcome.html': ['Mercados privados, juntos', 'Private markets, together'],
     'login.html': ['Entrar', 'Sign in'],
     'signup.html': ['Criar conta', 'Create account'],
     'reset-password.html': ['Recuperar senha', 'Reset password'],
@@ -20,7 +20,7 @@
     'map.html': ['Mapa de investimentos', 'Investment map'],
   };
   function update() {
-    const page = location.pathname.split('/').pop() || 'index.html';
+    const page = window.RafttRoutes.page;
     const name = titles[page];
     if (name)
       document.title = name[localStorage.getItem('raftt-lang') === 'pt' ? 0 : 1] + ' | RAFTT';
