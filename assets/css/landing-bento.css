@@ -155,7 +155,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 1;
+  z-index: 2;
   opacity: 0;
   pointer-events: none;
 }
@@ -174,5 +174,11 @@
   .stage .start-image {
     visibility: visible !important;
     opacity: 1 !important;
+  }
+}
+
+@media (max-width: 760px), (pointer: coarse) {
+  .stage .start-image {
+    z-index: 0;
   }
 }
