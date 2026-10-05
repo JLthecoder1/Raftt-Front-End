@@ -1,6 +1,8 @@
 assets/js/vendor/
 node_modules/
 assets/models/
+assets/3D/
+**/*.gltf
 assets/media/
 assets/images/
 assets/fonts/
