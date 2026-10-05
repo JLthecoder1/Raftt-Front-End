@@ -1,0 +1,69 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/welcome",
+      "permanent": true
+    },
+    {
+      "source": "/index",
+      "destination": "/welcome",
+      "permanent": true
+    },
+    {
+      "source": "/Index",
+      "destination": "/welcome",
+      "permanent": true
+    },
+    {
+      "source": "/user-profile",
+      "destination": "/profile",
+      "permanent": true
+    },
+    {
+      "source": "/my-portfolio",
+      "destination": "/portfolio",
+      "permanent": true
+    },
+    {
+      "source": "/choose-path",
+      "destination": "/account-workspaces",
+      "permanent": true
+    },
+    {
+      "source": "/investment-demo",
+      "destination": "/investment-checkout",
+      "permanent": true
+    },
+    {
+      "source": "/raise-application",
+      "destination": "/company-application",
+      "permanent": true
+    },
+    {
+      "source": "/organization-dashboard",
+      "destination": "/company-dashboard",
+      "permanent": true
+    },
+    {
+      "source": "/release-demo",
+      "destination": "/milestone-releases",
+      "permanent": true
+    },
+    {
+      "source": "/pagina-1",
+      "destination": "/platform-overview",
+      "permanent": true
+    },
+    {
+      "source": "/pagina-2",
+      "destination": "/opportunity-details",
+      "permanent": true
+    }
+  ]
+}
