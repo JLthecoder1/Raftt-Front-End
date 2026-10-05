@@ -15,19 +15,30 @@ if (mobileVoyage) {
   mobileFrame.src = 'assets/media/voyage-frames/frame-001.jpg';
   video.after(mobileFrame);
 }
+let frameLoading = false,
+  displayedFrame = -1;
 function renderMobileFrame(time) {
-  const frame = Math.min(105, Math.max(1, Math.floor(time * 6) + 1));
-  if (frame === requestedFrame) return;
-  requestedFrame = frame;
+  requestedFrame = Math.min(105, Math.max(1, Math.floor(time * 6) + 1));
+  loadMobileFrame();
+}
+function loadMobileFrame() {
+  if (frameLoading || requestedFrame === displayedFrame) return;
+  const frame = requestedFrame;
+  frameLoading = true;
   const image = new Image();
   image.onload = () => {
-    if (requestedFrame === frame) {
-      mobileFrame.src = image.src;
-      mobileFrame.style.opacity = '1';
-    }
+    mobileFrame.src = image.src;
+    mobileFrame.style.opacity = '1';
+    displayedFrame = frame;
+    syncVideoCopy((frame - 1) / 6);
+    frameLoading = false;
+    loadMobileFrame();
+  };
+  image.onerror = () => {
+    frameLoading = false;
+    if (requestedFrame !== frame) loadMobileFrame();
   };
   image.src = `assets/media/voyage-frames/frame-${String(frame).padStart(3, '0')}.jpg`;
-  syncVideoCopy(time);
 }
 
 const startImage = document.getElementById('start-image');
