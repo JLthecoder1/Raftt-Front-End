@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node serve.mjs",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "check:syntax": "node scripts/check-syntax.mjs",
+    "test:routes": "node scripts/check-routes.mjs",
+    "check": "npm run format:check && npm run check:syntax && npm run test:routes"
   },
   "devDependencies": {
     "prettier": "3.6.2"

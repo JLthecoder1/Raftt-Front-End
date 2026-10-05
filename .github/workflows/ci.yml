@@ -1,0 +1,50 @@
+name: RAFTT CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: raftt-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Locate project
+        id: project
+        shell: bash
+        run: |
+          if [[ -f package.json && -f welcome.html ]]; then
+            echo "directory=." >> "$GITHUB_OUTPUT"
+          elif [[ -f RAFTT/package.json && -f RAFTT/welcome.html ]]; then
+            echo "directory=RAFTT" >> "$GITHUB_OUTPUT"
+          else
+            echo "RAFTT project not found" >&2
+            exit 1
+          fi
+      - name: Install dependencies
+        working-directory: ${{ steps.project.outputs.directory }}
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Check formatting
+        working-directory: ${{ steps.project.outputs.directory }}
+        run: npm run format:check
+      - name: Check JavaScript syntax
+        working-directory: ${{ steps.project.outputs.directory }}
+        run: npm run check:syntax
+      - name: Check pages and redirects
+        working-directory: ${{ steps.project.outputs.directory }}
+        run: npm run test:routes

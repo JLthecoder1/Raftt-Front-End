@@ -57,7 +57,7 @@ const server = createServer(async (request, response) => {
     'raise-application.html': 'company-application.html',
     'release-demo.html': 'milestone-releases.html',
   };
-  const legacyTarget = legacyPages[pathname.slice(1)];
+  const legacyTarget = legacyPages[pathname.slice(1)] || legacyPages[pathname.slice(1) + '.html'];
   if (legacyTarget) {
     response.writeHead(308, {
       Location:

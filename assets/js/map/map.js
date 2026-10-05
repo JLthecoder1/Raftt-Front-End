@@ -658,7 +658,7 @@ let down = null,
   wasPinch = false,
   lastHoverPick = 0;
 function sailFromPointer(e, select = true) {
-  if (mapGuide.open || document.body.classList.contains('opportunity-menu-open')) return;
+  if (mapGuide.open) return;
   pick(e);
   if (select) {
     const h = ray.intersectObjects(hitMeshes)[0];
@@ -674,6 +674,7 @@ function sailFromPointer(e, select = true) {
   )
     return;
   keys.clear();
+  if (document.body.classList.contains('opportunity-menu-open')) closeOpportunityMenu();
   sailTo(pointerDestination);
 }
 canvas.addEventListener('pointerdown', (e) => {
