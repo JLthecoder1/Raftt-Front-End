@@ -7,6 +7,8 @@ import { fileURLToPath } from "node:url";
 const root = resolve(fileURLToPath(new URL(".", import.meta.url)));
 const port = Number(process.env.PORT ?? 8765);
 const mimeTypes = {
+    ".woff2": "font/woff2",
+    ".glb": "model/gltf-binary",
     ".css": "text/css; charset=utf-8",
     ".gltf": "model/gltf+json",
     ".html": "text/html; charset=utf-8",
@@ -41,7 +43,15 @@ const server = createServer(async (request, response) => {
         return;
     }
 
-    const filePath = resolve(root, `.${pathname === "/" ? "/Index.html" : pathname}`);
+    const legacyPages = {"Index.html": "index.html", "pagina-1.html": "platform-overview.html", "pagina-2.html": "opportunity-details.html", "choose-path.html": "account-workspaces.html", "investment-demo.html": "investment-checkout.html", "my-portfolio.html": "portfolio.html", "user-profile.html": "profile.html", "organization-dashboard.html": "company-dashboard.html", "raise-application.html": "company-application.html", "release-demo.html": "milestone-releases.html"};
+    const legacyTarget = legacyPages[pathname.slice(1)];
+    if (legacyTarget) {
+        response.writeHead(308, { Location: '/' + legacyTarget + new URL(request.url, 'http://localhost').search });
+        response.end();
+        return;
+    }
+
+    const filePath = resolve(root, `.${pathname === "/" ? "/index.html" : pathname}`);
     if (filePath !== root && !filePath.startsWith(`${root}${sep}`)) {
         sendError(response, 403, "Forbidden");
         return;
@@ -123,7 +133,7 @@ const server = createServer(async (request, response) => {
 
 console.log("Raftt local server starting");
 server.listen(port, "127.0.0.1", () => {
-    console.log(`Raftt local server ready at http://127.0.0.1:${port}/Index.html`);
+    console.log(`Raftt local server ready at http://127.0.0.1:${port}/index.html`);
 });
 
 server.on("error", (error) => {

@@ -1,4 +1,7 @@
-const languageToggle = document.querySelector("#language-toggle");
+const languageToggle = document.querySelector("#language-current");
+const languageTrigger = document.querySelector("#language-toggle");
+const languageMenu = document.querySelector("#language-menu");
+const languageOptions = document.querySelectorAll("[data-language]");
 
 const portugueseText = [
     [".nav-link", ["Mercados", "Como funciona", "Marcos", "Perguntas frequentes", "Capte com a Raftt"]],
@@ -44,7 +47,8 @@ const portugueseText = [
     [".markets-content h2", ["Começamos com startups.<br>Com um horizonte mais amplo."]],
     [".markets-description", ["Startups são nosso foco inicial. A mesma abordagem foi pensada para alcançar outros ativos privados, com estruturas e marcos adequados a cada mercado."]],
     ["#markets .market-card h3", ["Startups", "Crédito privado para pequenas e médias empresas", "Financiamento de recebíveis", "Imóveis", "Energia", "Agricultura", "Infraestrutura", "Royalties e propriedade intelectual"]],
-    ["#markets .market-card p", ["Foco inicial", "Expansão futura", "Expansão futura", "Expansão futura", "Expansão futura", "Expansão futura", "Expansão futura", "Expansão futura"]],
+    ["#markets .market-card p", ["Participação societária e instrumentos conversíveis para empresas em crescimento.", "Crédito privado para capital de giro, equipamentos e expansão.", "Financiamento vinculado aos fluxos futuros de empresas.", "Empreendimentos e propriedades geradoras de renda.", "Ativos de geração e projetos para a energia do futuro.", "Produção, equipamentos e expansão agrícola.", "Logística, data centers e infraestrutura conectada.", "Direitos econômicos de música, audiovisual, games e outros ativos criativos."]],
+    ["#markets .market-card-status", ["Foco inicial", "Expansão futura", "Expansão futura", "Expansão futura", "Expansão futura", "Expansão futura", "Expansão futura", "Expansão futura"]],
     [".faq-content h2", ["Regras claras.<br>Movimentações rastreáveis."]],
     [".faq-description", ["A Raftt planeja usar stablecoins e contratos programáveis na Solana para gerenciar a liberação escalonada de capital e registrar transações. Documentos do projeto, condições acordadas e processos de verificação conectam essas transações à execução no mundo real."]],
     [".faq-item summary", ["O que a IA faz?", "Por que liberar o capital em etapas?", "Já posso investir?"]],
@@ -150,8 +154,9 @@ function setGeneratedText(selector, values) {
 }
 
 function translateHome(toPortuguese) {
+    localStorage.setItem("raftt-lang", toPortuguese ? "pt" : "en");
     document.documentElement.lang = toPortuguese ? "pt-BR" : "en";
-    document.title = toPortuguese ? "Raftt | Mercados privados, em conjunto" : "Raftt | Private Markets, Together";
+    document.title = toPortuguese ? "Mercados privados, juntos | RAFTT" : "Private markets, together | RAFTT";
     originalMarkup.forEach((markup, element) => {
         element.innerHTML = markup;
     });
@@ -248,6 +253,42 @@ function translateHome(toPortuguese) {
     }
 }
 
-languageToggle.addEventListener("click", () => {
-    translateHome(document.documentElement.lang !== "pt-BR");
+function closeLanguageMenu() {
+    languageMenu.hidden = true;
+    languageTrigger.setAttribute("aria-expanded", "false");
+}
+
+languageTrigger.addEventListener("click", () => {
+    const isOpen = languageTrigger.getAttribute("aria-expanded") === "true";
+    languageMenu.hidden = isOpen;
+    languageTrigger.setAttribute("aria-expanded", String(!isOpen));
 });
+
+languageOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+        const isPortuguese = option.dataset.language === "pt-BR";
+        translateHome(isPortuguese);
+        languageToggle.textContent = isPortuguese ? "PT" : "EN";
+        languageOptions.forEach((item) => {
+            item.setAttribute("aria-checked", String(item === option));
+        });
+        closeLanguageMenu();
+        languageTrigger.focus();
+    });
+});
+
+document.addEventListener("pointerdown", (event) => {
+    if (!event.target.closest(".language-picker")) closeLanguageMenu();
+});
+
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !languageMenu.hidden) {
+        closeLanguageMenu();
+        languageTrigger.focus();
+    }
+});
+
+const savedHomeLanguage = localStorage.getItem("raftt-lang") || "en";
+translateHome(savedHomeLanguage === "pt");
+languageToggle.textContent = savedHomeLanguage === "pt" ? "PT" : "EN";
+languageOptions.forEach(option => option.setAttribute("aria-checked", String(option.dataset.language === (savedHomeLanguage === "pt" ? "pt-BR" : "en"))));

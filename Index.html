@@ -4,11 +4,16 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Raftt | Private Markets, Together</title>
+        <title>Private markets, together | RAFTT</title>
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/workflows.css">
         <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
-    </head>
+    <link rel="stylesheet" href="assets/css/brand-theme.css">
+<script src="assets/js/brand-theme.js" defer></script>
+<script src="assets/js/page-metadata.js" defer></script>
+<script src="assets/js/number-format.js"></script>
+<link rel="stylesheet" href="assets/css/landing-bento.css">
+</head>
 
     <body>
         <header class="site-header">
@@ -32,10 +37,22 @@
                 <a class="nav-link is-selected" href="#how-it-works">How it works</a>
                 <a class="nav-link" href="#milestones">Milestones</a>
                 <a class="nav-link" href="#faq">FAQs</a>
-                <a class="nav-link" href="raise-application.html">Raise with Raftt</a>
-                <button class="nav-link language-toggle" id="language-toggle" type="button" lang="pt" aria-label="Switch language to Portuguese">Português</button>
             </nav>
-            <a class="call-button" href="login.html">Get Started</a>
+            <div class="header-actions">
+                <div class="language-picker">
+                    <button class="language-toggle" id="language-toggle" type="button" aria-expanded="false" aria-controls="language-menu" aria-label="Choose language">
+                        <svg class="language-toggle__globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.25"></circle><path d="M3.75 12h16.5M12 3.75c2.1 2.25 3.15 4.98 3.15 8.25S14.1 18 12 20.25C9.9 18 8.85 15.27 8.85 12S9.9 6 12 3.75Z"></path></svg>
+                        <span id="language-current">EN</span>
+                        <svg class="language-toggle__chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="m2.5 4.5 3.5 3 3.5-3"></path></svg>
+                    </button>
+                    <div class="language-menu" id="language-menu" role="menu" aria-label="Language" hidden>
+                        <p class="language-menu__label">Language</p>
+                        <button class="language-option" type="button" role="menuitemradio" aria-checked="true" data-language="en"><span class="language-flag" aria-hidden="true">🇺🇸</span><span>English</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4.2 4L19 6.5"></path></svg></button>
+                        <button class="language-option" type="button" role="menuitemradio" aria-checked="false" data-language="pt-BR"><span class="language-flag" aria-hidden="true">🇧🇷</span><span>Português</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4.2 4L19 6.5"></path></svg></button>
+                    </div>
+                </div>
+                <a class="call-button" href="login.html">Get Started</a>
+            </div>
             <div class="water-glow-container" aria-hidden="true">
                 <svg class="wave wave1" viewBox="0 0 1200 120" preserveAspectRatio="none">
                     <path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5C438.64 32.43 512.34 53.67 583 72.05c69.27 18 138.3 24.88 209.4 13.08 36.15-6 69.85-17.84 104.45-29.34C989.49 25 1113-14.29 1200 42.4V0Z" />
@@ -133,7 +150,6 @@
                     </p>
                     <div class="workflow-landing-actions" aria-label="Choose your Raftt journey">
                         <a href="demo-workspaces.html">Explore investing</a>
-                        <a href="raise-application.html">Raise capital</a>
                     </div>
                 </div>
                 <div class="intro-globe" data-globe>
@@ -320,68 +336,68 @@
                     other private assets, with structures and milestones suited to each market.
                 </p>
                 <div class="market-cards">
-                    <article class="market-card" data-card-tilt tabindex="0">
-                        <img class="market-card-image" src="assets/images/Equipe de startup colaborando com protótipo-1.png" alt="Startup team collaborating on a prototype">
+                    <article class="market-card">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Equipe de startup colaborando com protótipo-1.png" alt="Startup team collaborating on a prototype">
                         <div class="market-card-content">
-                            <span class="market-card-number">01</span>
+                            <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h6M9 14h6M9 18h6"/></svg><span class="market-card-number">01</span><span class="market-card-status">Initial focus</span></div>
                             <h3>Startups</h3>
-                            <p>Initial focus</p>
+                            <p>Equity and convertible instruments for growing companies.</p>
                         </div>
                     </article>
-                    <article class="market-card" data-card-tilt tabindex="0">
-                        <img class="market-card-image" src="assets/images/Pequena indústria em plena produção-2.png" alt="Team at a small manufacturing facility">
+                    <article class="market-card">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Pequena indústria em plena produção-2.png" alt="Team at a small manufacturing facility">
                         <div class="market-card-content">
-                            <span class="market-card-number">02</span>
+                            <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M4 21V9l6 3V9l6 3V4h4v17M7 16h1M12 16h1M17 16h1"/></svg><span class="market-card-number">02</span><span class="market-card-status">Future expansion</span></div>
                             <h3>Private credit for SMBs</h3>
-                            <p>Future expansion</p>
+                            <p>Private credit for working capital, equipment and expansion.</p>
                         </div>
                     </article>
-                    <article class="market-card" data-card-tilt tabindex="0">
-                        <img class="market-card-image" src="assets/images/Análise de recebíveis no atacado-5.png" alt="Receivables analysis for a wholesale business">
+                    <article class="market-card">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Análise de recebíveis no atacado-5.png" alt="Receivables analysis for a wholesale business">
                         <div class="market-card-content">
-                            <span class="market-card-number">03</span>
+                            <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h4"/></svg><span class="market-card-number">03</span><span class="market-card-status">Future expansion</span></div>
                             <h3>Receivables Financing</h3>
-                            <p>Future expansion</p>
+                            <p>Financing backed by future business cash flows.</p>
                         </div>
                     </article>
-                    <article class="market-card" data-card-tilt tabindex="0">
-                        <img class="market-card-image" src="assets/images/Arquitetura contemporânea em expansão-3.png" alt="Contemporary real estate development">
+                    <article class="market-card">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Arquitetura contemporânea em expansão-3.png" alt="Contemporary real estate development">
                         <div class="market-card-content">
-                            <span class="market-card-number">04</span>
+                            <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V9l7-6 7 6v12M9 21v-7h6v7"/></svg><span class="market-card-number">04</span><span class="market-card-status">Future expansion</span></div>
                             <h3>Real estate</h3>
-                            <p>Future expansion</p>
+                            <p>Developments and income-generating properties.</p>
                         </div>
                     </article>
-                    <article class="market-card" data-card-tilt tabindex="0">
-                        <img class="market-card-image" src="assets/images/Fazenda solar em plena operação-4.png" alt="Operating solar farm">
+                    <article class="market-card">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Fazenda solar em plena operação-4.png" alt="Operating solar farm">
                         <div class="market-card-content">
-                            <span class="market-card-number">05</span>
+                            <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m13 2-9 12h7l-1 8 10-12h-7z"/></svg><span class="market-card-number">05</span><span class="market-card-status">Future expansion</span></div>
                             <h3>Energy</h3>
-                            <p>Future expansion</p>
+                            <p>Generation assets and projects that power tomorrow.</p>
                         </div>
                     </article>
-                    <article class="market-card" data-card-tilt tabindex="0">
-                        <img class="market-card-image" src="assets/images/Trator entre campos e silos-6.png" alt="Tractor working between fields and silos">
+                    <article class="market-card">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Trator entre campos e silos-6.png" alt="Tractor working between fields and silos">
                         <div class="market-card-content">
-                            <span class="market-card-number">06</span>
+                            <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-9M12 16c-6 0-9-4-9-9 6 0 9 4 9 9M12 12c0-6 4-9 9-9 0 6-4 9-9 9"/></svg><span class="market-card-number">06</span><span class="market-card-status">Future expansion</span></div>
                             <h3>Agriculture</h3>
-                            <p>Future expansion</p>
+                            <p>Production, equipment and agricultural expansion.</p>
                         </div>
                     </article>
-                    <article class="market-card" data-card-tilt tabindex="0">
-                        <img class="market-card-image" src="assets/images/Porto moderno com centro de dados-7.png" alt="Modern port and data center">
+                    <article class="market-card">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Porto moderno com centro de dados-7.png" alt="Modern port and data center">
                         <div class="market-card-content">
-                            <span class="market-card-number">07</span>
+                            <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3zM7 6v12M12 6v12M17 6v12M3 10h18M3 14h18"/></svg><span class="market-card-number">07</span><span class="market-card-status">Future expansion</span></div>
                             <h3>Infrastructure</h3>
-                            <p>Future expansion</p>
+                            <p>Logistics, data centers and connected infrastructure.</p>
                         </div>
                     </article>
-                    <article class="market-card" data-card-tilt tabindex="0">
-                        <img class="market-card-image" src="assets/images/Estúdio criativo de música, cinema e jogos-8.png" alt="Creative studio for music, film, and games">
+                    <article class="market-card">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Estúdio criativo de música, cinema e jogos-8.png" alt="Creative studio for music, film, and games">
                         <div class="market-card-content">
-                            <span class="market-card-number">08</span>
+                            <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13M9 8l11-2M9 18c0 2-6 3-6 0s6-3 6 0M20 16c0 2-6 3-6 0s6-3 6 0"/></svg><span class="market-card-number">08</span><span class="market-card-status">Future expansion</span></div>
                             <h3>Royalties &amp; IP</h3>
-                            <p>Future expansion</p>
+                            <p>Economic rights in music, film, games and creative assets.</p>
                         </div>
                     </article>
                 </div>
@@ -432,7 +448,6 @@
                     <a href="#how-it-works">How it works</a>
                     <a href="#milestones">Milestones</a>
                     <a href="#markets">Markets</a>
-                    <a href="raise-application.html">For companies: raise with Raftt</a>
                 </nav>
                 <nav class="footer-column" aria-label="About Raftt">
                     <h2>About Raftt</h2>
