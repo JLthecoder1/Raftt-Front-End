@@ -78,11 +78,11 @@
         @media (prefers-reduced-motion: reduce) { .raise-field input, .raise-field select, .raise-option, .raise-submit { transition: none; } }
     </style>
 <link rel="stylesheet" href="assets/css/investor-flow.css"><link rel="stylesheet" href="assets/css/shared-footer.css">
-<script src="assets/js/shared-footer.js" defer></script>
+<script src="assets/js/shared/shared-footer.js" defer></script>
 <link rel="stylesheet" href="assets/css/brand-theme.css">
-<script src="assets/js/brand-theme.js" defer></script>
-<script src="assets/js/page-metadata.js" defer></script>
-<script src="assets/js/number-format.js"></script>
+<script src="assets/js/shared/brand-theme.js" defer></script>
+<script src="assets/js/shared/page-metadata.js" defer></script>
+<script src="assets/js/shared/number-format.js"></script>
 </head>
 <body class="raise-page">
     <header class="raise-header">
@@ -400,6 +400,9 @@
                     if (control.name === 'equityPercentage' && form.querySelector('[name=structure]:checked')?.value !== 'equity') return;
                     application[control.name] = window.RafttNumbers.isMoney(control) && control.value.trim() !== '' ? String(window.RafttNumbers.value(control)) : control.value;
                 });
+                const existing = JSON.parse(localStorage.getItem('raftt-company') || '{}');
+                application.fundraisingId = existing.fundraisingId || crypto.randomUUID();
+                application.confirmedFunding = existing.confirmedFunding || 0;
                 application.status = 'submitted';
                 localStorage.setItem('raftt-company', JSON.stringify(application));
                 status.textContent = "Proposta salva neste navegador. Abra o painel da empresa para acompanhar a demonstração.";
@@ -418,5 +421,5 @@
             updateStep();
         })();
     </script>
-<script src="assets/js/app-language.js"></script><script src="assets/js/profile-settings.js"></script><script src="assets/js/investor-flow.js"></script></body>
+<script src="assets/js/shared/app-language.js"></script><script src="assets/js/account/profile-settings.js"></script><script src="assets/js/investor/investor-flow.js"></script></body>
 </html>

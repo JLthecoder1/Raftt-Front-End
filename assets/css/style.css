@@ -2445,7 +2445,7 @@ button.investment-cta:disabled { width: 100%; border: 0; opacity: 0.78; cursor: 
     background: #0a202b;
     isolation: isolate;
 }
-.login-story-media { position: absolute; z-index: 0; inset: -1.5rem; background: linear-gradient(145deg, rgb(4 22 31 / 94%), rgb(20 107 140 / 73%) 52%, rgb(160 210 223 / 80%)), url("../images/Foto%20Abertura.png") center / cover; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) scale(var(--tilt-scale, 1.08)); transform-origin: center; transition: transform 260ms ease; will-change: transform; }
+.login-story-media { position: absolute; z-index: 0; inset: -1.5rem; background: linear-gradient(145deg, rgb(4 22 31 / 94%), rgb(20 107 140 / 73%) 52%, rgb(160 210 223 / 80%)), url("../images/navigator.png") center / cover; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) scale(var(--tilt-scale, 1.08)); transform-origin: center; transition: transform 260ms ease; will-change: transform; }
 .login-story::before, .login-story::after { position: absolute; z-index: 1; border-radius: 50%; content: ""; }
 .login-story::before { top: -16rem; right: -8rem; width: 31rem; height: 31rem; border: 1px solid rgb(255 255 255 / 22%); box-shadow: inset 0 0 5rem rgb(0 213 255 / 14%); }
 .login-story::after { bottom: -11rem; left: -8rem; width: 28rem; height: 28rem; background: rgb(0 213 255 / 18%); filter: blur(1rem); }
@@ -2470,7 +2470,7 @@ button.investment-cta:disabled { width: 100%; border: 0; opacity: 0.78; cursor: 
 .signup-story {
     --signup-story-overlay: linear-gradient(145deg, rgb(4 22 31 / 94%), rgb(20 107 140 / 73%) 52%, rgb(160 210 223 / 80%));
 }
-.signup-story .login-story-media { background-image: var(--signup-story-overlay), url("../images/Foto%20Abertura.png"); }
+.signup-story .login-story-media { background-image: var(--signup-story-overlay), url("../images/navigator.png"); }
 
 @media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
     .login-story { transform: none !important; transition: none; }

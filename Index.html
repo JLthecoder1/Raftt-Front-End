@@ -9,9 +9,9 @@
         <link rel="stylesheet" href="assets/css/workflows.css">
         <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
     <link rel="stylesheet" href="assets/css/brand-theme.css">
-<script src="assets/js/brand-theme.js" defer></script>
-<script src="assets/js/page-metadata.js" defer></script>
-<script src="assets/js/number-format.js"></script>
+<script src="assets/js/shared/brand-theme.js" defer></script>
+<script src="assets/js/shared/page-metadata.js" defer></script>
+<script src="assets/js/shared/number-format.js"></script>
 <link rel="stylesheet" href="assets/css/landing-bento.css">
 </head>
 
@@ -67,7 +67,7 @@
         <div class="hint" id="hint" role="status" aria-live="polite"></div>
         <main class="scroll-track" id="track">
             <div class="stage">
-                <img class="start-image" id="start-image" src="assets/images/Foto Abertura.png" alt="Illustration of a navigator crossing the sea between islands">
+                <img class="start-image" id="start-image" src="assets/images/navigator.png" alt="Illustration of a navigator crossing the sea between islands">
                 <video
                     src="assets/media/Navegante.mp4"
                     id="vid"
@@ -168,7 +168,7 @@
                 <div class="model-coin-grid" aria-label="Interactive 3D decentralized currencies and stablecoins">
                     <div class="model-viewer-wrapper">
                     <model-viewer
-                        src="assets/3D/Bitcion/scene.gltf"
+                        src="assets/models/currencies/bitcoin/scene.gltf"
                         alt="Interactive 3D decentralized currency"
                         camera-controls
                         auto-rotate
@@ -178,7 +178,7 @@
                     </div>
                     <div class="model-viewer-wrapper">
                         <model-viewer
-                            src="assets/3D/Ethereum/scene.gltf"
+                            src="assets/models/currencies/ethereum/scene.gltf"
                             alt="Interactive 3D decentralized currency"
                             camera-controls
                             auto-rotate
@@ -188,7 +188,7 @@
                     </div>
                     <div class="model-viewer-wrapper">
                         <model-viewer
-                            src="assets/3D/USDT/scene.gltf"
+                            src="assets/models/currencies/usdt/scene.gltf"
                             alt="Interactive 3D stablecoin"
                             camera-controls
                             auto-rotate
@@ -337,7 +337,7 @@
                 </p>
                 <div class="market-cards">
                     <article class="market-card">
-                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Equipe de startup colaborando com protótipo-1.png" alt="Startup team collaborating on a prototype">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/markets/startups.png" alt="Startup team collaborating on a prototype">
                         <div class="market-card-content">
                             <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h6M9 14h6M9 18h6"/></svg><span class="market-card-number">01</span><span class="market-card-status">Initial focus</span></div>
                             <h3>Startups</h3>
@@ -345,7 +345,7 @@
                         </div>
                     </article>
                     <article class="market-card">
-                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Pequena indústria em plena produção-2.png" alt="Team at a small manufacturing facility">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/markets/small-businesses.png" alt="Team at a small manufacturing facility">
                         <div class="market-card-content">
                             <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M4 21V9l6 3V9l6 3V4h4v17M7 16h1M12 16h1M17 16h1"/></svg><span class="market-card-number">02</span><span class="market-card-status">Future expansion</span></div>
                             <h3>Private credit for SMBs</h3>
@@ -353,7 +353,7 @@
                         </div>
                     </article>
                     <article class="market-card">
-                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Análise de recebíveis no atacado-5.png" alt="Receivables analysis for a wholesale business">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/markets/receivables.png" alt="Receivables analysis for a wholesale business">
                         <div class="market-card-content">
                             <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h4"/></svg><span class="market-card-number">03</span><span class="market-card-status">Future expansion</span></div>
                             <h3>Receivables Financing</h3>
@@ -361,7 +361,7 @@
                         </div>
                     </article>
                     <article class="market-card">
-                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Arquitetura contemporânea em expansão-3.png" alt="Contemporary real estate development">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/markets/real-estate.png" alt="Contemporary real estate development">
                         <div class="market-card-content">
                             <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V9l7-6 7 6v12M9 21v-7h6v7"/></svg><span class="market-card-number">04</span><span class="market-card-status">Future expansion</span></div>
                             <h3>Real estate</h3>
@@ -369,7 +369,7 @@
                         </div>
                     </article>
                     <article class="market-card">
-                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Fazenda solar em plena operação-4.png" alt="Operating solar farm">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/markets/energy.png" alt="Operating solar farm">
                         <div class="market-card-content">
                             <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m13 2-9 12h7l-1 8 10-12h-7z"/></svg><span class="market-card-number">05</span><span class="market-card-status">Future expansion</span></div>
                             <h3>Energy</h3>
@@ -377,7 +377,7 @@
                         </div>
                     </article>
                     <article class="market-card">
-                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Trator entre campos e silos-6.png" alt="Tractor working between fields and silos">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/markets/agriculture.png" alt="Tractor working between fields and silos">
                         <div class="market-card-content">
                             <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-9M12 16c-6 0-9-4-9-9 6 0 9 4 9 9M12 12c0-6 4-9 9-9 0 6-4 9-9 9"/></svg><span class="market-card-number">06</span><span class="market-card-status">Future expansion</span></div>
                             <h3>Agriculture</h3>
@@ -385,7 +385,7 @@
                         </div>
                     </article>
                     <article class="market-card">
-                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Porto moderno com centro de dados-7.png" alt="Modern port and data center">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/markets/infrastructure.png" alt="Modern port and data center">
                         <div class="market-card-content">
                             <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3zM7 6v12M12 6v12M17 6v12M3 10h18M3 14h18"/></svg><span class="market-card-number">07</span><span class="market-card-status">Future expansion</span></div>
                             <h3>Infrastructure</h3>
@@ -393,7 +393,7 @@
                         </div>
                     </article>
                     <article class="market-card">
-                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/Estúdio criativo de música, cinema e jogos-8.png" alt="Creative studio for music, film, and games">
+                        <img loading="lazy" decoding="async" class="market-card-image" src="assets/images/markets/royalties.png" alt="Creative studio for music, film, and games">
                         <div class="market-card-content">
                             <div class="bento-card-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13M9 8l11-2M9 18c0 2-6 3-6 0s6-3 6 0M20 16c0 2-6 3-6 0s6-3 6 0"/></svg><span class="market-card-number">08</span><span class="market-card-status">Future expansion</span></div>
                             <h3>Royalties &amp; IP</h3>
@@ -526,7 +526,7 @@
         </footer>
         <script src="assets/js/vendor/gsap.min.js"></script>
         <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
-        <script src="assets/js/home-language.js"></script>
-        <script src="assets/js/main.js"></script>
+        <script src="assets/js/landing/home-language.js"></script>
+        <script src="assets/js/landing/main.js"></script>
     </body>
 </html>
