@@ -38,7 +38,7 @@
       v = p.investor || {},
       privacy = p.privacy || {};
     return (
-      `<div class="profile-heading"><div><p class="eyebrow">${t('CONTA / PREFERÊNCIAS', 'ACCOUNT / SETTINGS')}</p><h1>${t('Seu perfil, por inteiro.', 'Your profile, in full.')}</h1><p class="lead muted">${t('Uma identidade para investir e construir. Organize seus dados e escolha como participar.', 'One identity to invest and build. Keep your details together and choose how to participate.')}</p></div><span class="profile-monogram">${esc((p.name || 'R').charAt(0).toUpperCase())}</span></div><div class="profile-summary"><span class="badge">${t('Investidor + empresa', 'Investor + company')}</span><span>${t('Dados salvos neste navegador · demonstração', 'Saved in this browser · demo')}</span></div><div class="settings-layout"><nav class="settings-nav" aria-label="${t('Seções do perfil', 'Profile sections')}">${[
+      `<div class="profile-heading"><div><p class="eyebrow">${t('CONTA / PREFERÊNCIAS', 'ACCOUNT / SETTINGS')}</p><h1>${t('Seu perfil, por inteiro.', 'Your profile, in full.')}</h1><p class="lead muted">${t('Uma identidade para investir e construir. Organize seus dados e escolha como participar.', 'One identity to invest and build. Keep your details together and choose how to participate.')}</p></div></div><div class="profile-summary"><span class="badge">${t('Investidor + empresa', 'Investor + company')}</span><span>${t('Dados salvos neste navegador · demonstração', 'Saved in this browser · demo')}</span></div><div class="settings-layout"><nav class="settings-nav" aria-label="${t('Seções do perfil', 'Profile sections')}">${[
         ['identity', t('Dados pessoais', 'Personal details')],
         ['contact', t('Contato e endereço', 'Contact & address')],
         ['investor', t('Preferências de investimento', 'Investor settings')],
@@ -57,7 +57,7 @@
           'Seu perfil acompanha as duas áreas da conta.',
           'Your profile works across both account areas.',
         ),
-        `<form data-settings="identity"><div class="form-grid">${input('name', t('Nome completo', 'Full name'), p.name, 'text', 'required maxlength="80" autocomplete="name"')}${input('headline', t('Título profissional', 'Professional headline'), p.headline, 'text', 'maxlength="120"')}${input('phone', t('Telefone', 'Phone number'), p.phone, 'tel', 'autocomplete="tel"')}${input('website', t('Site pessoal', 'Personal website'), p.website, 'url', 'placeholder="https://"')}<div class="field full"><label for="bio">${t('Sobre você', 'About you')}</label><textarea id="bio" maxlength="600" rows="3">${esc(p.bio)}</textarea></div><div class="field"><label for="role">${t('Área preferida', 'Preferred workspace')}</label><select id="role"><option value="investor" ${p.activeWorkspace === 'investor' ? 'selected' : ''}>${t('Investimentos', 'Investments')}</option><option value="organization" ${p.activeWorkspace === 'organization' ? 'selected' : ''}>${t('Captação da empresa', 'Company fundraising')}</option></select></div></div><p class="field-help">${t('Você pode investir e captar simultaneamente. O login abre o mapa; os painéis continuam disponíveis no menu.', 'You can invest and raise capital at the same time. Sign-in opens the map; dashboards remain available in the menu.')}</p>${save()}</form>`,
+        `<form data-settings="identity"><div class="form-grid">${input('name', t('Nome completo', 'Full name'), p.name, 'text', 'required maxlength="80" autocomplete="name"')}${input('headline', t('Título profissional', 'Professional headline'), p.headline, 'text', 'maxlength="120"')}${input('phone', t('Telefone', 'Phone number'), p.phone, 'tel', 'autocomplete="tel"')}<div class="field full"><label for="bio">${t('Sobre você', 'About you')}</label><textarea id="bio" maxlength="600" rows="3">${esc(p.bio)}</textarea></div><div class="field"><label for="role">${t('Área preferida', 'Preferred workspace')}</label><select id="role"><option value="investor" ${p.activeWorkspace === 'investor' ? 'selected' : ''}>${t('Investimentos', 'Investments')}</option><option value="organization" ${p.activeWorkspace === 'organization' ? 'selected' : ''}>${t('Captação da empresa', 'Company fundraising')}</option></select></div></div><p class="field-help">${t('Você pode investir e captar simultaneamente. O login abre o mapa; os painéis continuam disponíveis no menu.', 'You can invest and raise capital at the same time. Sign-in opens the map; dashboards remain available in the menu.')}</p>${save()}</form>`,
       ) +
       section(
         'contact',
@@ -171,7 +171,6 @@
                 name: get('name'),
                 headline: get('headline'),
                 phone: get('phone'),
-                website: get('website'),
                 bio: get('bio'),
                 activeWorkspace: get('role'),
                 role: get('role'),
@@ -276,7 +275,7 @@
     anchors.forEach((a, index) => {
       a.onclick = (e) => {
         e.preventDefault();
-        history.pushState(null, '', a.hash);
+        history.pushState({ profileSection: a.hash }, '', location.pathname + location.search);
         selectSection(a.hash);
       };
       a.onkeydown = (e) => {
@@ -294,14 +293,23 @@
               : null;
         if (next !== null) {
           e.preventDefault();
-          history.replaceState(null, '', anchors[next].hash);
+          history.replaceState(
+            { profileSection: anchors[next].hash },
+            '',
+            location.pathname + location.search,
+          );
           selectSection(anchors[next].hash, true);
         }
       };
     });
     addEventListener('hashchange', () => selectSection(location.hash));
-    addEventListener('popstate', () => selectSection(location.hash));
-    selectSection(location.hash);
+    addEventListener('popstate', () => selectSection(history.state?.profileSection || '#identity'));
+    selectSection(location.hash || history.state?.profileSection || '#identity');
+    history.replaceState(
+      { profileSection: location.hash || history.state?.profileSection || '#identity' },
+      '',
+      location.pathname + location.search,
+    );
   }
 
   function entitySelect(p) {

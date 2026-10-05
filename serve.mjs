@@ -44,7 +44,9 @@ const server = createServer(async (request, response) => {
   }
 
   const legacyPages = {
-    'Index.html': 'index.html',
+    'Index.html': 'welcome.html',
+    'index.html': 'welcome.html',
+    index: 'welcome.html',
     'pagina-1.html': 'platform-overview.html',
     'pagina-2.html': 'opportunity-details.html',
     'choose-path.html': 'account-workspaces.html',
@@ -58,13 +60,30 @@ const server = createServer(async (request, response) => {
   const legacyTarget = legacyPages[pathname.slice(1)];
   if (legacyTarget) {
     response.writeHead(308, {
-      Location: '/' + legacyTarget + new URL(request.url, 'http://localhost').search,
+      Location:
+        '/' + legacyTarget.replace(/\.html$/, '') + new URL(request.url, 'http://localhost').search,
     });
     response.end();
     return;
   }
 
-  const filePath = resolve(root, `.${pathname === '/' ? '/index.html' : pathname}`);
+  if (pathname === '/') {
+    response.writeHead(308, {
+      Location: '/welcome' + new URL(request.url, 'http://localhost').search,
+    });
+    response.end();
+    return;
+  }
+  if (/^\/[a-zA-Z0-9-]+\.html$/.test(pathname)) {
+    response.writeHead(308, {
+      Location: pathname.replace(/\.html$/, '') + new URL(request.url, 'http://localhost').search,
+    });
+    response.end();
+    return;
+  }
+  const resource =
+    pathname === '/' ? '/welcome.html' : !extname(pathname) ? pathname + '.html' : pathname;
+  const filePath = resolve(root, `.${resource}`);
   if (filePath !== root && !filePath.startsWith(`${root}${sep}`)) {
     sendError(response, 403, 'Forbidden');
     return;
@@ -146,7 +165,7 @@ const server = createServer(async (request, response) => {
 
 console.log('Raftt local server starting');
 server.listen(port, '127.0.0.1', () => {
-  console.log(`Raftt local server ready at http://127.0.0.1:${port}/index.html`);
+  console.log(`Raftt local server ready at http://127.0.0.1:${port}/welcome`);
 });
 
 server.on('error', (error) => {

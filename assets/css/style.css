@@ -1801,7 +1801,7 @@ body {
   width: 100%;
   height: auto;
   overflow: visible;
-  cursor: crosshair;
+  cursor: default;
   outline: none;
 }
 
