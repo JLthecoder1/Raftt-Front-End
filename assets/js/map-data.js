@@ -15,10 +15,7 @@ export const ISLANDS = [
       en: 'Review each company, its stage and risks before deciding to participate.',
       pt: 'Analise cada empresa, seu estágio e seus riscos antes de decidir participar.',
     },
-    opps: [
-      { id: 'nullun', name: 'NULLUN', demo: true },
-      { id: 'nexo', name: 'Nexo Software', demo: true },
-    ],
+    opps: [],
   },
   {
     id: 'pmes',

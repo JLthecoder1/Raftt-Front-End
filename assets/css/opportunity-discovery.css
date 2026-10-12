@@ -1,0 +1,253 @@
+#investment-app .discovery-intro {
+  color: var(--muted);
+  max-width: 640px;
+  margin-bottom: 28px;
+}
+#investment-app .discovery-filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: white;
+}
+#investment-app .discovery-filters label {
+  font-size: 13px;
+  font-weight: 600;
+}
+#investment-app .discovery-results {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 13px;
+}
+#investment-app .discovery-results a {
+  color: var(--blue);
+  font-weight: 600;
+}
+#investment-app .discovery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+#investment-app .discovery-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: white;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+#investment-app .discovery-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px #24334b0d;
+}
+#investment-app .discovery-cover {
+  position: relative;
+  height: 158px;
+  background: #e9f1f1;
+  overflow: hidden;
+}
+#investment-app .discovery-contours {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  right: -55px;
+  top: -140px;
+  border: 1px solid #3499b633;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 28px #3499b60a,
+    0 0 0 29px #3499b626,
+    0 0 0 58px #3499b60a,
+    0 0 0 59px #3499b626,
+    0 0 0 88px #3499b60a;
+}
+#investment-app .discovery-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#investment-app .discovery-category {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  background: #ffffffed;
+  border-radius: 6px;
+  padding: 5px 8px;
+}
+#investment-app .discovery-logo {
+  position: absolute;
+  left: 22px;
+  bottom: 20px;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 14px;
+  background: white;
+  border: 1px solid var(--line);
+  color: var(--blue);
+  font-size: 22px;
+  font-weight: 650;
+  overflow: hidden;
+}
+#investment-app .discovery-logo img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+  object-fit: contain;
+  background: white;
+}
+#investment-app .discovery-body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+#investment-app .discovery-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+}
+#investment-app .discovery-heading .eyebrow {
+  margin: 0;
+  font-size: 10px;
+}
+#investment-app .discovery-state {
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #edf1f4;
+  color: #455570;
+}
+#investment-app .state-open,
+#investment-app .state-released {
+  background: #eaf4ef;
+  color: #28664a;
+}
+#investment-app .state-reached {
+  background: #fff4dd;
+  color: #866216;
+}
+#investment-app .state-failed {
+  background: #fbeceb;
+  color: #a23b35;
+}
+#investment-app .discovery-body h2 {
+  font-size: 24px;
+  letter-spacing: -0.6px;
+  line-height: 1.2;
+  margin: 16px 0 8px;
+  overflow-wrap: anywhere;
+}
+#investment-app .discovery-description {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0 0 24px;
+  min-height: 65px;
+}
+#investment-app .discovery-amount {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 7px;
+  margin-top: auto;
+}
+#investment-app .discovery-amount strong {
+  font-size: 25px;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+#investment-app .discovery-amount span {
+  font-size: 11px;
+  color: var(--muted);
+}
+#investment-app .discovery-card progress {
+  height: 6px;
+  margin: 12px 0 7px;
+  accent-color: var(--blue);
+  border: none;
+  border-radius: 6px;
+  overflow: hidden;
+}
+#investment-app .discovery-card progress::-webkit-progress-bar {
+  background: #edf1f2;
+}
+#investment-app .discovery-card progress::-webkit-progress-value {
+  background: var(--blue);
+}
+#investment-app .discovery-card progress::-moz-progress-bar {
+  background: var(--blue);
+}
+#investment-app .discovery-target {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+#investment-app .discovery-network {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 14px 0 20px;
+}
+#investment-app .discovery-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: var(--blue);
+}
+#investment-app .discovery-empty {
+  grid-column: 1 / -1;
+  padding: 40px 24px;
+  text-align: center;
+  border: 1px dashed var(--line);
+  border-radius: 16px;
+  background: var(--sand);
+}
+@media (max-width: 1150px) {
+  #investment-app .discovery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  #investment-app .discovery-grid {
+    grid-template-columns: 1fr;
+  }
+  #investment-app .discovery-filters {
+    grid-template-columns: 1fr 1fr;
+    padding: 16px;
+    gap: 12px;
+  }
+  #investment-app .discovery-filters label:first-child {
+    grid-column: 1 / -1;
+  }
+  #investment-app .discovery-body {
+    padding: 20px;
+  }
+  #investment-app .discovery-results {
+    flex-wrap: wrap;
+    gap: 0 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #investment-app .discovery-card {
+    transition: none;
+  }
+  #investment-app .discovery-card:hover {
+    transform: none;
+  }
+}

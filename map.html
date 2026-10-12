@@ -20,11 +20,14 @@
         font-display: swap;
       }
     </style>
-    <script src="assets/js/shared/app-language.js" defer></script>
+    <script src="assets/js/shared/app-language.js?v=18" defer></script>
     <link rel="stylesheet" href="assets/css/brand-theme.css" />
     <script src="assets/js/shared/brand-theme.js" defer></script>
     <script src="assets/js/shared/page-metadata.js" defer></script>
     <script src="assets/js/shared/number-format.js"></script>
+    <script src="assets/js/vendor/supabase.min.js"></script>
+    <script src="assets/js/backend/config.js"></script>
+    <script src="assets/js/backend/client.js?v=21"></script>
   </head>
   <body class="dashboard-page map-page">
     <div class="dashboard-shell map-shell">
@@ -193,6 +196,11 @@
     <script type="importmap">
       { "imports": { "three": "./assets/js/vendor/three.module.min.js" } }
     </script>
-    <script type="module" src="assets/js/map/map.js"></script>
+    <script src="assets/js/shared/catalog-model.js?v=13"></script>
+    <script src="assets/js/shared/opportunity-catalog.js?v=14"></script>
+    <script type="module" src="assets/js/map/map.js?v=13"></script>
+    <script src="assets/js/backend/gate.js?v=19"></script>
+    <script src="assets/js/media/avatar-display.js"></script>
+    <script src="assets/js/shared/environment-status.js?v=18"></script>
   </body>
 </html>

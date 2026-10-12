@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Rodadas e parcelas | RAFTT</title>
+    <link rel="stylesheet" href="assets/css/investor-flow.css" />
+    <link rel="stylesheet" href="assets/css/brand-theme.css" />
+    <style>
+      body {
+        padding: 24px;
+        background: #f7f4ec;
+        color: #152b45;
+      }
+      main {
+        max-width: 1000px;
+        margin: auto;
+      }
+      section {
+        background: white;
+        border: 1px solid #d9e2ec;
+        border-radius: 16px;
+        padding: 24px;
+        margin: 20px 0;
+      }
+      .round-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+      .round-nav label {
+        flex-direction: row;
+        align-items: center;
+      }
+      .round-nav select {
+        width: auto;
+      }
+      form,
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      label {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #b8c7d8;
+        border-radius: 8px;
+        background: white;
+        color: #152b45;
+      }
+      button {
+        padding: 10px 16px;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.45;
+        cursor: default;
+      }
+      .wide {
+        grid-column: 1/-1;
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+      .muted {
+        color: #52657d;
+        font-size: 0.9rem;
+      }
+      .address {
+        overflow-wrap: anywhere;
+      }
+      progress {
+        width: 100%;
+        height: 20px;
+      }
+      #feedback {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+      details {
+        margin: 20px 0;
+      }
+      article {
+        padding: 16px;
+        border-top: 1px solid #d9e2ec;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #152b45;
+      }
+      @media (max-width: 600px) {
+        form,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        body {
+          padding: 12px;
+        }
+        section {
+          padding: 16px;
+        }
+      }
+    </style>
+    <script src="assets/js/vendor/supabase.min.js"></script>
+    <script src="assets/js/backend/config.js"></script>
+    <script src="assets/js/backend/client.js?v=21"></script>
+  </head>
+  <body>
+    <main>
+      <nav class="round-nav">
+        <a href="/milestone-releases">← Metas e parcelas</a
+        ><label
+          >Idioma
+          <select id="round-language">
+            <option value="pt">Português</option>
+            <option value="en">English</option>
+          </select></label
+        >
+      </nav>
+      <h1>Rodadas e liberação por etapas</h1>
+      <p>
+        Ambiente de teste <strong id="network"></strong>. Rodadas v2 usam mínimo, prazo e aprovação
+        da RAFTT. Ofertas antigas continuam no painel anterior.
+      </p>
+      <section>
+        <h2>Carteira</h2>
+        <div class="actions">
+          <select id="provider" aria-label="Provedor">
+            <option value="phantom">Phantom</option>
+            <option value="solflare">Solflare</option></select
+          ><button id="connect">Conectar</button><button id="disconnect">Desconectar</button>
+        </div>
+        <p id="wallet" class="address">Desconectada</p>
+      </section>
+      <details>
+        <summary>Configuração inicial da RAFTT · responsável pelo deploy</summary>
+        <section>
+          <p>
+            Uma única vez: o responsável pelo deploy registra a carteira que revisará as rodadas e
+            parcelas. Use uma carteira de teste diferente da startup.
+          </p>
+          <label>Carteira autorizada da RAFTT<input id="reviewer" /></label
+          ><button id="setup">Registrar autoridade</button>
+        </section>
+      </details>
+      <section>
+        <h2>Consultar rodada</h2>
+        <form id="load-form">
+          <label class="wide"
+            >Endereço público da rodada v2<input id="round-address" required /></label
+          ><button>Consultar e atualizar</button>
+        </form>
+        <div id="round-details"></div>
+      </section>
+      <details>
+        <summary>Criar uma nova rodada</summary>
+        <section>
+          <form id="create-form">
+            <label
+              >Identificador da rodada<input
+                name="id"
+                type="number"
+                min="0"
+                step="1"
+                value="1"
+                required
+            /></label>
+            <label>Mint SPL de teste<input name="mint" required /></label
+            ><label>Mínimo em tokens<input name="minimum" inputmode="decimal" required /></label
+            ><label
+              >Objetivo e limite de captação<input name="cap" inputmode="decimal" required
+            /></label>
+            <label
+              >Encerramento · horário local<input
+                name="deadline"
+                type="datetime-local"
+                required /></label
+            ><label>Carteira destinatária dos fundos<input name="recipient" required /></label>
+            <label class="wide"
+              >Plano para o cenário mínimo<textarea
+                name="plan"
+                rows="5"
+                required
+                placeholder="Metas, entregas, custos e condições. O orçamento inicial das parcelas deve somar o mínimo."
+              ></textarea></label
+            ><button>Criar rascunho na Solana</button>
+          </form>
+        </section>
+      </details>
+      <section>
+        <h2>Resultado da operação</h2>
+        <p id="feedback" role="status" aria-live="polite">
+          Conecte a carteira e consulte uma rodada.
+        </p>
+        <p class="muted">
+          Os documentos são resumidos por SHA-256 no contrato. Guarde os textos e relatórios fora da
+          blockchain. A análise automática de candidaturas e evidências está nas áreas da empresa e
+          de revisão da RAFTT. Este painel técnico opera diretamente na Solana e não vincula novas
+          rodadas ao cadastro da empresa.
+        </p>
+      </section>
+    </main>
+    <script src="assets/js/vendor/solana-web3.min.js"></script>
+    <script src="assets/js/solana/config.js?v=15"></script>
+    <script src="assets/js/solana/client.js?v=15"></script>
+    <script src="assets/js/solana/wallet-header.js" defer></script>
+    <script src="assets/js/solana/v2-client.js?v=15"></script>
+    <script src="assets/js/solana/round-language.js?v=24"></script>
+    <script src="assets/js/solana/v2-ui.js?v=15"></script>
+    <script src="assets/js/backend/gate.js?v=19"></script>
+    <script src="assets/js/media/avatar-display.js"></script>
+    <script src="assets/js/shared/environment-status.js?v=18"></script>
+  </body>
+</html>

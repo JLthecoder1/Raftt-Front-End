@@ -2,16 +2,30 @@
   "name": "raftt-frontend",
   "version": "0.1.0",
   "private": true,
-  "description": "RAFTT static frontend demonstration",
+  "description": "RAFTT frontend with Supabase accounts and Solana devnet integration",
   "scripts": {
     "start": "node serve.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "check:syntax": "node scripts/check-syntax.mjs",
     "test:routes": "node scripts/check-routes.mjs",
-    "check": "npm run format:check && npm run check:syntax && npm run test:routes"
+    "check": "npm run format:check && npm run check:syntax && npm run test:routes",
+    "test:solana": "node scripts/test-solana.cjs && node scripts/test-investment-flow.cjs && node scripts/test-legacy-initialize.cjs",
+    "test:v2": "node scripts/test-v2.cjs && node scripts/test-v2-transactions.cjs && node scripts/test-company-investment.cjs",
+    "test:workspace": "node scripts/test-workspace.cjs && node scripts/test-workspace-flow.cjs",
+    "test:wallet": "node scripts/test-wallet-session.cjs",
+    "test:backend": "node scripts/test-backend.cjs",
+    "test:images": "node scripts/test-images.cjs",
+    "test:password": "node scripts/test-password.cjs",
+    "test:catalog": "node scripts/test-catalog.cjs && node scripts/test-map-catalog.cjs",
+    "test:api": "node scripts/test-api-integration.cjs && node scripts/test-operational-dom.cjs",
+    "test:data": "node scripts/test-live-data.cjs && node scripts/test-draft-policy.cjs && node scripts/test-company-data.cjs && node scripts/test-draft-isolation.cjs",
+    "test:logout": "node scripts/test-logout.cjs",
+    "test:agent": "node scripts/test-agent-ui.cjs"
   },
   "devDependencies": {
-    "prettier": "3.6.2"
+    "prettier": "3.6.2",
+    "jsdom": "26.1.0",
+    "@electric-sql/pglite": "0.5.8"
   }
 }

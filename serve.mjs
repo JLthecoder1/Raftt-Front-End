@@ -163,7 +163,8 @@ const server = createServer(async (request, response) => {
   stream.pipe(response);
 });
 
-console.log('Raftt local server starting');
+console.log('RAFTT v15 — devnet 7rxcmd — Supabase catalog, no demo companies');
+console.log(`Serving project folder: ${root}`);
 server.listen(port, '127.0.0.1', () => {
   console.log(`Raftt local server ready at http://127.0.0.1:${port}/welcome`);
 });

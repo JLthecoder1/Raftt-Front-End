@@ -3,6 +3,37 @@
   const lang = localStorage.getItem('raftt-lang') || 'en';
   localStorage.setItem('raftt-lang', lang);
   const pairs = [
+    [
+      'Seu rascunho fica salvo na sua conta. Ao enviar, as informações e os arquivos selecionados seguem para revisão da RAFTT.',
+      'Your draft is saved to your account. On submission, the information and selected files are sent to RAFTT for review.',
+    ],
+    [
+      'Informe um link acessível à equipe ou selecione um arquivo para enviar à revisão.',
+      'Provide a link accessible to the team or select a file to submit for review.',
+    ],
+    ['Selecionar arquivo da apresentação', 'Select pitch deck file'],
+    ['PDF, PPT ou PPTX · até 20 MB', 'PDF, PPT or PPTX · up to 20 MB'],
+    ['Enviar candidatura', 'Submit application'],
+    [
+      'O rascunho não publica a empresa. A publicação depende da revisão da RAFTT e da abertura da rodada.',
+      'Saving a draft does not publish the company. Publication requires RAFTT review and an open round.',
+    ],
+    ['Ambiente de desenvolvimento', 'Development environment'],
+    [
+      'As informações da conta são salvas no banco. As transações usam a rede e o token indicados na rodada.',
+      'Account information is saved to the database. Transactions use the network and token shown in the round.',
+    ],
+    ['Meta informada na candidatura', 'Target declared in the application'],
+    ['Capital captado', 'Raised capital'],
+    ['Capital liberado', 'Released capital'],
+    [
+      'Sua candidatura foi salva na sua conta. Acompanhe a revisão da RAFTT abaixo.',
+      'Your application was saved to your account. Follow the RAFTT review below.',
+    ],
+    ['Candidatura em análise', 'Application under review'],
+    ['Candidatura aprovada', 'Application approved'],
+    ['Candidatura rejeitada', 'Application rejected'],
+
     ['Visão geral', 'Overview'],
     ['Oportunidades', 'Opportunities'],
     ['Meu portfólio', 'My portfolio'],
@@ -510,15 +541,61 @@
     ['Planeje cada entrega.', 'Plan each delivery.'],
     ['Planejar marcos e orçamento', 'Plan milestones and budget'],
   );
+  pairs.push(
+    ...[
+      [
+        'Crie sua conta com e-mail e senha. Você receberá um e-mail para confirmar o cadastro.',
+        'Create your account with email and password. You will receive an email to confirm your account.',
+      ],
+      [
+        'Entre com o e-mail e a senha da sua conta RAFTT.',
+        'Sign in with your RAFTT account email and password.',
+      ],
+      ['8+ caracteres, letras e números', '8+ characters, letters and numbers'],
+      [
+        'Use pelo menos 8 caracteres, incluindo letras e números. Confirme a senha no segundo campo.',
+        'Use at least 8 characters, including letters and numbers. Confirm your password in the second field.',
+      ],
+      [
+        'Use pelo menos 8 caracteres, incluindo letras e números.',
+        'Use at least 8 characters, including letters and numbers.',
+      ],
+      ['As senhas não coincidem.', 'Passwords do not match.'],
+      [
+        'As senhas coincidem e atendem aos requisitos.',
+        'Passwords match and meet the requirements.',
+      ],
+      ['Confirmando acesso…', 'Confirming access…'],
+      ['Confirmar acesso', 'Confirm access'],
+      ['Nova senha', 'New password'],
+      ['Salvar senha', 'Save password'],
+      ['Voltar ao login', 'Back to login'],
+      ['ACESSO À CONTA', 'ACCOUNT ACCESS'],
+      ['Redefina sua senha.', 'Reset your password.'],
+      [
+        'Digite o e-mail da sua conta para receber um link de recuperação de senha.',
+        'Enter your account email to receive a password recovery link.',
+      ],
+      [
+        'O link de recuperação será enviado ao seu e-mail.',
+        'The recovery link will be sent to your email.',
+      ],
+      ['Endereço de e-mail', 'Email address'],
+      ['Enviar link de recuperação', 'Send recovery link'],
+      ['Voltar para entrar', 'Return to sign in'],
+      ['Criar conta', 'Create account'],
+      ['Redefinir senha', 'Reset password'],
+    ],
+  );
   const dict = new Map(pairs),
     reverse = new Map(pairs.map(([pt, en]) => [en, pt]));
   function translate(value) {
-    const trim = value.trim();
+    const trim = value.trim().replace(/\s+/g, ' ');
     if (lang === 'pt') {
-      if (reverse.has(trim)) return value.replace(trim, reverse.get(trim));
+      if (reverse.has(trim)) return value.replace(value.trim(), reverse.get(trim));
       return value;
     }
-    if (dict.has(trim)) return value.replace(trim, dict.get(trim));
+    if (dict.has(trim)) return value.replace(value.trim(), dict.get(trim));
     return value
       .replace(/^Olá, (.*)\.$/, 'Hello, $1.')
       .replace(/^Etapa (\d+) de (\d+)$/, 'Step $1 of $2')

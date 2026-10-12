@@ -40,6 +40,10 @@ try {
     assert.equal(response.headers.get('location'), redirect.destination, redirect.source);
   }
   assert.equal((await fetch(origin + '/assets/images/raftt-symbol.svg')).status, 200);
+  const model = await (await fetch(origin + '/assets/models/currencies/usdt/scene.gltf')).json();
+  const binary = await fetch(origin + '/assets/models/currencies/usdt/' + model.buffers[0].uri);
+  assert.equal(binary.status, 200);
+  assert.equal((await binary.arrayBuffer()).byteLength, model.buffers[0].byteLength);
   assert.equal((await fetch(origin + '/nonexistent-page')).status, 404);
   console.log(`${pages.length} pages, legacy redirects and static asset checks passed.`);
 } finally {

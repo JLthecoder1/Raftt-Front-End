@@ -1,0 +1,111 @@
+.api-workspace {
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid var(--line, #d8e0e4);
+  border-radius: 20px;
+  background: var(--card, #fff);
+  color: var(--ink, #173747);
+}
+.api-workspace .api-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.api-workspace label {
+  display: grid;
+  gap: 7px;
+  font-weight: 600;
+  margin: 12px 0;
+}
+.api-workspace input,
+.api-workspace select,
+.api-workspace textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 13px;
+  border: 1px solid #cfd9df;
+  border-radius: 10px;
+  background: #fff;
+  color: #173747;
+  font: inherit;
+}
+.api-workspace textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+.api-workspace .api-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 14px 0;
+}
+.api-workspace button {
+  padding: 10px 16px;
+  border: 1px solid #315b78;
+  border-radius: 10px;
+  background: #315b78;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+.api-workspace button.secondary {
+  background: transparent;
+  color: #315b78;
+}
+.api-workspace button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.api-workspace article {
+  border-top: 1px solid #d8e0e4;
+  padding: 18px 0;
+}
+.api-workspace summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 10px 0;
+}
+.api-workspace pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: inherit;
+  background: #f3f6f8;
+  padding: 15px;
+  border-radius: 10px;
+  max-height: 350px;
+  overflow: auto;
+}
+.api-workspace .api-message {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  border-left: 3px solid #315b78;
+  padding-left: 12px;
+}
+.api-workspace .api-note {
+  font-size: 0.9rem;
+  color: #526a78;
+  line-height: 1.6;
+}
+.api-workspace .api-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 20px 0;
+}
+.api-workspace .api-metrics strong {
+  display: block;
+  font-size: 1.25rem;
+  margin-top: 4px;
+}
+.api-workspace .api-address {
+  overflow-wrap: anywhere;
+  font-size: 0.85rem;
+}
+@media (max-width: 640px) {
+  .api-workspace {
+    padding: 18px;
+  }
+  .api-workspace .api-grid {
+    grid-template-columns: 1fr;
+  }
+}
