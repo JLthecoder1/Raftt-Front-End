@@ -1,0 +1,426 @@
+{
+  "address": "5sSTJ3RXRcz8GmmtuSwq6epjJJQZagCCi3AaEwpffmhZ",
+  "metadata": {
+    "name": "raftt",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "fail_offering",
+      "discriminator": [210, 133, 67, 237, 26, 139, 100, 41],
+      "accounts": [
+        {
+          "name": "offering",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [111, 102, 102, 101, 114, 105, 110, 103]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize",
+      "discriminator": [175, 175, 109, 31, 13, 152, 155, 237],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mint",
+          "docs": ["Mint do token SPL (estável em dólar) aceito na oferta"]
+        },
+        {
+          "name": "offering",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [111, 102, 102, 101, 114, 105, 110, 103]
+              },
+              {
+                "kind": "account",
+                "path": "user"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "docs": ["Cofre PDA para reter os fundos arrecadados em tokens SPL"],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [118, 97, 117, 108, 116]
+              },
+              {
+                "kind": "account",
+                "path": "offering"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "target_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "invest",
+      "discriminator": [13, 245, 180, 103, 254, 182, 121, 4],
+      "accounts": [
+        {
+          "name": "investor",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "investor_token_account",
+          "docs": ["Conta de tokens SPL do investidor"],
+          "writable": true
+        },
+        {
+          "name": "mint",
+          "docs": ["Mint do token aceito na oferta"]
+        },
+        {
+          "name": "offering",
+          "docs": ["A conta da Oferta"],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [111, 102, 102, 101, 114, 105, 110, 103]
+              },
+              {
+                "kind": "account",
+                "path": "offering.authority",
+                "account": "Offering"
+              }
+            ]
+          }
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [112, 111, 115, 105, 116, 105, 111, 110]
+              },
+              {
+                "kind": "account",
+                "path": "offering"
+              },
+              {
+                "kind": "account",
+                "path": "investor"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "docs": ["O cofre PDA para onde os tokens vão"],
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "refund",
+      "discriminator": [2, 96, 183, 251, 63, 208, 46, 46],
+      "accounts": [
+        {
+          "name": "investor",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "offering",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [111, 102, 102, 101, 114, 105, 110, 103]
+              },
+              {
+                "kind": "account",
+                "path": "offering.authority",
+                "account": "Offering"
+              }
+            ]
+          }
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [112, 111, 115, 105, 116, 105, 111, 110]
+              },
+              {
+                "kind": "account",
+                "path": "offering"
+              },
+              {
+                "kind": "account",
+                "path": "investor"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "investor_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "release",
+      "discriminator": [253, 249, 15, 206, 28, 127, 193, 241],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "offering",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [111, 102, 102, 101, 114, 105, 110, 103]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "destination",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Offering",
+      "discriminator": [128, 234, 9, 226, 125, 227, 146, 39]
+    },
+    {
+      "name": "Position",
+      "discriminator": [170, 188, 143, 228, 122, 64, 247, 208]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidTargetAmount",
+      "msg": "A meta da oferta deve ser maior que zero."
+    },
+    {
+      "code": 6001,
+      "name": "InvalidInvestmentAmount",
+      "msg": "O valor do investimento deve ser maior que zero."
+    },
+    {
+      "code": 6002,
+      "name": "OfferingIsClosed",
+      "msg": "Esta oferta já se encontra fechada."
+    },
+    {
+      "code": 6003,
+      "name": "ExceedsTargetAmount",
+      "msg": "O investimento ultrapassa o valor alvo da oferta."
+    },
+    {
+      "code": 6004,
+      "name": "NumericalOverflow",
+      "msg": "Erro de overflow numérico."
+    },
+    {
+      "code": 6005,
+      "name": "OfferingNotFailed",
+      "msg": "Esta oferta não está disponível para reembolso."
+    },
+    {
+      "code": 6006,
+      "name": "OfferingAlreadyFailed",
+      "msg": "Esta oferta já foi marcada como falha."
+    },
+    {
+      "code": 6007,
+      "name": "OfferingNotCompleted",
+      "msg": "A oferta ainda não atingiu a meta."
+    },
+    {
+      "code": 6008,
+      "name": "OfferingAlreadyReleased",
+      "msg": "Os fundos desta oferta já foram liberados."
+    }
+  ],
+  "types": [
+    {
+      "name": "Offering",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "target_amount",
+            "type": "u64"
+          },
+          {
+            "name": "raised_amount",
+            "type": "u64"
+          },
+          {
+            "name": "is_closed",
+            "type": "bool"
+          },
+          {
+            "name": "is_failed",
+            "type": "bool"
+          },
+          {
+            "name": "is_released",
+            "type": "bool"
+          },
+          {
+            "name": "vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Position",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "offering",
+            "type": "pubkey"
+          },
+          {
+            "name": "investor",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ],
+  "constants": [
+    {
+      "name": "COUNTER_SEED",
+      "type": "bytes",
+      "value": "[99, 111, 117, 110, 116, 101, 114]"
+    },
+    {
+      "name": "HELLO_WORLD_LAMPORTS",
+      "type": "u64",
+      "value": "1"
+    },
+    {
+      "name": "MAX_COUNT",
+      "type": "u64",
+      "value": "10"
+    }
+  ]
+}

@@ -185,3 +185,12 @@ main[data-page='profile.html'] .settings-content {
 main[data-page='profile.html'] #contact .form-grid > .field:nth-child(-n + 2) {
   grid-column: 1/-1;
 }
+
+.catalog-filters {
+  grid-template-columns: minmax(0, 2fr) minmax(180px, 1fr);
+}
+@media (max-width: 640px) {
+  .catalog-filters {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

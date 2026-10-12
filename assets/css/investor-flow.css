@@ -1873,3 +1873,171 @@ hr {
     transition: none;
   }
 }
+
+/* Investment flow: readable amounts and compact responsive layouts. */
+#investment-app {
+  min-width: 0;
+}
+#investment-app .chain-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+  gap: 18px;
+}
+#investment-app .chain-opportunity {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  gap: 24px;
+  align-items: start;
+}
+#investment-app .chain-invest {
+  position: sticky;
+  top: 90px;
+}
+#investment-app .chain-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin: 20px 0;
+}
+#investment-app .chain-stats strong {
+  display: block;
+  font-size: clamp(22px, 3vw, 34px);
+  color: #174869;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+#investment-app progress {
+  width: 100%;
+  height: 10px;
+  accent-color: #227ba3;
+}
+#investment-app .chain-form {
+  display: grid;
+  gap: 16px;
+  max-width: 680px;
+}
+#investment-app label {
+  display: grid;
+  gap: 8px;
+}
+#investment-app input,
+#investment-app select {
+  padding: 12px;
+  border: 1px solid #c9d8dd;
+  border-radius: 10px;
+  background: #fff;
+  color: #173c51;
+  min-width: 0;
+}
+#investment-app code {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+#investment-app .button {
+  cursor: pointer;
+  white-space: normal;
+  text-align: center;
+}
+#investment-app [role='status'] {
+  padding: 12px 0;
+  overflow-wrap: anywhere;
+}
+#investment-app .card {
+  margin-bottom: 18px;
+}
+@media (max-width: 760px) {
+  #investment-app .chain-opportunity {
+    grid-template-columns: 1fr;
+  }
+  #investment-app .chain-invest {
+    position: static;
+  }
+  #investment-app .chain-invest > a.button {
+    position: fixed;
+    bottom: 16px;
+    left: 20px;
+    right: 20px;
+    z-index: 25;
+    box-shadow: 0 6px 24px #173c5140;
+  }
+  #investment-app {
+    padding-bottom: 75px;
+  }
+  #investment-app .top {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+}
+
+/* Wallet controls stay compact beside language and account controls. */
+.topbar-actions .wallet-header-controls {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+.topbar-actions .wallet-header-controls select {
+  width: 112px;
+  min-width: 0;
+  margin: 0;
+  height: 38px;
+  padding: 6px 10px;
+  flex: 0 0 auto;
+  font-size: 12px;
+}
+.topbar-actions .wallet-header-controls button {
+  min-height: 38px;
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 12px;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+.wallet-header-status:empty {
+  display: none;
+}
+.wallet-header-status:not(:empty) {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 30;
+  width: 250px;
+  max-width: calc(100vw - 32px);
+  padding: 10px 12px;
+  border: 1px solid #e5d5c7;
+  border-radius: 8px;
+  background: #fffaf5;
+  color: #8a341e;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  box-shadow: 0 6px 20px #20344712;
+}
+@media (max-width: 900px) {
+  .app-topbar {
+    height: auto;
+    min-height: 77px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .topbar-actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .topbar-actions {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  .topbar-actions .wallet-header-controls {
+    flex-wrap: wrap;
+  }
+  .topbar-actions .wallet-header-controls button {
+    padding: 8px 10px;
+  }
+}

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from '../vendor/loaders/GLTFLoader.js';
-import { ISLANDS, UI } from './map-data.js';
+import { ISLANDS, UI } from './map-data.js?v=13';
 
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = (s) => document.querySelector(s);
@@ -416,112 +416,32 @@ $('#map-guide-open').onclick = () => {
 $('#map-guide-close').onclick = () => mapGuide.close();
 $('#map-guide-done').onclick = () => mapGuide.close();
 
-const opportunitySamples = [
-  {
-    id: 'nullun',
-    name: 'NULLUN',
-    stage: { en: 'SaaS · Demo case study', pt: 'SaaS · Estudo de caso (demo)' },
-  },
-  {
-    id: 'nexo',
-    name: 'Nexo Software',
-    stage: { en: 'Software · Demo case study', pt: 'Software · Estudo de caso (demo)' },
-  },
-];
 let openOpportunityCategory = null,
-  activeOpportunityIndex = null;
+  activeOpportunityIndex = null,
+  catalogState = 'loading';
+const escapeCompany = (value) => window.RafttCatalog.esc(value);
 function opportunityListFor(c) {
-  if (c.id === 'startups') return opportunitySamples;
-  return [];
+  return c.opps;
 }
-function opportunityDetailsFor(c, item, index) {
-  const assets = {
-    startups: { en: 'Equity participation', pt: 'Participação societária' },
-    pmes: { en: 'Private credit note', pt: 'Nota de crédito privado' },
-    recebiveis: { en: 'Receivables certificate', pt: 'Certificado de recebíveis' },
-    imoveis: { en: 'Real-estate participation', pt: 'Participação imobiliária' },
-    energia: { en: 'Energy-generation asset', pt: 'Ativo de geração de energia' },
-    agro: { en: 'Agribusiness credit', pt: 'Crédito para agronegócio' },
-    infra: {
-      en: 'Infrastructure project participation',
-      pt: 'Participação em projeto de infraestrutura',
-    },
-    royalties: { en: 'Royalty revenue rights', pt: 'Direitos de receita de royalties' },
-  };
-  const images = {
-    startups: 'assets/images/markets/startups.png',
-    pmes: 'assets/images/markets/small-businesses.png',
-    recebiveis: 'assets/images/markets/receivables.png',
-    imoveis: 'assets/images/markets/real-estate.png',
-    energia: 'assets/images/markets/energy.png',
-    agro: 'assets/images/markets/agriculture.png',
-    infra: 'assets/images/markets/infrastructure.png',
-    royalties: 'assets/images/markets/royalties.png',
-  };
-  const isPt = lang === 'pt',
-    asset = assets[c.id][lang];
-  if (c.id === 'startups' && index === 0)
-    return isPt
-      ? {
-          asset,
-          image: 'assets/images/markets/startups.png',
-          imageAlt: 'Equipe da NULLUN trabalhando em um protótipo',
-          headline: 'Visibilidade em tempo real para operações conectadas.',
-          description:
-            'A NULLUN conecta sensores, ativos e equipes para transformar dados operacionais em decisões mais rápidas.',
-          tags: ['IoT', 'SaaS', 'Indústria 4.0'],
-          raised: '0%',
-          investors: '0',
-          milestones: '4',
-          minimum: 'US$ 250',
-          goal: 'US$ 100.000',
-          status: 'Estudo de caso (demo)',
-        }
-      : {
-          asset,
-          image: 'assets/images/markets/startups.png',
-          imageAlt: 'NULLUN team working on a prototype',
-          headline: 'Real-time visibility for connected operations.',
-          description:
-            'NULLUN connects sensors, assets and teams to turn operational data into faster decisions.',
-          tags: ['IoT', 'SaaS', 'Industry 4.0'],
-          raised: '0%',
-          investors: '0',
-          milestones: '4',
-          minimum: 'US$ 250',
-          goal: 'US$ 100,000',
-          status: 'Demo case study',
-        };
-  const image = images[c.id] || images.startups;
-  return isPt
-    ? {
-        asset,
-        image,
-        imageAlt: item.name,
-        headline: `Uma oportunidade vinculada a ${c.name.pt.toLowerCase()}.`,
-        description: `Este ativo representa uma participação estruturada no projeto ${item.name}. Revise os termos, o cronograma e os riscos antes de decidir investir.`,
-        tags: [c.name.pt, index < 2 ? 'Destaque' : 'Novo projeto', 'Demo'],
-        raised: 'Em breve',
-        investors: '—',
-        milestones: '4',
-        minimum: 'US$ 250',
-        goal: 'US$ 100.000,00',
-        status: 'Estudo de caso',
-      }
-    : {
-        asset,
-        image,
-        imageAlt: item.name,
-        headline: `An opportunity tied to ${c.name.en.toLowerCase()}.`,
-        description: `This asset represents a structured participation in ${item.name}. Review its terms, timeline and risks before deciding to invest.`,
-        tags: [c.name.en, index < 2 ? 'Featured' : 'New project', 'Demo'],
-        raised: 'Coming soon',
-        investors: '—',
-        milestones: '4',
-        minimum: 'US$ 250',
-        goal: '$100,000.00',
-        status: 'Case study',
-      };
+async function refreshMapCompanies() {
+  catalogState = 'loading';
+  if (openOpportunityCategory)
+    renderOpportunityList(ISLANDS.find((c) => c.id === openOpportunityCategory));
+  try {
+    const companies = await window.RafttCatalog.load();
+    ISLANDS.forEach((c) => {
+      c.opps = window.RafttCatalogModel.filter(companies, '', c.id);
+    });
+    catalogState = 'ready';
+  } catch {
+    ISLANDS.forEach((c) => {
+      c.opps = [];
+    });
+    catalogState = 'error';
+  }
+  applyLang();
+  if (openOpportunityCategory)
+    renderOpportunityList(ISLANDS.find((c) => c.id === openOpportunityCategory));
 }
 function renderOpportunityList(c) {
   const title = $('#opportunity-menu-title'),
@@ -532,40 +452,68 @@ function renderOpportunityList(c) {
   openOpportunityCategory = c.id;
   activeOpportunityIndex = null;
   $('#opportunity-menu').classList.remove('is-detail');
-  title.textContent = `${c.name[lang]} ${isPt ? 'oportunidades' : 'opportunities'}`;
-  subtitle.textContent = items.length
-    ? isPt
-      ? `${items.length} projeto demonstrativo · Selecione para ver o estudo de caso`
-      : `${items.length} demo project · Select to view the case study`
-    : t().soon;
-  list.innerHTML = items.length
-    ? items
-        .map(
-          (item, index) =>
-            `<button class="opportunity-menu__item" type="button" data-project="${index}"><span class="opportunity-menu__number">${index + 1}</span><span class="opportunity-menu__copy"><strong>${item.name}</strong><small>${item.stage[lang]}</small><b>${isPt ? 'Estudo de caso demonstrativo' : 'Demo case study'}</b></span><span class="opportunity-menu__arrow" aria-hidden="true">→</span></button>`,
-        )
-        .join('')
-    : `<p class="opportunity-menu__empty">${t().none}</p>`;
-  list
-    .querySelectorAll('.opportunity-menu__item')
-    .forEach(
-      (button) =>
-        (button.onclick = () => renderOpportunityDetail(c, Number(button.dataset.project))),
-    );
+  title.textContent = c.name[lang];
+  subtitle.textContent =
+    catalogState === 'loading'
+      ? isPt
+        ? 'Carregando empresas…'
+        : 'Loading companies…'
+      : catalogState === 'error'
+        ? isPt
+          ? 'Não foi possível consultar as empresas.'
+          : 'Could not load companies.'
+        : isPt
+          ? `${items.length} empresas publicadas`
+          : `${items.length} published companies`;
+  if (catalogState === 'error') {
+    list.innerHTML = `<p class="opportunity-menu__empty">${isPt ? 'Verifique sua conexão e entre na sua conta.' : 'Check your connection and sign in.'}</p><button class="opportunity-menu__back" id="map-catalog-retry">${isPt ? 'Tentar novamente' : 'Try again'}</button>`;
+    $('#map-catalog-retry').onclick = refreshMapCompanies;
+    return;
+  }
+  list.innerHTML =
+    catalogState === 'loading'
+      ? ''
+      : items.length
+        ? items
+            .map(
+              (item, index) =>
+                `<button class="opportunity-menu__item" type="button" data-project="${index}"><span class="opportunity-menu__number">${index + 1}</span><span class="opportunity-menu__copy"><strong>${escapeCompany(item.name)}</strong><small>${escapeCompany(item.sector || c.name[lang])}</small><b>${isPt ? 'Empresa publicada' : 'Published company'}</b></span><span class="opportunity-menu__arrow" aria-hidden="true">→</span></button>`,
+            )
+            .join('')
+        : `<p class="opportunity-menu__empty">${isPt ? 'Nenhuma empresa publicada nesta categoria.' : 'No published companies in this category.'}</p>`;
+  list.querySelectorAll('.opportunity-menu__item').forEach((button) => {
+    button.onclick = () => renderOpportunityDetail(c, Number(button.dataset.project));
+  });
 }
 function renderOpportunityDetail(c, index) {
-  const item = opportunityListFor(c)[index],
-    detail = opportunityDetailsFor(c, item, index),
-    list = $('#opportunity-menu-list'),
+  const item = opportunityListFor(c)[index];
+  if (!item) return renderOpportunityList(c);
+  const list = $('#opportunity-menu-list'),
     isPt = lang === 'pt';
   openOpportunityCategory = c.id;
   activeOpportunityIndex = index;
   $('#opportunity-menu').classList.add('is-detail');
   $('#opportunity-menu-title').textContent = item.name;
-  $('#opportunity-menu-subtitle').textContent = detail.asset;
-  list.innerHTML = `<article class="opportunity-asset" aria-label="${isPt ? 'Detalhes do ativo' : 'Asset details'}"><button class="opportunity-menu__back" type="button">← ${isPt ? 'Voltar para empresas' : 'Back to companies'}</button>${detail.image ? `<img class="opportunity-asset__image" src="${detail.image}" alt="${detail.imageAlt}">` : ''}<p class="opportunity-asset__eyebrow">${isPt ? 'ESTUDO DE CASO DEMONSTRATIVO' : 'DEMO CASE STUDY'}</p><h3>${detail.headline}</h3><p class="opportunity-asset__description">${detail.description}</p><div class="opportunity-asset__tags">${detail.tags.map((tag) => `<span>${tag}</span>`).join('')}</div><section class="opportunity-asset__goal"><div><small>${isPt ? 'Meta ilustrativa' : 'Illustrative goal'}</small><strong>${detail.goal}</strong></div><span>${detail.status}</span><div class="opportunity-asset__progress"><i style="width:${Math.min(100, parseFloat(detail.raised) || 0) + '%'}"></i></div><small>${detail.raised} ${isPt ? 'ilustrativo' : 'illustrative'}</small></section><div class="opportunity-asset__stats"><div><strong>${detail.investors}</strong><small>${isPt ? 'Investidores (demo)' : 'Demo investors'}</small></div><div><strong>${detail.milestones}</strong><small>${isPt ? 'Marcos ilustrativos' : 'Illustrative milestones'}</small></div><div><strong>${detail.minimum}</strong><small>${isPt ? 'Mínimo ilustrativo' : 'Illustrative minimum'}</small></div></div><a class="opportunity-asset__cta" href="opportunity-details.html?opportunity=${encodeURIComponent(item.id)}">${isPt ? 'Ver estudo de caso' : 'View demo case study'} <span aria-hidden="true">→</span></a><p class="opportunity-asset__note">${isPt ? 'Dados de demonstração. Aportes são simulados na ficha do projeto.' : 'Demo data. Investments are simulated on the project page.'}</p></article>`;
+  $('#opportunity-menu-subtitle').textContent = item.sector || c.name[lang];
+  list.innerHTML = `<article class="opportunity-asset"><button class="opportunity-menu__back" type="button">← ${isPt ? 'Voltar para empresas' : 'Back to companies'}</button><p class="opportunity-asset__eyebrow">${isPt ? 'EMPRESA PUBLICADA' : 'PUBLISHED COMPANY'}</p><h3>${escapeCompany(item.name)}</h3><p class="opportunity-asset__description">${escapeCompany(item.description)}</p><div class="opportunity-asset__tags"><span>${escapeCompany(item.sector || 'Startups')}</span></div><a class="opportunity-asset__cta" href="/opportunity-details?company=${encodeURIComponent(item.id)}">${isPt ? 'Conhecer a empresa' : 'View company'} <span aria-hidden="true">→</span></a></article>`;
   list.querySelector('.opportunity-menu__back').onclick = () => renderOpportunityList(c);
   list.querySelector('.opportunity-menu__back').focus();
+  if (item.cover_path) {
+    const article = list.querySelector('article');
+    window.RafttBackend.db.storage
+      .from('company-covers')
+      .createSignedUrl(item.cover_path, 3600)
+      .then((result) => {
+        const data = window.RafttBackend.fail(result);
+        if (!article.isConnected) return;
+        const image = document.createElement('img');
+        image.className = 'opportunity-asset__image';
+        image.alt = item.name;
+        image.src = data.signedUrl;
+        article.querySelector('.opportunity-menu__back').after(image);
+      })
+      .catch(() => {});
+  }
 }
 function openOpportunityMenu(id) {
   const c = ISLANDS.find((item) => item.id === id),
@@ -1096,6 +1044,7 @@ let pulse = 0;
   camTarget.copy(raft.pos);
   if (innerWidth > 760 && innerWidth <= 1100) $('#dashboard-sidebar').classList.add('is-collapsed');
   applyLang();
+  refreshMapCompanies();
   $('#loading').classList.add('done');
   setTimeout(() => ($('#loading').hidden = true), 600);
   if (

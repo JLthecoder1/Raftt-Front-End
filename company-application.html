@@ -15,6 +15,12 @@
     <script src="assets/js/shared/brand-theme.js" defer></script>
     <script src="assets/js/shared/page-metadata.js" defer></script>
     <script src="assets/js/shared/number-format.js"></script>
+    <script src="assets/js/vendor/supabase.min.js"></script>
+    <script src="assets/js/backend/config.js"></script>
+    <script src="assets/js/backend/client.js?v=21"></script>
+    <script src="assets/js/backend/drafts.js?v=17"></script>
+    <script src="assets/js/backend/api-config.js?v=16"></script>
+    <script src="assets/js/backend/raftt-api.js?v=24"></script>
   </head>
   <body class="raise-page">
     <header class="raise-header">
@@ -46,7 +52,8 @@
             <h2>Apresentação da empresa</h2>
             <p>Conte sobre você e a sua empresa.</p>
             <p class="raise-demo-notice" role="note">
-              Demonstração: os campos ficam salvos neste navegador. Arquivos não são enviados.
+              Seu rascunho fica salvo na sua conta. Ao enviar, as informações e os arquivos
+              selecionados seguem para revisão da RAFTT.
             </p>
             <div class="raise-step-indicator" aria-live="polite">
               <span id="raise-step-count">Etapa 1 de 2</span
@@ -193,20 +200,15 @@
                       required
                     />
                     <p class="raise-hint" id="deck-hint">
-                      Use um link para a apresentação. Nenhum documento é enviado nesta
-                      demonstração.
+                      Informe um link acessível à equipe ou selecione um arquivo para enviar à
+                      revisão.
                     </p>
                   </div>
                   <label class="raise-upload" id="deck-upload-field" for="deck-file" hidden>
-                    <input
-                      id="deck-file"
-                      name="deckFile"
-                      type="file"
-                      accept=".pdf,.ppt,.pptx,.key"
-                    />
+                    <input id="deck-file" name="deckFile" type="file" accept=".pdf,.ppt,.pptx" />
                     <span
-                      ><strong>Choose pitch deck file</strong
-                      ><span id="deck-file-name">PDF, PPT, PPTX, or Keynote</span></span
+                      ><strong>Selecionar arquivo da apresentação</strong
+                      ><span id="deck-file-name">PDF, PPT ou PPTX · até 20 MB</span></span
                     >
                   </label>
                   <p class="raise-hint">
@@ -414,10 +416,13 @@
               Continuar para a rodada <span aria-hidden="true">→</span>
             </button>
             <button class="raise-submit" type="submit" id="raise-submit-final" hidden>
-              Enviar proposta simulada <span aria-hidden="true">→</span>
+              Enviar candidatura <span aria-hidden="true">→</span>
             </button>
           </div>
-          <p class="raise-privacy">Seus campos ficam salvos neste navegador para demonstração.</p>
+          <p class="raise-privacy">
+            O rascunho não publica a empresa. A publicação depende da revisão da RAFTT e da abertura
+            da rodada.
+          </p>
           <p class="raise-status" id="raise-status" role="status" aria-live="polite" hidden></p>
           <a
             class="raise-submit"
@@ -452,9 +457,12 @@
       Already investing with Raftt? <a href="welcome.html">Explore the platform</a>.
     </footer>
 
-    <script src="assets/js/company/application-form.js"></script>
-    <script src="assets/js/shared/app-language.js"></script>
-    <script src="assets/js/account/profile-settings.js"></script>
-    <script src="assets/js/investor/investor-flow.js"></script>
+    <script src="assets/js/company/application-form.js?v=22"></script>
+    <script src="assets/js/shared/app-language.js?v=18"></script>
+    <script src="assets/js/account/profile-settings.js?v=17"></script>
+    <script src="assets/js/investor/investor-flow.js?v=18"></script>
+    <script src="assets/js/backend/gate.js?v=19"></script>
+    <script src="assets/js/media/avatar-display.js"></script>
+    <script src="assets/js/shared/environment-status.js?v=18"></script>
   </body>
 </html>

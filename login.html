@@ -7,13 +7,16 @@
     <meta name="description" content="Sign in to Raftt." />
     <title>Sign in | RAFTT</title>
     <link rel="stylesheet" href="assets/css/style.css" />
-    <script src="assets/js/shared/app-language.js" defer></script>
+    <script src="assets/js/shared/app-language.js?v=18" defer></script>
     <link rel="stylesheet" href="assets/css/shared-footer.css" />
     <script src="assets/js/shared/shared-footer.js" defer></script>
     <link rel="stylesheet" href="assets/css/brand-theme.css" />
     <script src="assets/js/shared/brand-theme.js" defer></script>
     <script src="assets/js/shared/page-metadata.js" defer></script>
     <script src="assets/js/shared/number-format.js"></script>
+    <script src="assets/js/vendor/supabase.min.js"></script>
+    <script src="assets/js/backend/config.js"></script>
+    <script src="assets/js/backend/client.js?v=21"></script>
   </head>
   <body class="login-page">
     <main class="login-shell">
@@ -26,8 +29,7 @@
             Continue your journey through private markets with a clearer view ahead.
           </p>
           <p class="login-demo-note" role="note">
-            Demonstração: informe um e-mail válido e uma senha para iniciar uma sessão temporária. A
-            autenticação real ainda não está conectada; não use senhas reais.
+            Entre com o e-mail e a senha da sua conta RAFTT.
           </p>
           <form class="login-form" id="login-form" novalidate>
             <label for="email">Email</label>
@@ -58,15 +60,6 @@
             </button>
             <p class="login-status" id="login-status" role="status" aria-live="polite"></p>
           </form>
-          <div class="login-divider"><span>or continue with</span></div>
-          <div class="social-login" aria-label="Social sign-in">
-            <button type="button" data-social-provider="Google" aria-label="Continue with Google">
-              <span class="social-google">G</span>Google
-            </button>
-            <button type="button" data-social-provider="Apple" aria-label="Continue with Apple">
-              <span>●</span>Apple
-            </button>
-          </div>
           <p class="login-signup">New to Raftt? <a href="signup.html">Create an account</a></p>
         </div>
         <aside class="login-story" data-tilt-card aria-label="Raftt member story">
@@ -166,5 +159,9 @@
       </div>
     </footer>
     <script src="assets/js/auth/login.js"></script>
+    <script src="assets/js/backend/gate.js?v=19"></script>
+    <script src="assets/js/backend/auth-forms.js"></script>
+    <script src="assets/js/media/avatar-display.js"></script>
+    <script src="assets/js/shared/environment-status.js?v=18"></script>
   </body>
 </html>

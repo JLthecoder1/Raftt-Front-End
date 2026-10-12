@@ -8,13 +8,16 @@
     <title>Create account | RAFTT</title>
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/workflows.css" />
-    <script src="assets/js/shared/app-language.js" defer></script>
+    <script src="assets/js/shared/app-language.js?v=18" defer></script>
     <link rel="stylesheet" href="assets/css/shared-footer.css" />
     <script src="assets/js/shared/shared-footer.js" defer></script>
     <link rel="stylesheet" href="assets/css/brand-theme.css" />
     <script src="assets/js/shared/brand-theme.js" defer></script>
     <script src="assets/js/shared/page-metadata.js" defer></script>
     <script src="assets/js/shared/number-format.js"></script>
+    <script src="assets/js/vendor/supabase.min.js"></script>
+    <script src="assets/js/backend/config.js"></script>
+    <script src="assets/js/backend/client.js?v=21"></script>
   </head>
   <body class="login-page signup-page">
     <main class="login-shell">
@@ -27,8 +30,7 @@
             Create your account to explore private markets with a clear, shared view forward.
           </p>
           <p class="workflow-notice" role="note">
-            Demonstração: preencha os campos para iniciar uma sessão temporária. A criação de contas
-            ainda não está conectada; não use senhas reais.
+            Crie sua conta com e-mail e senha. Você receberá um e-mail para confirmar o cadastro.
           </p>
           <form class="login-form signup-form" id="signup-form" novalidate>
             <label for="full-name">Full name</label>
@@ -56,7 +58,7 @@
               type="password"
               autocomplete="new-password"
               minlength="8"
-              placeholder="At least 8 characters"
+              placeholder="8+ caracteres, letras e números"
               required
             />
             <label for="signup-password-confirmation">Confirm password</label>
@@ -68,6 +70,15 @@
               placeholder="Repeat your password"
               required
             />
+            <p
+              id="signup-password-rules"
+              role="status"
+              aria-live="polite"
+              style="font-size: 13px; line-height: 1.5; margin: 8px 0 16px; color: #475467"
+            >
+              Use pelo menos 8 caracteres, incluindo letras e números. Confirme a senha no segundo
+              campo.
+            </p>
             <label class="remember-me signup-consent"
               ><input type="checkbox" name="terms" required /> I agree to the terms and privacy
               policy.</label
@@ -180,5 +191,10 @@
     </footer>
     <script src="assets/js/auth/login.js"></script>
     <script src="assets/js/shared/footer.js"></script>
+    <script src="assets/js/backend/gate.js?v=19"></script>
+    <script src="assets/js/auth/password-rules.js"></script>
+    <script src="assets/js/backend/auth-forms.js"></script>
+    <script src="assets/js/media/avatar-display.js"></script>
+    <script src="assets/js/shared/environment-status.js?v=18"></script>
   </body>
 </html>

@@ -38,7 +38,7 @@
       v = p.investor || {},
       privacy = p.privacy || {};
     return (
-      `<div class="profile-heading"><div><p class="eyebrow">${t('CONTA / PREFERÊNCIAS', 'ACCOUNT / SETTINGS')}</p><h1>${t('Seu perfil, por inteiro.', 'Your profile, in full.')}</h1><p class="lead muted">${t('Uma identidade para investir e construir. Organize seus dados e escolha como participar.', 'One identity to invest and build. Keep your details together and choose how to participate.')}</p></div></div><div class="profile-summary"><span class="badge">${t('Investidor + empresa', 'Investor + company')}</span><span>${t('Dados salvos neste navegador · demonstração', 'Saved in this browser · demo')}</span></div><div class="settings-layout"><nav class="settings-nav" aria-label="${t('Seções do perfil', 'Profile sections')}">${[
+      `<div class="profile-heading"><div><p class="eyebrow">${t('CONTA / PREFERÊNCIAS', 'ACCOUNT / SETTINGS')}</p><h1>${t('Seu perfil, por inteiro.', 'Your profile, in full.')}</h1><p class="lead muted">${t('Uma identidade para investir e construir. Organize seus dados e escolha como participar.', 'One identity to invest and build. Keep your details together and choose how to participate.')}</p></div></div><div class="profile-summary"><span class="badge">${t('Investidor + empresa', 'Investor + company')}</span><span>${t('Dados associados à sua conta', 'Data linked to your account')}</span></div><div class="settings-layout"><nav class="settings-nav" aria-label="${t('Seções do perfil', 'Profile sections')}">${[
         ['identity', t('Dados pessoais', 'Personal details')],
         ['contact', t('Contato e endereço', 'Contact & address')],
         ['investor', t('Preferências de investimento', 'Investor settings')],
@@ -93,18 +93,18 @@
         'payments',
         '04',
         t('Métodos de pagamento', 'Payment methods'),
-        t('Organize referências para aportes de teste.', 'Manage references for test investments.'),
-        `<div id="methods-list"></div><form data-settings="method"><div class="form-grid">${input('methodLabel', t('Nome do método', 'Method name'), '', 'text', 'required maxlength="60" placeholder="Demo USDC"')}<div class="field"><label for="methodType">${t('Tipo', 'Type')}</label><select id="methodType"><option value="balance">${t('Saldo de demonstração', 'Demo balance')}</option><option value="usdc">USDC · Solana · ${t('teste', 'test')}</option></select></div></div><p class="field-help">${t('Não há conexão com banco ou carteira. Nenhum cartão, senha ou chave privada é solicitado.', 'No bank or wallet connection is active. No card details, passwords or private keys are requested.')}</p><div class="section-save"><button>${t('Adicionar método de teste', 'Add test method')}</button><p class="save-status" role="status"></p></div></form>`,
+        t('Organize suas preferências de pagamento.', 'Manage payment preferences.'),
+        `<div id="methods-list"></div><form data-settings="method"><div class="form-grid">${input('methodLabel', t('Nome do método', 'Method name'), '', 'text', 'required maxlength="60" placeholder="Demo USDC"')}<div class="field"><label for="methodType">${t('Tipo', 'Type')}</label><select id="methodType"><option value="balance">${t('Referência de saldo', 'Balance reference')}</option><option value="usdc">USDC · Solana · ${t('teste', 'test')}</option></select></div></div><p class="field-help">${t('Essas referências não executam pagamentos. As transações da Solana usam a carteira conectada; não informe chaves privadas.', 'These references do not execute payments. Solana transactions use the connected wallet; do not enter private keys.')}</p><div class="section-save"><button>${t('Adicionar método de teste', 'Add test method')}</button><p class="save-status" role="status"></p></div></form>`,
       ) +
       section(
         'entities',
         '05',
         t('Entidades de investimento', 'Investment entities'),
         t(
-          'Cadastre uma empresa ou entidade sob seu controle e selecione-a ao simular um aporte.',
-          'Register an entity under your control and select it when simulating an investment.',
+          'Registre os dados declarados de uma entidade sob seu controle.',
+          'Record declared information about an entity you control.',
         ),
-        `<div id="entities-list"></div><form data-settings="entity"><div class="form-grid">${input('entityName', t('Nome legal da entidade', 'Entity legal name'), '', 'text', 'required maxlength="120"')}<div class="field"><label for="entityType">${t('Tipo de entidade', 'Entity type')}</label><select id="entityType"><option value="corporation">${t('Empresa', 'Corporation')}</option><option value="trust">Trust</option><option value="other">${t('Outra entidade', 'Other entity')}</option></select></div><div class="field"><label for="entityCountry">${t('País de registro', 'Country of registration')}</label><select id="entityCountry" required>${countries('')}</select></div>${input('entityRegistration', t('Número de registro (opcional)', 'Registration number (optional)'), '', 'text', 'maxlength="80"')}</div><p class="field-help">${t('Cadastro demonstrativo; a identidade e a representação da entidade ainda não são verificadas.', 'Demo registration; entity identity and representation have not been verified.')}</p><div class="section-save"><button>${t('Adicionar entidade', 'Add entity')}</button><p class="save-status" role="status"></p></div></form>`,
+        `<div id="entities-list"></div><form data-settings="entity"><div class="form-grid">${input('entityName', t('Nome legal da entidade', 'Entity legal name'), '', 'text', 'required maxlength="120"')}<div class="field"><label for="entityType">${t('Tipo de entidade', 'Entity type')}</label><select id="entityType"><option value="corporation">${t('Empresa', 'Corporation')}</option><option value="trust">Trust</option><option value="other">${t('Outra entidade', 'Other entity')}</option></select></div><div class="field"><label for="entityCountry">${t('País de registro', 'Country of registration')}</label><select id="entityCountry" required>${countries('')}</select></div>${input('entityRegistration', t('Número de registro (opcional)', 'Registration number (optional)'), '', 'text', 'maxlength="80"')}</div><p class="field-help">${t('Informações salvas na sua conta; a identidade e a representação da entidade ainda não foram verificadas.', 'Information is saved to your account; entity identity and representation have not been verified.')}</p><div class="section-save"><button>${t('Adicionar entidade', 'Add entity')}</button><p class="save-status" role="status"></p></div></form>`,
       ) +
       section(
         'privacy',
@@ -114,7 +114,7 @@
           'Escolha como seus dados poderão ser usados.',
           'Choose how your information may be used.',
         ),
-        `<form data-settings="privacy">${check('public', t('Tornar meu perfil público', 'Make my profile public'), privacy.public, t('Preferência para futura exibição do perfil. O MVP não publica os seus dados.', 'Preference for future profile visibility. The MVP does not publish your information.'))}${check('demographics', t('Participar de pesquisas demográficas', 'Participate in demographic research'), privacy.demographics, t('Participação opcional. Nenhum dado demográfico é coletado nesta demonstração.', 'Participation is optional. No demographic data is collected in this demo.'))}${save()}</form>`,
+        `<form data-settings="privacy">${check('public', t('Tornar meu perfil público', 'Make my profile public'), privacy.public, t('Preferência para futura exibição do perfil. O MVP não publica os seus dados.', 'Preference for future profile visibility. The MVP does not publish your information.'))}${check('demographics', t('Participar de pesquisas demográficas', 'Participate in demographic research'), privacy.demographics, t('Participação opcional. Nenhum dado demográfico adicional é coletado.', 'Participation is optional. No additional demographic data is collected.'))}${save()}</form>`,
       ) +
       section(
         'security',
@@ -124,7 +124,7 @@
           'Preferências de contato e prévia das opções de segurança.',
           'Contact preferences and a preview of security options.',
         ),
-        `<form data-settings="email">${input('email', t('E-mail de contato', 'Contact email'), p.email, 'email', 'required autocomplete="email"')}<p class="field-help">${t('Altera apenas o perfil local; a mudança de e-mail da conta exigirá confirmação quando a autenticação for integrada.', 'Updates the local profile only; changing the account email will require confirmation once authentication is integrated.')}</p>${save()}</form><hr><h3>${t('Alterar senha', 'Change password')}</h3><form data-settings="password"><div class="form-grid">${input('newPassword', t('Nova senha', 'New password'), '', 'password', 'required minlength="8" autocomplete="new-password"')}${input('confirmPassword', t('Confirmação da nova senha', 'Confirm new password'), '', 'password', 'required minlength="8" autocomplete="new-password"')}</div><p class="field-help">${t('Prévia de interface: senhas não são salvas nem alteradas neste MVP.', 'Interface preview: passwords are neither saved nor changed in this MVP.')}</p><div class="section-save"><button class="secondary">${t('Testar formulário', 'Test form')}</button><p class="save-status" role="status"></p></div></form><hr><div class="two-factor"><div><h3>${t('Autenticação em duas etapas', 'Two-factor authentication')}</h3><p class="muted">${t('Um código adicional de um aplicativo autenticador protegerá ações da conta.', 'An additional code from an authenticator app will protect account actions.')}</p></div><span class="badge">${t('Não configurada · integração futura', 'Not configured · future integration')}</span></div>`,
+        `<form data-settings="email">${input('email', t('E-mail de contato', 'Contact email'), p.email, 'email', 'required autocomplete="email"')}<p class="field-help">${t('A alteração do e-mail da conta exige confirmação por e-mail.', 'Changing your account email requires email confirmation.')}</p>${save()}</form><hr><h3>${t('Alterar senha', 'Change password')}</h3><form data-settings="password"><div class="form-grid">${input('newPassword', t('Nova senha', 'New password'), '', 'password', 'required minlength="8" autocomplete="new-password"')}${input('confirmPassword', t('Confirmação da nova senha', 'Confirm new password'), '', 'password', 'required minlength="8" autocomplete="new-password"')}</div><p class="field-help">${t('Sua senha é atualizada pelo serviço de autenticação.', 'Your password is updated by the authentication service.')}</p><div class="section-save"><button class="secondary">${t('Alterar senha', 'Change password')}</button><p class="save-status" role="status"></p></div></form><hr><div class="two-factor"><div><h3>${t('Autenticação em duas etapas', 'Two-factor authentication')}</h3><p class="muted">${t('Um código adicional de um aplicativo autenticador protegerá ações da conta.', 'An additional code from an authenticator app will protect account actions.')}</p></div><span class="badge">${t('Não configurada · integração futura', 'Not configured · future integration')}</span></div>`,
       ) +
       `</div></div>`
     );
@@ -152,95 +152,130 @@
           `<p class="empty-reference">${t('Nenhum registro adicionado.', 'No entries added yet.')}</p>`;
     }
     lists();
-    document.addEventListener('click', (e) => {
+    window.RafttPasswordRules.bind(
+      document.getElementById('newPassword'),
+      document.getElementById('confirmPassword'),
+    );
+    document.addEventListener('click', async (e) => {
       const b = e.target.closest('[data-remove]');
       if (!b) return;
       p[b.dataset.remove] = p[b.dataset.remove].filter((i) => i.id !== b.dataset.id);
-      persist();
-      lists();
+      try {
+        await window.RafttBackend.saveProfile(p);
+        persist();
+        lists();
+      } catch {
+        alert(t('Não foi possível salvar a remoção.', 'Could not save the removal.'));
+      }
     });
     document.querySelectorAll('[data-settings]').forEach(
       (form) =>
-        (form.onsubmit = (e) => {
+        (form.onsubmit = async (e) => {
           e.preventDefault();
           if (!form.reportValidity()) return;
-          let message = t('Alterações salvas neste navegador.', 'Changes saved in this browser.');
-          switch (form.dataset.settings) {
-            case 'identity':
-              Object.assign(p, {
-                name: get('name'),
-                headline: get('headline'),
-                phone: get('phone'),
-                bio: get('bio'),
-                activeWorkspace: get('role'),
-                role: get('role'),
-                roles: ['investor', 'organization'],
-              });
-              break;
-            case 'address':
-              p.address = Object.fromEntries(
-                ['street', 'suite', 'country', 'city', 'state', 'postal'].map((k) => [k, get(k)]),
-              );
-              break;
-            case 'investor':
-              p.investor = {
-                employment: get('employment'),
-                currency: get('currency'),
-                income: get('income'),
-                netWorth: get('netWorth'),
-                accredited: bool('accredited'),
-                spouse: bool('spouse'),
-                previous: bool('previous'),
-              };
-              break;
-            case 'privacy':
-              p.privacy = { public: bool('public'), demographics: bool('demographics') };
-              break;
-            case 'email':
-              p.email = get('email');
-              break;
-            case 'method':
-              p.paymentMethods = p.paymentMethods || [];
-              p.paymentMethods.push({
-                id: crypto.randomUUID(),
-                name: get('methodLabel'),
-                type: get('methodType'),
-              });
-              form.reset();
-              lists();
-              break;
-            case 'entity':
-              p.entities = p.entities || [];
-              p.entities.push({
-                id: crypto.randomUUID(),
-                name: get('entityName'),
-                type: get('entityType'),
-                country: get('entityCountry'),
-                registration: get('entityRegistration'),
-              });
-              form.reset();
-              lists();
-              break;
-            case 'password':
-              message =
-                get('newPassword') === get('confirmPassword')
-                  ? t(
-                      'Formulário válido. Integração pendente; a senha não foi alterada nem armazenada.',
-                      'Valid form. Integration pending; the password was not changed or stored.',
-                    )
-                  : t('As senhas não coincidem.', 'Passwords do not match.');
-              form.reset();
-              break;
-          }
-          if (form.dataset.settings !== 'password') persist();
-          form.querySelector('.save-status').textContent = message;
-          if (form.dataset.settings === 'identity') {
-            document
-              .querySelectorAll('.account-link strong')
-              .forEach((el) => (el.textContent = p.name));
-            document
-              .querySelectorAll('.avatar,.profile-monogram')
-              .forEach((el) => (el.textContent = p.name.charAt(0).toUpperCase()));
+          const button = form.querySelector('button');
+          button.disabled = true;
+          try {
+            let message = t('Alterações salvas na sua conta.', 'Changes saved to your account.');
+            switch (form.dataset.settings) {
+              case 'identity':
+                Object.assign(p, {
+                  name: get('name'),
+                  headline: get('headline'),
+                  phone: get('phone'),
+                  bio: get('bio'),
+                  activeWorkspace: get('role'),
+                  role: get('role'),
+                  roles: ['investor', 'organization'],
+                });
+                break;
+              case 'address':
+                p.address = Object.fromEntries(
+                  ['street', 'suite', 'country', 'city', 'state', 'postal'].map((k) => [k, get(k)]),
+                );
+                break;
+              case 'investor':
+                p.investor = {
+                  employment: get('employment'),
+                  currency: get('currency'),
+                  income: get('income'),
+                  netWorth: get('netWorth'),
+                  accredited: bool('accredited'),
+                  spouse: bool('spouse'),
+                  previous: bool('previous'),
+                };
+                break;
+              case 'privacy':
+                p.privacy = { public: bool('public'), demographics: bool('demographics') };
+                break;
+              case 'email':
+                window.RafttBackend.fail(
+                  await window.RafttBackend.db.auth.updateUser(
+                    { email: get('email') },
+                    { emailRedirectTo: location.origin + '/auth-callback' },
+                  ),
+                );
+                message = t(
+                  'Confira os e-mails de confirmação para concluir a alteração.',
+                  'Check the confirmation emails to complete the change.',
+                );
+                break;
+              case 'method':
+                p.paymentMethods = p.paymentMethods || [];
+                p.paymentMethods.push({
+                  id: crypto.randomUUID(),
+                  name: get('methodLabel'),
+                  type: get('methodType'),
+                });
+                form.reset();
+                lists();
+                break;
+              case 'entity':
+                p.entities = p.entities || [];
+                p.entities.push({
+                  id: crypto.randomUUID(),
+                  name: get('entityName'),
+                  type: get('entityType'),
+                  country: get('entityCountry'),
+                  registration: get('entityRegistration'),
+                });
+                form.reset();
+                lists();
+                break;
+              case 'password':
+                const passwordError = window.RafttPasswordRules.error(
+                  document.getElementById('newPassword').value,
+                  document.getElementById('confirmPassword').value,
+                );
+                if (passwordError) throw Error(passwordError);
+                window.RafttBackend.fail(
+                  await window.RafttBackend.db.auth.updateUser({
+                    password: document.getElementById('newPassword').value,
+                  }),
+                );
+                message = t('Senha alterada.', 'Password changed.');
+                form.reset();
+                break;
+            }
+            if (!['password', 'email'].includes(form.dataset.settings)) {
+              await window.RafttBackend.saveProfile(p);
+              persist();
+            }
+            form.querySelector('.save-status').textContent = message;
+            if (form.dataset.settings === 'identity') {
+              setTimeout(() => window.dispatchEvent(new Event('raftt:avatar-change')), 0);
+              document
+                .querySelectorAll('.account-link strong')
+                .forEach((el) => (el.textContent = p.name));
+              document
+                .querySelectorAll('.avatar,.profile-monogram')
+                .forEach((el) => (el.textContent = p.name.charAt(0).toUpperCase()));
+            }
+          } catch (error) {
+            form.querySelector('.save-status').textContent =
+              t('Não foi possível salvar. ', 'Could not save. ') + error.message;
+          } finally {
+            button.disabled = false;
           }
         }),
     );
@@ -373,78 +408,8 @@
       'Music, audiovisual, games and economic rights',
     ],
   ];
-  function market(projects) {
-    const projectEnglish = {
-      nullun: 'Operational intelligence connecting signals from sensors, equipment and systems.',
-      nexo: 'Software that organizes operations and customer relationships for small businesses.',
-    };
-    const main = document.querySelector('main'),
-      grid = main.querySelector('.grid');
-    main.querySelector('.top').remove();
-    grid.outerHTML = `<form class="market-filters" id="market-filters" role="search"><div class="field search-field"><label for="market-search">${t('Buscar oportunidades e categorias', 'Search opportunities and categories')}</label><input id="market-search" type="search" placeholder="${t('Nome, setor ou categoria…', 'Name, sector or category…')}"></div><div class="field"><label for="market-category">${t('Categoria', 'Category')}</label><select id="market-category"><option value="all">${t('Todas as categorias', 'All categories')}</option>${categories.map((c) => `<option value="${c[0]}">${t(c[1], c[2])}</option>`).join('')}</select></div><div class="field"><label for="market-status">${t('Disponibilidade', 'Availability')}</label><select id="market-status"><option value="all">${t('Todas', 'All')}</option><option value="available">${t('Disponível no MVP', 'Available in MVP')}</option><option value="planned">${t('Em preparação', 'Coming soon')}</option></select></div></form><div class="market-results-top"><p id="market-count" role="status" aria-live="polite"></p><a class="button secondary" href="map.html">${t('Explorar pelo mapa', 'Explore the map')} ↗</a></div><div class="grid market-results" id="market-results"></div>`;
-    const q = document.getElementById('market-search'),
-      cat = document.getElementById('market-category'),
-      status = document.getElementById('market-status'),
-      params = new URLSearchParams(location.search);
-    q.value = params.get('q') || '';
-    cat.value = categories.some((c) => c[0] === params.get('category'))
-      ? params.get('category')
-      : 'all';
-    status.value = ['available', 'planned'].includes(params.get('status'))
-      ? params.get('status')
-      : 'all';
-    const normalize = (v) =>
-      v
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase();
-    function update() {
-      let results = [];
-      for (const c of categories) {
-        if (cat.value !== 'all' && cat.value !== c[0]) continue;
-        if (c[0] === 'startups') {
-          if (status.value === 'planned') continue;
-          Object.entries(projects).forEach(([key, p], i) => {
-            if (
-              !normalize([p.name, p.description, projectEnglish[key], ...c].join(' ')).includes(
-                normalize(q.value),
-              )
-            )
-              return;
-            results.push(
-              `<article class="card opportunity-card"><div class="opportunity-cover ${i ? 'cover-software' : 'cover-physical'}"><span class="cover-grid"></span><span class="company-mark">${i ? 'nx' : 'N'}</span><span class="cover-caption">${i ? 'CONNECTED SYSTEMS' : 'OPERATIONAL INTELLIGENCE'}</span><span class="cover-status">Demo · Startups</span></div><p class="eyebrow">STARTUPS / ${t('DISPONÍVEL NO MVP', 'AVAILABLE IN MVP')}</p><h2>${p.name}</h2><p class="muted">${esc(t(p.description, projectEnglish[key]))}</p><div class="row"><span>${t('Meta da rodada', 'Round target')}</span><strong>US$ 100,000</strong></div><div class="row"><span>${t('Aporte mínimo · demo', 'Minimum investment · demo')}</span><strong>US$ 250</strong></div><div class="actions"><a class="button" href="opportunity-details.html?opportunity=${key}">${t('Conhecer o projeto', 'View project')} →</a></div></article>`,
-            );
-          });
-        } else {
-          if (status.value === 'available' || !normalize(c.join(' ')).includes(normalize(q.value)))
-            continue;
-          results.push(
-            `<article class="card category-preview"><div class="category-art" aria-hidden="true"><span>${String(categories.indexOf(c) + 1).padStart(2, '0')}</span><svg viewBox="0 0 120 100" fill="none"><path d="M15 72 60 15 105 72 60 92Z M15 72h90 M60 15v77"/></svg></div><span class="badge">${t('Em preparação', 'Coming soon')}</span><h2>${t(c[1], c[2])}</h2><p class="muted">${t(c[3], c[4])}</p><small>${t('Sem ofertas de investimento neste MVP.', 'No investment offerings in this MVP.')}</small><a class="category-map" href="map.html">${t('Explorar ilhas no mapa', 'Explore islands on the map')} ↗</a></article>`,
-          );
-        }
-      }
-      document.getElementById('market-results').innerHTML =
-        results.join('') ||
-        `<div class="card empty-results"><h2>${t('Nenhum resultado encontrado', 'No results found')}</h2><p>${t('Tente outro termo ou amplie os filtros.', 'Try another search or broaden your filters.')}</p><button type="button" id="reset-filters" class="secondary">${t('Limpar filtros', 'Clear filters')}</button></div>`;
-      document.getElementById('market-count').textContent =
-        `${results.length} ${t('resultados · 2 projetos fictícios e 7 categorias futuras', 'results · 2 fictional projects and 7 future categories')}`;
-      document.getElementById('reset-filters')?.addEventListener('click', () => {
-        q.value = '';
-        cat.value = status.value = 'all';
-        update();
-      });
-      const u = new URL(location.href);
-      [
-        ['q', q.value],
-        ['category', cat.value === 'all' ? '' : cat.value],
-        ['status', status.value === 'all' ? '' : status.value],
-      ].forEach(([k, v]) => (v ? u.searchParams.set(k, v) : u.searchParams.delete(k)));
-      history.replaceState(null, '', u);
-    }
-    document.getElementById('market-filters').onsubmit = (e) => e.preventDefault();
-    q.oninput = update;
-    cat.onchange = status.onchange = update;
-    update();
+  function market() {
+    window.RafttCatalog.mount(categories);
   }
   window.RafttSettings = {
     render,
