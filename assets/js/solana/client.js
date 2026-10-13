@@ -103,7 +103,7 @@
     const genesis = await c.getGenesisHash();
     if (
       genesis === '5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp' ||
-      (cfg.network === 'devnet' && genesis !== 'EtWTRABZaYq6iMfeYKouRu166VU2xqa1')
+      (cfg.network === 'devnet' && genesis !== 'EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG')
     )
       throw new Error('O RPC não corresponde à rede de teste configurada.');
     const program = await c.getAccountInfo(programId);
