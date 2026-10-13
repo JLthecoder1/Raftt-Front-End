@@ -360,7 +360,9 @@
     });
     bind('api-open', async () => {
       const wallet = await A.verifyWallet(),
-        prepared = await A.request('/v1/rounds/' + id + '/open/prepare', { walletId: wallet.id });
+        prepared = await A.request('/v1/rounds/' + id + '/open/prepare', {
+          walletId: wallet.id,
+        });
       const result = await A.operation(id, 'open_round', prepared);
       await selectRound(id);
       return (
@@ -377,7 +379,9 @@
     });
     bind('api-close', async () => {
       const wallet = await A.verifyWallet(),
-        prepared = await A.request('/v1/rounds/' + id + '/close/prepare', { walletId: wallet.id });
+        prepared = await A.request('/v1/rounds/' + id + '/close/prepare', {
+          walletId: wallet.id,
+        });
       await A.operation(id, 'close_round', prepared);
       await selectRound(id);
     });
@@ -395,13 +399,13 @@
       `<details><summary>${t('Registrar parcela do plano', 'Register a plan installment')}</summary><form id="api-milestone-form">${label('title', 'Título', 'Title', 'maxlength="200"')}${label('amount', 'Valor em tokens', 'Token amount', 'inputmode="decimal"')}${field('description', 'O que será entregue e como', 'What will be delivered and how')}${field('acceptanceCriteria', 'Critérios mensuráveis e evidências exigidas', 'Measurable criteria and required evidence')}${field('useOfFunds', 'Uso dos recursos e orçamento', 'Use of funds and budget')}<p class="api-note">${t('O plano inicial deve somar o mínimo da rodada. Rascunhos do editor acima precisam ser revisados e registrados aqui.', 'The initial plan must total the round minimum. Drafts from the editor above must be reviewed and registered here.')}</p><button>${t('Registrar e assinar parcela', 'Register and sign installment')}</button></form></details>`;
     $('api-milestone-form').onsubmit = (e) => {
       e.preventDefault();
+      const values = Object.fromEntries(new FormData(e.currentTarget));
       run(async () => {
-        const values = Object.fromEntries(new FormData(e.target)),
-          params = {
-            ...values,
-            sequence: chain.milestoneCount,
-            amountUnits: C.units(values.amount, chain.decimals).toString(),
-          };
+        const params = {
+          ...values,
+          sequence: chain.milestoneCount,
+          amountUnits: C.units(values.amount, chain.decimals).toString(),
+        };
         delete params.amount;
         await A.verifyWallet();
         const prepared = await A.request('/v1/rounds/' + round.id + '/milestones', params);
@@ -533,8 +537,8 @@
         .join('');
       $(prefix + '-evidence').onsubmit = (e) => {
         e.preventDefault();
+        const values = Object.fromEntries(new FormData(e.currentTarget));
         run(async () => {
-          const values = Object.fromEntries(new FormData(e.target));
           if (!values.documentId) delete values.documentId;
           await A.verifyWallet();
           const saved = await A.request('/v1/milestones/' + m.id + '/evidence', values),
