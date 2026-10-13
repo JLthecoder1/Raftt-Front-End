@@ -273,9 +273,12 @@
       `<details><summary>${t('Criar rodada vinculada à empresa', 'Create a company-linked round')}</summary><form id="api-create-form"><div class="api-grid">${label('mint', 'Mint SPL da devnet', 'Devnet SPL mint', 'maxlength="44"')}${label('recipient', 'Carteira destinatária', 'Recipient wallet', 'maxlength="44"')}${label('minimum', 'Mínimo em tokens', 'Minimum in tokens', 'inputmode="decimal" placeholder="10.00"')}${label('cap', 'Limite em tokens', 'Cap in tokens', 'inputmode="decimal" placeholder="50.00"')}${label('deadline', 'Prazo de encerramento', 'Closing deadline', 'type="datetime-local"')}<label>${t('Instrumento declarado', 'Declared instrument')}<select name="instrument"><option value="equity">Equity</option><option value="safe">SAFE</option><option value="convertible">${t('Conversível', 'Convertible')}</option></select></label></div>${field('terms', 'Condições da rodada', 'Round terms')}<p class="api-note">${t('Use ponto decimal. O prazo deve estar a mais de 48 horas. O instrumento é um metadado; este contrato não emite participação societária.', 'Use a decimal point. The deadline must be more than 48 hours away. The instrument is metadata; this contract does not issue equity.')}</p><button>${t('Revisar e criar rodada', 'Review and create round')}</button></form><div id="api-create-review"></div></details>`;
     $('api-create-form').onsubmit = (e) => {
       e.preventDefault();
+
+      // Leia os campos antes de run() desativá-los.
+      const values = Object.fromEntries(new FormData(e.currentTarget));
+
       run(async () => {
-        const values = Object.fromEntries(new FormData(e.target)),
-          info = await window.RafttV2Bridge.mintInfo(values.mint.trim());
+        const info = await window.RafttV2Bridge.mintInfo(values.mint.trim());
         const params = {
           applicationId: app.id,
           mint: values.mint.trim(),
